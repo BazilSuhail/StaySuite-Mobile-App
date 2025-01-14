@@ -65,8 +65,8 @@ const Home = () => {
 
   const fetchListings = async (page, category) => {
     setLoading(true);
-    try { 
-      const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/listings`, { page, limit: 10, category });  
+    try {
+      const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/listings`, { page, limit: 10, category });
       const newListings = response.data.listings;
 
       //console.log(newListings)
@@ -93,14 +93,9 @@ const Home = () => {
   }, []);
 
 
-  const handleSearch = (location, guests) => {
-    //console.log(location)
-    //console.log(guests)
-    setSearchParams({ location, guests });
-    setCurrentPage(1);
-    fetchListings(1, category, { location, guests });
-  };
-
+  useEffect(() => {
+    fetchListings(currentPage, category);
+  }, [currentPage, category]);
 
   /*const loadMore = () => {
     if (hasMore) {
@@ -109,7 +104,7 @@ const Home = () => {
   };*/
 
   const loadMore = () => {
-    if (hasMore && !searchParams) {
+    if (hasMore) {
       setCurrentPage((prev) => prev + 1);
     }
   };
