@@ -33,7 +33,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Favourites"
+        name="bookings"
+        options={{
+          title: 'Booking',
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="list" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="favourite"
         options={{
           title: 'Favourites',
           tabBarIcon: ({ color }) => (
@@ -42,7 +51,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Profile"
+        name="profile"
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => (
