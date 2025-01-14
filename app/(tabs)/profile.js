@@ -9,10 +9,12 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  Modal,
 } from "react-native";
 import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome5 } from "@expo/vector-icons";
+import avatarImages from '@/constants/avatar';
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -28,17 +30,12 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        /*const response = await axios.post(
-          `${config.BACKEND_URL}/air-bnb/auth/login`,
-          { email: 'bazil@gmail.com', password: '112233' }
-        );*/
-
         const token = await AsyncStorage.getItem('token');
-        console.log(token)
+        //console.log(token)
         const response = await axios.get(`${config.BACKEND_URL}/air-bnb/profile/user-info`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("sdssd")
+        //console.log("sdssd")
 
         setUserInfo(response.data);
         setLoading(false);
@@ -176,9 +173,7 @@ const Profile = () => {
             >
               <View style={{ alignItems: "center" }}>
                 <Image
-                  source={{
-                    uri: `/Avatars/${selectedAvatar || userInfo.profilePicture}.jpg`,
-                  }}
+                  source={avatarImages[selectedAvatar || userInfo.profilePicture]}
                   style={{
                     width: 96,
                     height: 96,
@@ -507,9 +502,7 @@ const Profile = () => {
             >
               <View style={{ alignItems: "center" }}>
                 <Image
-                  source={{
-                    uri: `/Avatars/${selectedAvatar || userInfo.profilePicture}.jpg`,
-                  }}
+                  source={avatarImages[userInfo.profilePicture]}
                   style={{
                     width: 96,
                     height: 96,
@@ -517,7 +510,7 @@ const Profile = () => {
                     borderWidth: 1,
                     borderColor: "#ccc",
                   }}
-                /> 
+                />
                 <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 8 }}>
                   {userInfo.username}
                 </Text>
@@ -779,36 +772,62 @@ const Profile = () => {
           </View>
         </ScrollView>
       }
-      {/* Avatar Selection Modal 
-      {isAvatarModalOpen && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <motion.div
-            className='bg-white p-6 rounded-lg shadow-lg'
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
+      <Modal
+        transparent={true}
+        visible={isAvatarModalOpen}
+        onRequestClose={closeAvatarModal}
+      >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 20,
+              borderRadius: 10,
+              alignItems: 'center',
+              width: '80%',
+            }}
           >
-            <h2 className='text-xl font-bold mb-4'>Select an Avatar</h2>
-            <div className='grid grid-cols-3 lg:grid-cols-4 gap-4'>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 20 }}>Select an Avatar</Text>
+
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 20 }}>
               {Array.from({ length: 12 }).map((_, index) => (
-                <img
+                <TouchableOpacity
                   key={index}
-                  src={`/Avatars/${index + 1}.jpg`}
-                  alt={`Avatar ${index + 1}`}
-                  className='w-24 h-24 rounded-full border border-gray-300 shadow-md cursor-pointer hover:opacity-75'
-                  onClick={() => selectAvatar(index + 1)}
-                />
+                  onPress={() => selectAvatar(index + 1)}
+                  style={{
+                    width: '30%',
+                    marginBottom: 10,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Image
+                    source={avatarImages[index + 1]}
+                    style={{
+                      width: 80,
+                      height: 80,
+                      borderRadius: 40,
+                      borderWidth: 1,
+                      borderColor: '#ccc',
+                    }}
+                  />
+                </TouchableOpacity>
               ))}
-            </div>
-            <button
-              onClick={closeAvatarModal}
-              className='mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600'
+            </View>
+
+            <TouchableOpacity
+              onPress={closeAvatarModal}
+              style={{
+                backgroundColor: '#F87171',
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                borderRadius: 8,
+              }}
             >
-              Close
-            </button>
-          </motion.div>
-        </div>
-      )}*/}
+              <Text style={{ color: 'white', fontWeight: '600' }}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View >
   );
 };

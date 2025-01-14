@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView, Pressable } from 'react-native';
+import { Entypo, FontAwesome5 } from '@expo/vector-icons';
 import noReservations from "@/assets/Assets/noReservations.webp";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -41,12 +41,12 @@ const Bookings = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log(response.data.bookings)
+        //console.log(response.data.bookings)
         setBookings(response.data.bookings);
       }
       catch (err) {
         setError('Failed to fetch bookings. Please try again.');
-        console.error('Error fetching bookings:', err.response?.data || err.message);
+        //console.error('Error fetching bookings:', err.response?.data || err.message);
       }
       finally {
         setLoading(false);
@@ -64,6 +64,7 @@ const Bookings = () => {
 
     try {
       const token = await AsyncStorage.getItem('token');
+      console.log(selectedBooking._id)
       const response = await axios.post(
         `${config.BACKEND_URL}/air-bnb/reservation/finalize-booking`,
         { bookingId: selectedBooking._id },
@@ -75,7 +76,7 @@ const Bookings = () => {
       setSelectedBooking(null);
       setShowModal(false);
     } catch (err) {
-      console.error('Error finalizing booking:', err.response?.data || err.message);
+      //console.error('Error finalizing booking:', err.response?.data || err.message);
       Alert.alert('Failed to finalize booking. Please try again.');
     }
   };
@@ -117,8 +118,8 @@ const Bookings = () => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#f9fafb', paddingTop: 120, paddingBottom: 65, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={{ maxWidth: 950, width: '100%', paddingHorizontal: 16 }}>
+    <View className='flex-1 bg-[#f9fafb] pt-[35px]'>
+      <View style={{ width: '100%', paddingHorizontal: 16 }}>
         <Text style={{ fontSize: 24, fontWeight: '700', color: '#e11d48' }}>
           My Reserved Bookings
         </Text>
@@ -198,16 +199,16 @@ const Bookings = () => {
 
         {/* Modal for Booking Details */}
         {showModal && selectedBooking && (
-          <Modal transparent={true} animationType="slide" visible={showModal} onRequestClose={closeModal}>
+          <Modal transparent={true} animationType="fade" visible={showModal} onRequestClose={closeModal}>
             <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
-              <View style={{ width: '90%', maxWidth: 600, backgroundColor: '#fff', borderRadius: 12, padding: 16 }}>
-                <TouchableOpacity onPress={closeModal} style={{ position: 'absolute', top: 16, right: 16 }}>
-                  <FontAwesome5 name="times" size={24} color="#555" />
-                </TouchableOpacity>
+              <View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 12, padding: 16 }}>
+                <Pressable onPress={closeModal} className='ml-auto'> 
+                  <Entypo name="cross" size={24} className='text-gray-500' />
+                </Pressable>
                 <ScrollView>
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, justifyContent: 'center' }}>
-                    <FontAwesome5 name="book" size={28} color="#f8f8f8" style={{ borderRadius: 50, padding: 10, backgroundColor: '#e11d48' }} />
-                    <Text style={{ marginLeft: 10, fontSize: 25, fontWeight: '600', color: '#e11d48' }}>Booking Details</Text>
+                    <FontAwesome5 name="book" size={18} color="#f8f8f8" style={{ borderRadius: 60, padding: 7, backgroundColor: '#e11d48' }} />
+                    <Text style={{ marginLeft: 10, fontSize: 22, fontWeight: '600', color: '#e11d48' }}>Booking Details</Text>
                   </View>
 
                   <Text style={{ fontSize: 16, color: '#333', marginBottom: 10 }}>
