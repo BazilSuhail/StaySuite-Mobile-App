@@ -1,6 +1,5 @@
 import { Tabs } from 'expo-router';
-import { useEffect } from 'react'; 
-import { FontAwesome } from '@expo/vector-icons'; // Import vector icons 
+import { Feather, FontAwesome, FontAwesome6, Ionicons } from '@expo/vector-icons';
 
 export default function TabLayout() { 
   return (
@@ -8,27 +7,23 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: '#B91C1C', // red-700
         tabBarInactiveTintColor: '#6B7280', // gray-500
-        headerShown: false, 
+        headerShown: false,  
         tabBarStyle: {
-          backgroundColor: '#FFFFFF', // white
+          backgroundColor: "#FFFFFF", // white
+          borderTopLeftRadius: 15, // Rounded upper border
+          borderTopRightRadius: 15, // Rounded upper border
+          paddingTop: 2, // Top padding
+          paddingBottom:4,
         },
       }}
+      
     >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="home" size={28} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: 'Search',
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="list" size={28} color={color} />
+            <FontAwesome6 name="house-chimney" size={28} color={color} />
           ),
         }}
       />
@@ -37,7 +32,25 @@ export default function TabLayout() {
         options={{
           title: 'Booking',
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="list" size={28} color={color} />
+            <FontAwesome6 name="book-bookmark" size={28} color={color} />
+          ),
+        }}
+      /> 
+      <Tabs.Screen
+        name="search"
+        options={{
+          tabBarLabel: () => null, // Hide the label for "Search"
+          tabBarIcon: ({ color }) => (
+            <Feather
+              name="search"
+              size={34} // Larger icon size
+              color={color}
+              style={{
+                marginBottom: -8, // Adjust for central alignment 
+                borderRadius: 50, // Circular background 
+                backgroundColor:'#545454',
+              }}
+            />
           ),
         }}
       />
@@ -46,7 +59,7 @@ export default function TabLayout() {
         options={{
           title: 'Favourites',
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="shopping-cart" size={28} color={color} />
+            <Ionicons name="bookmark" size={28} color={color} />
           ),
         }}
       />

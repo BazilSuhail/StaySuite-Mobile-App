@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import config from "@/Config/Config";
 
 const AuthContext = createContext();
 
@@ -15,41 +17,13 @@ export const AuthProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [notificationsCount, setNotificationsCount] = useState(0);
-  // toadt
   const [toast, setToast] = useState({ message: "", visible: false });
   const toastTimeoutRef = useRef(null);
-
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      const isValid = validateToken(token);
-      if (isValid) {
-        fetchUserData(token);
-        fetchUserNotifications(token);
-        connectSocket(token);
-      } else {
-        handleLogout();
-      }
-    } else {
-      setLoading(false);
-    }
-
-    return () => {
-      if (socket) {
-        socket.disconnect();
-      }
-    };
-  }, []);
 
   const validateToken = (token) => {
     try {
       const payload = JSON.parse(atob(token.split(".")[1]));
-      if (payload.exp && Date.now() >= payload.exp * 1000) {
-        return false;
-      }
-      return true;
+      return payload.exp && Date.now() < payload.exp * 1000;
     } catch (error) {
       console.error("Invalid token:", error);
       return false;
@@ -59,10 +33,8 @@ export const AuthProvider = ({ children }) => {
   const fetchUserData = async (token) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/profile/user-info`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        `${config.BACKEND_URL}/air-bnb/profile/user-info`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setUser(response.data);
       setUserRole(response.data.role);
@@ -73,19 +45,16 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
   const fetchUserNotifications = async (token) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/profile/notifications`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        `${config.BACKEND_URL}/air-bnb/profile/notifications`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setUserNotifications(response.data);
-      //console.log(response.data) 
-    }
-    catch (error) {
-      console.error("Error fetching user data:", error);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
     }
   };
 
@@ -97,7 +66,7 @@ export const AuthProvider = ({ children }) => {
     const payload = JSON.parse(atob(token.split(".")[1]));
     const userId = payload.id;
 
-    const newSocket = io(import.meta.env.VITE_REACT_APP_API_BASE_URL, {
+    const newSocket = io(config.BACKEND_URL, {
       auth: { token, userId },
     });
 
@@ -106,11 +75,8 @@ export const AuthProvider = ({ children }) => {
     });
 
     newSocket.on("notification", (data) => {
-      //console.log(`Notification received:`, data);
       setNotifications((prev) => [...prev, data]);
-      console.log(data.message)
       showToast(data.message);
-      //setNotificationsCount(notificationsCount + 1);
       setNotificationsCount((prev) => prev + 1);
     });
 
@@ -121,21 +87,46 @@ export const AuthProvider = ({ children }) => {
     setSocket(newSocket);
   };
 
+  useEffect(() => {
+    const initializeAuth = async () => {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        if (validateToken(token)) {
+          fetchUserData(token);
+          fetchUserNotifications(token);
+          connectSocket(token);
+        } else {
+          handleLogout();
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    initializeAuth();
+
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, []);
+
   const login = async (token) => {
-    localStorage.setItem("token", token);
+    await AsyncStorage.setItem("token", token);
     await fetchUserData(token);
     connectSocket(token);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem("token");
     setUser(null);
     setUserRole(null);
     setNotifications([]);
     if (socket) {
       socket.disconnect();
-      setSocket(null);
     }
+    setSocket(null);
   };
 
   const logout = () => {
@@ -149,7 +140,7 @@ export const AuthProvider = ({ children }) => {
     }
     toastTimeoutRef.current = setTimeout(() => {
       setToast({ message: "", visible: false });
-    }, 6000); 
+    }, 6000);
   };
 
   const closeToast = () => {
@@ -173,7 +164,9 @@ export const AuthProvider = ({ children }) => {
         userNotifications,
         setSearchFilters,
         searchfilters,
-        toast, showToast, closeToast,
+        toast,
+        showToast,
+        closeToast,
       }}
     >
       {children}

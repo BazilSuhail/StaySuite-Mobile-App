@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AuthProvider } from '@/hooks/AuthProvider';
+import config from '@/Config/Config';
 
 
 export default function RootLayout() {
