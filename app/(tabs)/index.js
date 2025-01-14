@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const Favourites = () => {
+const Home = () => {
   return (
     <View
       style={{
@@ -18,10 +18,10 @@ const Favourites = () => {
           color: '#333',
         }}
       >
-        Favourites
+        Home
       </Text>
     </View>
   );
 };
 
-export default Favourites;
+export default Home;

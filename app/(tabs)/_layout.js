@@ -35,25 +35,25 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="productlist"
+        name="search"
         options={{
-          title: 'Product List',
+          title: 'Search',
           tabBarIcon: ({ color }) => (
             <FontAwesome name="list" size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="cart"
+        name="Favourites"
         options={{
-          title: 'Cart',
+          title: 'Favourites',
           tabBarIcon: ({ color }) => (
             <FontAwesome name="shopping-cart" size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="Profile"
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => (
