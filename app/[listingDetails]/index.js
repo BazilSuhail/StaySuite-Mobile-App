@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 //import { AddRating, FavoriteButton, Reviews } from './ListingRating';
 import { useAuthContext } from '@/hooks/AuthProvider';
 import { usePathname, useRouter } from 'expo-router';
@@ -37,8 +37,7 @@ const isLoggedIn = async () => {
 };
 
 const ListingDetails = () => {
-    const navigate = useRouter();
-
+    const router = useRouter(); 
 
     const { userRole } = useAuthContext();
     //const { id } = useParams();
@@ -68,7 +67,7 @@ const ListingDetails = () => {
         }
         catch (err) {
             setRatingerror('Failed to fetch reviews. Please try again.');
-            console.error('Error fetching reviews:', err.response?.data || err.message);
+            //console.error('Error fetching reviews:', err.response?.data || err.message);
         }
     };
 
@@ -88,7 +87,7 @@ const ListingDetails = () => {
                 const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/${userLoginStatus ? 'listings' : 'listing-details'}/${id}`, {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
                 });
-                console.log(response.data.listing)
+                //console.log(response.data.listing)
 
                 setListing(response.data.listing);
                 setIsInitiallyFavorited(response.data.isLiked);
@@ -97,7 +96,7 @@ const ListingDetails = () => {
                 setLoading(false);
             }
             catch (err) {
-                console.error(err);
+                //console.error(err);
                 setError('Failed to fetch listing details');
                 setLoading(false);
             }
@@ -115,8 +114,10 @@ const ListingDetails = () => {
     }*/
 
     const handleBooking = (id) => {
-        navigate(`/booking/${listing.hostID}/${id}`, {
-            state: { listing, ratingReviews },
+        //console.log(listing)
+        router.push({
+            pathname: `/${listing.hostID}/${id}`,
+            query: { listing: JSON.stringify(listing), ratingReviews: JSON.stringify(ratingReviews) }
         });
     };
 
@@ -182,7 +183,8 @@ const ListingDetails = () => {
 
             <View style={{ marginBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                    <FontAwesome5 name="angel" size={30} style={{ marginRight: 10, color: '#b91c1c' }} />
+                    {/*<FontAwesome5 name="angel" size={30} style={{ marginRight: 10, color: '#b91c1c' }} />*/}
+                    <FontAwesome name="star" size={24} color="black" />
                     <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Guest Favourite</Text>
                 </View>
                 <Text style={{ fontSize: 14, color: '#555' }}>
