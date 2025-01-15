@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Feather, FontAwesome, FontAwesome6, Ionicons } from '@expo/vector-icons';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { Feather, FontAwesome, FontAwesome6, Ionicons } from '@expo/vector-icons'; 
 import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

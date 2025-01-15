@@ -10,7 +10,7 @@ import config from '@/Config/Config';
 const renderItem = ({ item, router }) => {
   return (
     <TouchableOpacity
-      onPress={() => router.push(`/listing/${item._id}`)} // Using useRouter for navigation
+      onPress={() => router.push(`/${item._id}`)} // Using useRouter for navigation
       style={{
         overflow: 'hidden',
         marginTop: 15,
@@ -130,7 +130,7 @@ const Home = () => {
       ) :
         <FlatList
           data={listings}
-          renderItem={renderItem}
+          renderItem={(props) => renderItem({ ...props, router })}
           keyExtractor={item => item._id}
           numColumns={1}
           contentContainerStyle={{ paddingTop: 4, paddingBottom: 45 }}

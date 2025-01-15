@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign } from '@expo/vector-icons';

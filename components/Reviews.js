@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import config from '@/Config/Config'; 
-import { Entypo } from '@expo/vector-icons';
+import config from '@/Config/Config';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 
 export const Reviews = ({ listingId, ratingReviews, onClose }) => {
     const [reviews, setReviews] = useState([]);
@@ -57,7 +56,7 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, padding: 16 }}>
                     <Text style={{ fontSize: 18, fontWeight: '600' }}>Guest Reviews</Text>
                     <TouchableOpacity onPress={onClose}>
-                    <Entypo name="cross" size={24} className='text-gray-500' />
+                        <Entypo name="cross" size={24} className='text-gray-500' />
                     </TouchableOpacity>
                 </View>
                 <ScrollView style={{ padding: 16 }}>
@@ -99,11 +98,11 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
                                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                         <View style={{ flexDirection: 'row' }}>
                                                             {[...Array(Math.floor(review.rating))].map((_, index) => (
-                                                                <FontAwesomeIcon key={`full-${index}`} icon={faStar} size={15} color="yellow" />
+                                                                <AntDesign name="staro" size={24} key={`full-${index}`} color="yellow" />
                                                             ))}
-                                                            {review.rating % 1 >= 0.5 && <FontAwesomeIcon icon={faStarHalfAlt} size={15} color="yellow" />}
+                                                            {review.rating % 1 >= 0.5 && <AntDesign name="staro" size={24} color="yellow" />}
                                                             {[...Array(5 - Math.floor(review.rating) - (review.rating % 1 >= 0.5 ? 1 : 0))].map((_, index) => (
-                                                                <FontAwesomeIcon key={`empty-${index}`} icon={faStar} size={15} color="gray" />
+                                                                <AntDesign name="staro" size={24} key={`empty-${index}`} color="gray" />
                                                             ))}
                                                         </View>
                                                         <Text style={{ marginLeft: 16, fontSize: 12, color: '#6B7280' }}>
