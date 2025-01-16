@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView, Pressable } from 'react-native';
 import { Entypo, FontAwesome5 } from '@expo/vector-icons';
-import noReservations from "@/assets/Assets/noReservations.webp";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
@@ -42,12 +41,10 @@ const Bookings = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        //console.log(response.data.bookings)
         setBookings(response.data.bookings);
       }
       catch (err) {
-        setError('Failed to fetch bookings. Please try again.');
-        //console.error('Error fetching bookings:', err.response?.data || err.message);
+        setError('Failed to fetch bookings. Please try again.');\
       }
       finally {
         setLoading(false);
@@ -66,23 +63,20 @@ const Bookings = () => {
     try {
       const token = await AsyncStorage.getItem('token');
       console.log(selectedBooking._id)
-      const response = await axios.post(
+      await axios.post(
         `${config.BACKEND_URL}/air-bnb/reservation/finalize-booking`,
         { bookingId: selectedBooking._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // Refresh bookings or show a success message
       Alert.alert("Booking finalized successfully.");
       setSelectedBooking(null);
       setShowModal(false);
-    } catch (err) {
-      //console.error('Error finalizing booking:', err.response?.data || err.message);
+    } 
+    catch (err) {
       Alert.alert('Failed to finalize booking. Please try again.');
     }
   };
-
-
 
   const openModal = (booking) => {
     setSelectedBooking(booking);
@@ -101,8 +95,7 @@ const Bookings = () => {
   }
 
   if (error || bookings.length === 0) {
-    return
-    <View className='bg-gray-50 pt-[55px] p-6 min-h-screen justify-center items-center '>
+    return <View className='bg-gray-50 pt-[55px] p-6 min-h-screen justify-center items-center '>
       <Header heading={"Booking"} />
       <View className="w-full" >
         <Text className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</Text>
@@ -130,7 +123,7 @@ const Bookings = () => {
         <FlatList
           data={bookings}
           showsVerticalScrollIndicator={false}
-          keyExtractor={(item) => item?._id || String(item)} // handle cases where _id might be missing
+          keyExtractor={(item) => item?._id || String(item)}
           contentContainerStyle={{ gap: 15 }}
           renderItem={({ item }) => {
             if (!item || !item.listing) {

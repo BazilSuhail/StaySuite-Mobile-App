@@ -135,23 +135,7 @@ const Profile = () => {
       [attribute]: updatedArray,
     });
   };
-  const calculateTimeAgo = () => {
-    const reviewDate = new Date(userInfo.createdAt);
-    const now = new Date();
-    const timeDiff = now - reviewDate;
-
-    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const months = Math.floor(days / 30);
-    const years = Math.floor(days / 365);
-
-    if (years >= 1) {
-      return `${years} year${years > 1 ? 's' : ''} ago`;
-    } else if (months >= 1) {
-      return `${months} month${months > 1 ? 's' : ''} ago`;
-    } else {
-      return `${days} day${days > 1 ? 's' : ''} ago`;
-    }
-  };
+  
 
   return (
     <View className='px-[15px] bg-gray-100 pt-[35px]'>

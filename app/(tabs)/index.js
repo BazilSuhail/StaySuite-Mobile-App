@@ -101,11 +101,6 @@ const Home = () => {
     fetchListings(currentPage, category);
   }, [currentPage, category]);
 
-  /*const loadMore = () => {
-    if (hasMore) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };*/
 
   const loadMore = () => {
     if (hasMore) {
