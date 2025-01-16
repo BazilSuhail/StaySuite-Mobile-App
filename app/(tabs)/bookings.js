@@ -41,10 +41,11 @@ const Bookings = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
+
         setBookings(response.data.bookings);
       }
       catch (err) {
-        setError('Failed to fetch bookings. Please try again.');\
+        setError('Failed to fetch bookings. Please try again.');
       }
       finally {
         setLoading(false);
@@ -63,20 +64,22 @@ const Bookings = () => {
     try {
       const token = await AsyncStorage.getItem('token');
       console.log(selectedBooking._id)
-      await axios.post(
+      const response = await axios.post(
         `${config.BACKEND_URL}/air-bnb/reservation/finalize-booking`,
         { bookingId: selectedBooking._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
+      // Refresh bookings or show a success message
       Alert.alert("Booking finalized successfully.");
       setSelectedBooking(null);
       setShowModal(false);
-    } 
-    catch (err) {
+    } catch (err) {
       Alert.alert('Failed to finalize booking. Please try again.');
     }
   };
+
+
 
   const openModal = (booking) => {
     setSelectedBooking(booking);
@@ -95,21 +98,22 @@ const Bookings = () => {
   }
 
   if (error || bookings.length === 0) {
-    return <View className='bg-gray-50 pt-[55px] p-6 min-h-screen justify-center items-center '>
-      <Header heading={"Booking"} />
-      <View className="w-full" >
-        <Text className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</Text>
-        <View className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></View>
-        <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
-          <Image source={require('@/assets/Assets/noReservations.webp')} alt="No Reservations" className="scale-[0.4]" />
-          <Text className="text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]">
-            You haven't visited any place, make a Booking
-            <Link href="/" replace={true} className="text-rose-600 underline font-[600]">Start Exploring</Link>
-          </Text>
+    return (
+      <View className='bg-gray-50 pt-[55px] p-6 min-h-screen justify-center items-center '>
+        <Header heading={"Booking"} />
+        <View className="w-full" >
+          <Text className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</Text>
+          <View className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></View>
+          <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
+            <Image source={require('@/assets/Assets/noReservations.webp')} alt="No Reservations" className="scale-[0.4]" />
+            <Text className="text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]">
+              You haven't visited any place, make a Booking
+              <Link href="/" replace={true} className="text-rose-600 underline font-[600]">Start Exploring</Link>
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
-      ;
+    );;
   }
 
   return (
