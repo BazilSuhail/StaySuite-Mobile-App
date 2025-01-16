@@ -8,7 +8,7 @@ import axios from 'axios';
 
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
-export const Reviews = ({ listingId, ratingReviews, onClose }) => { 
+export const Reviews = ({ listingId, ratingReviews, onClose }) => {
     const [reviews, setReviews] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
@@ -70,9 +70,9 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
     return (
         <BottomSheet
             ref={bottomSheetRef}
-            snapPoints={['30%', '50%', '100%']} // Adjust snap points as requested
+            snapPoints={['30%', '40%', '80%']}
             onClose={handleCloseSheet}
-            index={1} // Set initial snap point index
+            index={1}
         >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, padding: 16 }}>
                 <Text style={{ fontSize: 18, fontWeight: '600' }}>Guest Reviews</Text>
@@ -170,7 +170,7 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
             </BottomSheetScrollView>
         </BottomSheet>
     );
-}; 
+};
 
 
 /*import { useEffect, useState } from 'react';

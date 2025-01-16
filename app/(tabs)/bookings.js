@@ -35,17 +35,15 @@ const Bookings = () => {
     const fetchBookings = async () => {
       try {
         const token = await AsyncStorage.getItem('token');
-        const response = await axios.get(
-          `${config.BACKEND_URL}/air-bnb/reservation/made-reservations`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+        const response = await axios.get(`${config.BACKEND_URL}/air-bnb/reservation/made-reservations`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }
         );
 
         setBookings(response.data.bookings);
       }
       catch (err) {
-        setError('Failed to fetch bookings. Please try again.');
+        setError('Failed to fetch bookings. Please try again.'+err);
       }
       finally {
         setLoading(false);
@@ -54,17 +52,18 @@ const Bookings = () => {
 
     fetchBookings();
   }, []);
-
+   
+  
   const finalizeBooking = async () => {
     if (!selectedBooking || !selectedBooking._id) {
-      alert("No booking selected to finalize.");
+      Alert.alert("No booking selected to finalize.");
       return;
     }
 
     try {
       const token = await AsyncStorage.getItem('token');
-      console.log(selectedBooking._id)
-      const response = await axios.post(
+      //console.log(selectedBooking._id)
+      await axios.post(
         `${config.BACKEND_URL}/air-bnb/reservation/finalize-booking`,
         { bookingId: selectedBooking._id },
         { headers: { Authorization: `Bearer ${token}` } }
@@ -97,7 +96,7 @@ const Bookings = () => {
     </View>;
   }
 
-  if (error || bookings.length === 0) {
+  if (error) {
     return (
       <View className='bg-gray-50 pt-[55px] p-6 min-h-screen justify-center items-center '>
         <Header heading={"Booking"} />
