@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ScrollView, View, Text, Image, TouchableOpacity } from 'react-native';
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { ScrollView, View, Text, Image, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 //import { AddRating, FavoriteButton, Reviews } from './ListingRating';
 import { useAuthContext } from '@/hooks/AuthProvider';
 import { usePathname, useRouter } from 'expo-router';
@@ -10,6 +10,9 @@ import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FavoriteButton } from '@/components/FavouriteButton';
 import { Reviews } from '@/components/Reviews';
+import { AddRating } from '@/components/AddRating';
+import { StatusBar } from 'expo-status-bar';
+import Carousel from '@/components/CustomCarousel';
 
 const LisitngDetailsLoader = () => {
     return (
@@ -37,7 +40,7 @@ const isLoggedIn = async () => {
 };
 
 const ListingDetails = () => {
-    const router = useRouter(); 
+    const router = useRouter();
 
     const { userRole } = useAuthContext();
     //const { id } = useParams();
@@ -122,56 +125,69 @@ const ListingDetails = () => {
     };
 
     return (
-        <ScrollView contentContainerStyle={{ paddingHorizontal: 16, backgroundColor: 'white' }}>
-            <Text style={{ fontSize: 22, color: '#b91c1c', fontWeight: 'bold', marginTop: 85, marginBottom: 20 }}>
-                {listing.name}
-            </Text>
+        <ScrollView showsVerticalScrollIndicator={false} className='bg-gray-50'>
 
             {showModal && <Reviews listingId={id} ratingReviews={ratingReviews} onClose={() => setShowModal(false)} />}
-            {isListingPicturesModalOpen && (
-                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
-                        <TouchableOpacity onPress={() => setIsListingPicturesModalOpen(false)}>
-                            <FontAwesome5 name="times" size={24} style={{ position: 'absolute', top: 10, right: 10, color: '#000' }} />
-                        </TouchableOpacity>
-                        <View style={{ width: '100%', height: 200, marginBottom: 20 }}>
-                            <Image source={{ uri: listing.images.coverPicture }} style={{ width: '100%', height: '100%', borderRadius: 10 }} />
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            {listing.images.additionalPictures.slice(0, 4).map((url, index) => (
-                                <View key={index} style={{ width: '48%', marginBottom: 10 }}>
-                                    <Image source={{ uri: url }} style={{ width: '100%', height: 100, borderRadius: 10 }} />
-                                </View>
-                            ))}
-                        </View>
-                    </View>
-                </View>
-            )}
 
-            <View style={{ marginBottom: 20, marginTop: 20 }}>
-                <TouchableOpacity onPress={() => setIsListingPicturesModalOpen(true)} style={{ padding: 10, backgroundColor: '#b91c1c', borderRadius: 5, textAlign: 'center' }}>
-                    <Text style={{ color: '#fff', fontWeight: 'bold' }}>See Photos</Text>
-                </TouchableOpacity>
+            <Carousel images={listing.images.additionalPictures.slice(0, 5)} />
 
-                <View style={{ width: '100%', height: 250, marginBottom: 20 }}>
+            {/*<View className='w-full h-[300px]'>
                     <Image source={{ uri: listing.images.coverPicture }} style={{ width: '100%', height: '100%', borderRadius: 10 }} />
-                </View>
+                </View>}*/}
 
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+            {/*<View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                     {listing.images.additionalPictures.slice(0, 4).map((url, index) => (
                         <View key={index} style={{ width: '48%', marginBottom: 10 }}>
                             <Image source={{ uri: url }} style={{ width: '100%', height: 100, borderRadius: 10 }} />
                         </View>
                     ))}
                 </View>
+
+                <Text style={{ fontSize: 22, color: '#b91c1c', fontWeight: 'bold', marginTop: 85, marginBottom: 20 }}>
+                    {listing.name}
+                </Text>*/}
+
+
+            {isListingPicturesModalOpen && (
+                <Modal transparent={true} animationType="fade" visible={isListingPicturesModalOpen} onRequestClose={() => setIsListingPicturesModalOpen(false)}>
+                    <View className="bg-black/60 w-screen h-screen fixed inset-0 flex items-center justify-center">
+                        <View className="bg-white rounded-lg pt-[55px] h-[88vh] px-[8px] w-[95%]">
+
+                            <Pressable onPress={() => setIsListingPicturesModalOpen(false)} className="absolute top-3 right-3" >
+                                <Entypo name="cross" size={24} color="#374151" />
+                            </Pressable>
+
+                            <ScrollView showsHorizontalScrollIndicator={false} className="flex-col h-[55vh]">
+                                <Image source={{ uri: listing.images.coverPicture }} className="w-full h-52 mb-3 rounded-md" />
+
+                                {listing.images.additionalPictures.map((url, index) => (
+                                    <Image
+                                        source={{ uri: url }}
+                                        className="w-full mb-3 h-56 rounded-md"
+                                    />
+                                ))}
+                            </ScrollView>
+                        </View>
+                    </View>
+                </Modal>
+            )}
+
+            <View className='w-full flex-row items-center mt-[12px] justify-between px-[15px]'>
+                <Text className='text-[20px] w-[75%] text-red-900 font-[600]'>
+                    {listing.name}
+                </Text>
+                <Pressable onPress={() => setIsListingPicturesModalOpen(true)} className='w-[85px] py-[3px] rounded-[15px] bg-gray-400'>
+                    <Text className='text-white text-center text-[11px] font-[600]'>See Photos</Text>
+                </Pressable>
             </View>
 
-            <View style={{ marginBottom: 20 }}>
-                <View style={{ marginBottom: 10 }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+
+            <View className='flex-row justify-between items-center mt-[10px] bg-white rounded-[16px] mx-[10px] border border-gray-200 shadow-md py-[8px] px-[15px]'>
+                <View>
+                    <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
                         {listing.property_type} In {listing.address.suburb}, {listing.address.country}
                     </Text>
-                    <Text style={{ fontSize: 14, color: '#555' }}>
+                    <Text className='text-[12px] text-gray-600 mt-[3px]'>
                         {listing.bedrooms} beds · {listing.bathrooms} Shared bathroom
                     </Text>
                 </View>
@@ -180,6 +196,70 @@ const ListingDetails = () => {
                     <FavoriteButton listingId={id} isInitiallyFavorited={listing.isInitiallyFavorited} />
                 )}
             </View>
+
+
+
+            <View className='flex mt-[10px] bg-white rounded-[16px] mx-[10px] border border-gray-200 overflow-hidden shadow-md py-[12px] px-[15px]'>
+                <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                    <View style={{ width: 34, height: 34, backgroundColor: '#e1e1e1', borderRadius: 25, marginRight: 10 }} />
+                    <View style={{ justifyContent: 'center' }}>
+                        <Text style={{ fontWeight: 'bold' }}>{hostdetails.name}</Text>
+                        <Text style={{ fontSize: 12, color: '#555' }}>
+                            {ratingReviews.averageRating > 4 ? 'Super Host' : 'Host'} ·{' '}
+                            {(() => {
+                                const reviewDate = new Date(hostdetails.createdAt);
+                                const now = new Date();
+                                const timeDiff = now - reviewDate;
+                                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                                const months = Math.floor(days / 30);
+                                const years = Math.floor(days / 365);
+
+                                if (years >= 1) {
+                                    return `${years} year${years > 1 ? 's' : ''} ago`;
+                                } else if (months >= 1) {
+                                    return `${months} month${months > 1 ? 's' : ''} ago`;
+                                } else {
+                                    return `${days} day${days > 1 ? 's' : ''} ago`;
+                                }
+                            })()}
+                        </Text>
+                    </View>
+                </View>
+
+                <View className='flex-row items-center mt-[10px] mb-[15px]'>
+                    <FontAwesome5 name="medal" size={28} style={{ color: '#b91c1c', marginRight: 10 }} />
+                    <View>
+                        <Text style={{ fontWeight: 'bold' }}>Top 5% of homes</Text>
+                        <Text style={{ fontSize: 12, color: '#555' }}>
+                            This home is highly ranked based on ratings, reviews, and reliability.
+                        </Text>
+                    </View>
+                </View>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
+                    <FontAwesome5 name="home" size={28} style={{ color: '#b91c1c', marginRight: 10 }} />
+                    <View>
+                        <Text style={{ fontWeight: 'bold' }}>{listing.bedrooms} Bedroom{listing.bedrooms > 1 ? 's' : ''}</Text>
+                        <Text className='text-[#555] break-words text-[12px]'>
+                            Your own {listing.bedrooms} bedroom{listing.bedrooms > 1 ? 's' : ''} in the {listing.property_type}, plus access to individualized shared spaces.
+                        </Text>
+                    </View>
+                </View>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
+                    <FontAwesome5 name="toilet" size={28} style={{ color: '#b91c1c', marginRight: 14, marginLeft: 6 }} />
+                    <View>
+
+                        <Text style={{ fontWeight: 'bold' }}>{listing.bathrooms} Shared Bathroom{listing.bathrooms > 1 ? 's' : ''}</Text>
+                        <Text style={{ fontSize: 12, color: '#555' }}>Enjoy ease space with fellow travelers.</Text>
+                    </View>
+                </View>
+
+            </View>
+
+
+
+            {userLoginStatus && <AddRating listingId={id} />}
 
             <View style={{ marginBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
@@ -212,63 +292,6 @@ const ListingDetails = () => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{ marginBottom: 20 }}>
-                <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                    <View style={{ width: 50, height: 50, backgroundColor: '#e1e1e1', borderRadius: 25, marginRight: 10 }} />
-                    <View style={{ justifyContent: 'center' }}>
-                        <Text style={{ fontWeight: 'bold' }}>{hostdetails.name}</Text>
-                        <Text style={{ fontSize: 12, color: '#555' }}>
-                            {ratingReviews.averageRating > 4 ? 'Super Host' : 'Host'} ·{' '}
-                            {(() => {
-                                const reviewDate = new Date(hostdetails.createdAt);
-                                const now = new Date();
-                                const timeDiff = now - reviewDate;
-                                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                                const months = Math.floor(days / 30);
-                                const years = Math.floor(days / 365);
-
-                                if (years >= 1) {
-                                    return `${years} year${years > 1 ? 's' : ''} ago`;
-                                } else if (months >= 1) {
-                                    return `${months} month${months > 1 ? 's' : ''} ago`;
-                                } else {
-                                    return `${days} day${days > 1 ? 's' : ''} ago`;
-                                }
-                            })()}
-                        </Text>
-                    </View>
-                </View>
-            </View>
-
-            <View style={{ marginBottom: 20 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-                    <FontAwesome5 name="medal" size={28} style={{ color: '#b91c1c', marginRight: 10 }} />
-                    <View>
-                        <Text style={{ fontWeight: 'bold' }}>Top 5% of homes</Text>
-                        <Text style={{ fontSize: 12, color: '#555' }}>
-                            This home is highly ranked based on ratings, reviews, and reliability.
-                        </Text>
-                    </View>
-                </View>
-
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-                    <FontAwesome5 name="home" size={28} style={{ color: '#b91c1c', marginRight: 10 }} />
-                    <View>
-                        <Text style={{ fontWeight: 'bold' }}>{listing.bedrooms} Bedroom{listing.bedrooms > 1 ? 's' : ''}</Text>
-                        <Text style={{ fontSize: 12, color: '#555' }}>
-                            Your own {listing.bedrooms} bedroom{listing.bedrooms > 1 ? 's' : ''} in the {listing.property_type}, plus access to shared spaces.
-                        </Text>
-                    </View>
-                </View>
-
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
-                    <FontAwesome5 name="toilet" size={28} style={{ color: '#b91c1c', marginRight: 10 }} />
-                    <View>
-                        <Text style={{ fontWeight: 'bold' }}>Shared Bathroom</Text>
-                        <Text style={{ fontSize: 12, color: '#555' }}>Enjoy the space with fellow travelers.</Text>
-                    </View>
-                </View>
-            </View>
 
             <View style={{ padding: 20, backgroundColor: '#f3f4f6', borderRadius: 10 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

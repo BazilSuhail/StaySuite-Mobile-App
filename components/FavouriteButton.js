@@ -27,7 +27,7 @@ export const FavoriteButton = ({ listingId, isInitiallyFavorited }) => {
     return (
         <View>
             <TouchableOpacity onPress={toggleFavorite}>
-                <FontAwesome name="bookmark" size={28} color={isFavorited ? '#e6e200' : '#bfbfbf'} />
+                <FontAwesome name="bookmark" size={32} color={isFavorited ? '#e6e200' : '#bfbfbf'} />
             </TouchableOpacity>
             {error && (
                 <Text style={{ color: 'red', fontSize: 12, marginTop: 5 }}>

@@ -29,7 +29,7 @@ const categories = [
 
 const HorizontalScrollList = ({ setCategory }) => {
   return (
-    <View style={styles.container}>
+    <View className='px-[18px] py-[12px] border-[1px] border-gray-100 bg-white'>
       <ScrollView horizontal contentContainerStyle={styles.scrollView} showsHorizontalScrollIndicator={false}>
         {categories.map((category, index) => (
           <TouchableOpacity
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom:10,
     width: '100%',
-    position: 'relative',
+    
   },
   scrollView: {
     paddingHorizontal: 15,

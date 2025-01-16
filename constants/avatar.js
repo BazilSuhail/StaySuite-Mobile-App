@@ -11,6 +11,8 @@ const avatarImages = {
     '10': require('@/assets/Avatars/10.jpg'),
     '11': require('@/assets/Avatars/11.jpg'),
     '12': require('@/assets/Avatars/12.jpg'),
+    'left': require('@/assets/Assets/leftWing.png'),
+    'right': require('@/assets/Assets/rightWing.png'),
   };
   
 export default avatarImages;

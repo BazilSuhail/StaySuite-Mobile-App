@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign } from '@expo/vector-icons';
+import axios from 'axios';
 
 export const AddRating = ({ listingId }) => {
     const [rating, setRating] = useState(3);
@@ -55,26 +56,24 @@ export const AddRating = ({ listingId }) => {
                 <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 16 }}>Add a Review</Text>
                 {error && <Text style={{ color: 'red' }}>{error}</Text>}
                 {success && (
-                    <AnimatePresence>
-                        <View
-                            style={{
-                                position: 'absolute',
-                                top: 5,
-                                right: 5,
-                                backgroundColor: 'green',
-                                color: 'white',
-                                paddingVertical: 8,
-                                paddingHorizontal: 16,
-                                borderRadius: 8,
-                                shadowColor: '#000',
-                                shadowOffset: { width: 0, height: 4 },
-                                shadowOpacity: 0.3,
-                                shadowRadius: 4,
-                            }}
-                        >
-                            {success}
-                        </View>
-                    </AnimatePresence>
+                    <View
+                        style={{
+                            position: 'absolute',
+                            top: 5,
+                            right: 5,
+                            backgroundColor: 'green',
+                            color: 'white',
+                            paddingVertical: 8,
+                            paddingHorizontal: 16,
+                            borderRadius: 8,
+                            shadowColor: '#000',
+                            shadowOffset: { width: 0, height: 4 },
+                            shadowOpacity: 0.3,
+                            shadowRadius: 4,
+                        }}
+                    >
+                        <Text>{success}</Text>
+                    </View>
                 )}
                 <View>
                     <Text style={{ fontSize: 18, fontWeight: '600', marginRight: 10 }}>Rating:</Text>

@@ -1,7 +1,184 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+
+import { useEffect, useRef, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import config from '@/Config/Config';
 import { AntDesign, Entypo } from '@expo/vector-icons';
+import avatarImages from '@/constants/avatar';
+import axios from 'axios';
+
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+
+export const Reviews = ({ listingId, ratingReviews, onClose }) => { 
+    const [reviews, setReviews] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const bottomSheetRef = useRef(null);
+
+    const fetchReviews = async (page) => {
+        try {
+            setLoading(true);
+            const response = await axios.get(`${config.BACKEND_URL}/air-bnb/listing-rating/get-reviews/${listingId}`, { params: { page, limit: 5 } });
+
+            if (page === 1) {
+                setReviews(response.data.reviews);
+            }
+            else {
+                setReviews((prevReviews) => [...prevReviews, ...response.data.reviews]);
+            }
+
+            setCurrentPage(response.data.currentPage);
+            setTotalPages(response.data.totalPages);
+        }
+        catch (err) {
+            setError('Failed to fetch reviews. Please try again.');
+            console.error('Error fetching reviews:', err.response?.data || err.message);
+        }
+        finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchReviews(1);
+    }, [listingId]);
+
+    const handleShowMore = () => {
+        if (currentPage < totalPages) {
+            fetchReviews(currentPage + 1);
+        }
+    };
+
+
+    const handleCloseSheet = () => {
+        bottomSheetRef.current?.close(); // Close the sheet
+        onClose();
+    };
+
+    const handleOpenSheet = () => {
+        bottomSheetRef.current?.expand(); // Open and expand the sheet
+    };
+
+    if (error) {
+        return <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+            <Text>{error}...</Text>
+        </View>;
+    }
+
+
+    return (
+        <BottomSheet
+            ref={bottomSheetRef}
+            snapPoints={['30%', '50%', '100%']} // Adjust snap points as requested
+            onClose={handleCloseSheet}
+            index={1} // Set initial snap point index
+        >
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, padding: 16 }}>
+                <Text style={{ fontSize: 18, fontWeight: '600' }}>Guest Reviews</Text>
+                <TouchableOpacity onPress={onClose}>
+                    <Entypo name="cross" size={24} className='text-gray-500' />
+                </TouchableOpacity>
+            </View>
+
+            <BottomSheetScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
+                <View className='bg-blue-400 z-[999]'>
+                    <View style={{ flex: 2 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 25 }}>
+                            <Image source={avatarImages["left"]} style={{ width: 75, height: 75 }} />
+                            <Text style={{ fontSize: 65, fontWeight: '600', marginHorizontal: 12 }}>{ratingReviews.averageRating}</Text>
+                            <Image source={avatarImages["left"]} style={{ width: 75, height: 75 }} />
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 15 }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 2, paddingHorizontal: 16, borderWidth: 1, borderColor: '#6B7280', borderRadius: 8 }}>
+
+                                <Text style={{ marginLeft: 8, fontSize: 15 }}>Guest favorite</Text>
+                            </View>
+                        </View>
+                        <Text style={{ marginTop: 15, fontSize: 13, color: '#4B5563' }}>One of the most loved homes on Airbnb based on ratings, reviews, and reliability</Text>
+                    </View>
+                    <View style={{ flex: 3, marginTop: 15 }}>
+                        <Text style={{ fontSize: 18, fontWeight: '500', marginBottom: 10 }}>{ratingReviews.arraySize} Reviews</Text>
+                        <ScrollView style={{ maxHeight: 520, marginBottom: 75 }}>
+                            {!loading ? (
+                                <>
+                                    {reviews.length === 0 ? (
+                                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                            <Image source={{ uri: 'noComments' }} style={{ width: 150, height: 150, marginBottom: 10 }} />
+                                            <Text style={{ color: '#9CA3AF', fontSize: 32, fontWeight: '600' }}>No Review Made Till Now</Text>
+                                        </View>
+                                    ) : (
+                                        reviews.slice(0, currentPage * 5).map((review, index) => (
+                                            <View key={index} style={{ marginBottom: 24, padding: 16, backgroundColor: 'white' }}>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+                                                    <Image source={{ uri: `/Avatars/${review.user.profilePicture}.jpg` }} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 16, borderWidth: 1, borderColor: '#E5E7EB' }} />
+                                                    <View>
+                                                        <Text style={{ fontSize: 16, fontWeight: '500' }}>{review.user?.username || 'Anonymous'}</Text>
+                                                        <Text style={{ color: '#6B7280', fontSize: 12 }}>{review.user?.location.city || ''}, {review.user?.location.country || ''}</Text>
+                                                    </View>
+                                                </View>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        {[...Array(Math.floor(review.rating))].map((_, index) => (
+                                                            <AntDesign name="staro" size={24} key={`full-${index}`} color="yellow" />
+                                                        ))}
+                                                        {review.rating % 1 >= 0.5 && <AntDesign name="staro" size={24} color="yellow" />}
+                                                        {[...Array(5 - Math.floor(review.rating) - (review.rating % 1 >= 0.5 ? 1 : 0))].map((_, index) => (
+                                                            <AntDesign name="staro" size={24} key={`empty-${index}`} color="gray" />
+                                                        ))}
+                                                    </View>
+                                                    <Text style={{ marginLeft: 16, fontSize: 12, color: '#6B7280' }}>
+                                                        {(() => {
+                                                            const reviewDate = new Date(review.date);
+                                                            const now = new Date();
+                                                            const timeDiff = now - reviewDate;
+
+                                                            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                                                            const months = Math.floor(days / 30);
+                                                            const years = Math.floor(days / 365);
+
+                                                            if (years >= 1) {
+                                                                return `${years} year${years > 1 ? 's' : ''} ago`;
+                                                            }
+                                                            else if (months >= 1) {
+                                                                return `${months} month${months > 1 ? 's' : ''} ago`;
+                                                            }
+                                                            else {
+                                                                return days === 0 ? "Today" : `${days} day${days > 1 ? 's' : ''} ago`;
+                                                            }
+                                                        })()}
+                                                    </Text>
+                                                </View>
+                                                <Text style={{ marginTop: 8, fontSize: 14, color: '#4B5563' }}>{review.review}</Text>
+                                            </View>
+                                        ))
+                                    )}
+                                    {currentPage < totalPages && !loading && (
+                                        <View style={{ marginTop: 16 }}>
+                                            <TouchableOpacity onPress={handleShowMore} style={{ paddingVertical: 6, paddingHorizontal: 16, backgroundColor: '#EF4444', borderRadius: 8 }}>
+                                                <Text style={{ fontSize: 14, color: 'white' }}>Show More</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    )}
+                                </>
+                            ) : (
+                                <Text>Loading...</Text>
+                            )}
+                        </ScrollView>
+                    </View>
+                </View>
+            </BottomSheetScrollView>
+        </BottomSheet>
+    );
+}; 
+
+
+/*import { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import config from '@/Config/Config';
+import { AntDesign, Entypo } from '@expo/vector-icons';
+import avatarImages from '@/constants/avatar';
+import axios from 'axios';
 
 export const Reviews = ({ listingId, ratingReviews, onClose }) => {
     const [reviews, setReviews] = useState([]);
@@ -51,8 +228,8 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
     }
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)', zIndex: 50 }}>
-            <View style={{ backgroundColor: 'white', borderRadius: 8, overflow: 'hidden', height: '90%', width: '100%', maxWidth: 1000, marginHorizontal: 16, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8 }}>
+        <View >
+            <View className='bg-white h-[70vh] w-[95vw]'>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, padding: 16 }}>
                     <Text style={{ fontSize: 18, fontWeight: '600' }}>Guest Reviews</Text>
                     <TouchableOpacity onPress={onClose}>
@@ -63,13 +240,13 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                         <View style={{ flex: 2 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 25 }}>
-                                <Image source={{ uri: 'LeftWing' }} style={{ width: 75, height: 75 }} />
+                                <Image source={avatarImages["left"]} style={{ width: 75, height: 75 }} />
                                 <Text style={{ fontSize: 65, fontWeight: '600', marginHorizontal: 12 }}>{ratingReviews.averageRating}</Text>
-                                <Image source={{ uri: 'RightWing' }} style={{ width: 75, height: 75 }} />
+                                <Image source={avatarImages["left"]} style={{ width: 75, height: 75 }} />
                             </View>
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 15 }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 2, paddingHorizontal: 16, borderWidth: 1, borderColor: '#6B7280', borderRadius: 8 }}>
-                                    <GiAngelWings size={20} />
+                                    
                                     <Text style={{ marginLeft: 8, fontSize: 15 }}>Guest favorite</Text>
                                 </View>
                             </View>
@@ -149,4 +326,4 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
             </View>
         </View>
     );
-};
+};*/
