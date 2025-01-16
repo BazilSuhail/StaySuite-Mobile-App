@@ -31,7 +31,7 @@ const isLoggedIn = async () => {
     try {
         const payload = JSON.parse(atob(token.split('.')[1]));
         const isTokenExpired = payload.exp * 1000 < Date.now();
-        return !isTokenExpired;
+        return isTokenExpired;
     }
     catch (err) {
         //console.warn('Invalid token structure');
@@ -90,7 +90,7 @@ const ListingDetails = () => {
                 const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/${userLoginStatus ? 'listings' : 'listing-details'}/${id}`, {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
                 });
-                //console.log(response.data.listing)
+                console.log(response.data.listing)
 
                 setListing(response.data.listing);
                 setIsInitiallyFavorited(response.data.isLiked);
@@ -256,8 +256,6 @@ const ListingDetails = () => {
                 </View>
 
             </View>
-
-
 
             {userLoginStatus && <AddRating listingId={id} />}
 
