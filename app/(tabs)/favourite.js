@@ -5,8 +5,10 @@ import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, Scrol
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
+import { useAuthContext } from '@/hooks/AuthProvider';
 
-const favourite = () => {
+const Favourite = () => {
+const {handleScroll} = useAuthContext();
   const [listings, setListings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -61,7 +63,7 @@ const favourite = () => {
               <div className="flex flex-col justify-center items-center mix-blend-multiply">
                   <img src={noFavourites} alt="" className="scale-[0.6] md:scale-[0.7] opacity-70" />
               </div>
-              <p className='text-center mt-[-65px] font-[600] text-rose-700 mx-auto'>You Have no favourite Listings</p>
+              <p className='text-center mt-[-65px] font-[600] text-rose-700 mx-auto'>You Have no Favourite Listings</p>
           </div>
       </>;
   }*/
@@ -92,6 +94,7 @@ const favourite = () => {
           data={listings}
           keyExtractor={(item) => item._id}
           numColumns={1}
+          onScroll={handleScroll}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <TouchableOpacity
@@ -173,4 +176,4 @@ const favourite = () => {
   );
 };
 
-export default favourite;
+export default Favourite;

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';  // Import FontAwesome5 from expo-vector-icons
-import { useRouter } from 'expo-router';
+import { Entypo, FontAwesome5 } from '@expo/vector-icons';  // Import FontAwesome5 from expo-vector-icons
+import { Link, useRouter } from 'expo-router';
 import axios from 'axios'
 import noResults from "@/assets/Assets/noResults.webp";
 import config from '@/Config/Config';
+import HorizontalScrollList from '@/components/HorizontalScrollList';
+import { useAuthContext } from '@/hooks/AuthProvider';
+import avatarImages from '@/constants/avatar';
 
 
 const renderItem = ({ item, router }) => {
@@ -53,7 +56,7 @@ const renderItem = ({ item, router }) => {
 
 const Home = () => {
   const router = useRouter();
-
+  const { user } = useAuthContext();
   const [listings, setListings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -61,31 +64,30 @@ const Home = () => {
   const [error, setError] = useState('');
   //const [errorStatus, setErrorSttaus] = useState('');
   const [category, setCategory] = useState('All');
-  const [searchParams, setSearchParams] = useState(null);
 
   const fetchListings = async (page, category) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/listings`, { page, limit: 10, category });
+      const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/listings`, {
+        params: { page, limit: 10, category },
+      });
+
       const newListings = response.data.listings;
 
-      //console.log(newListings)
       if (page === 1) {
         setListings(newListings);
-      }
-      else {
+      } else {
         setListings((prev) => [...prev, ...newListings]);
       }
       setHasMore(page < response.data.totalPages);
-    }
-    catch (err) {
-      setError(err)
-      //setError('Failed to fetch listings. Please try again later.');
-    }
-    finally {
+    } catch (err) {
+      setError('Failed to fetch listings. Please try again later.');
+      console.error(err);
+    } finally {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     setCurrentPage(1);
@@ -94,6 +96,7 @@ const Home = () => {
 
 
   useEffect(() => {
+    console.log(category)
     fetchListings(currentPage, category);
   }, [currentPage, category]);
 
@@ -121,7 +124,28 @@ const Home = () => {
    }*/
 
   return (
-    <View className='pb-[45px] pt-[35px] px-[15px]'>
+    <View className='pb-[45px]'>
+
+      <View className='h-[52px] flex-row items-center justify-between px-[15px] w-full bg-white'>
+        <View>
+          <Image
+            source={avatarImages["5"]}
+            className='rounded-full w-[40px] h-[40px]'
+          />
+        </View>
+        <View className='flex-row items-center space-x-3'>
+          {/*<Image
+            source={avatarImages[user.profilePicture]}
+            className='rounded-full w-[36px] h-[36px]'
+          />*/}
+          <Link href="/notifications">
+            <Entypo name="bell" size={28} color="black" className='px-[]' />
+          </Link>
+        </View>
+      </View>
+      
+      <HorizontalScrollList setCategory={setCategory} />
+
 
       {loading ? (
         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
@@ -129,11 +153,12 @@ const Home = () => {
         </View>
       ) :
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={listings}
           renderItem={(props) => renderItem({ ...props, router })}
           keyExtractor={item => item._id}
           numColumns={1}
-          contentContainerStyle={{ paddingTop: 4, paddingBottom: 45 }}
+          contentContainerStyle={{ paddingTop: 4, paddingBottom: 45, paddingHorizontal: 15 }}
         />
       }
 
@@ -147,7 +172,7 @@ const Home = () => {
       )}
 
       {hasMore && (
-        <View style={{ alignItems: 'center', marginTop: 6 }}>
+        <View className='mx-auto mb-[115px]'>
           <TouchableOpacity
             onPress={loadMore}
             style={{

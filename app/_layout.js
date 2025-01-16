@@ -23,19 +23,7 @@ export default function RootLayout() {
           screenOptions={{
             headerShown: false, // Hide headers if not needed
             gestureEnabled: true, // Enable gestures
-            gestureDirection: 'horizontal', // Horizontal swipe gestures
-            cardStyleInterpolator: ({ current, layouts }) => ({
-              cardStyle: {
-                transform: [
-                  {
-                    translateX: current.progress.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [layouts.screen.width, 0], // Slide in from right
-                    }),
-                  },
-                ],
-              },
-            }),
+            gestureDirection: 'horizontal', // 
           }}
         >
           <Stack.Screen name="(tabs)" />

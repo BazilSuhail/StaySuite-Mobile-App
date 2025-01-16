@@ -100,9 +100,11 @@ const CreateBooking = () => {
       markedDates[date] = {
         disabled: true,
         disableTouchEvent: true,
-        color: 'lightgray',
+        color: '#E0E0E0', // Lighter gray for the background
+        textColor: '#A0A0A0', // Slightly darker gray for the text
       };
     });
+    
 
     // Mark selected check-in and check-out dates
     if (selectedDates.checkIn) {
@@ -110,7 +112,7 @@ const CreateBooking = () => {
         ...markedDates[selectedDates.checkIn], // Preserve existing blocked styling, if any
         selected: true,
         startingDay: true,
-        color: 'blue',
+        color: 'red',
         textColor: 'white',
       };
     }
@@ -120,7 +122,7 @@ const CreateBooking = () => {
         ...markedDates[selectedDates.checkOut], // Preserve existing blocked styling, if any
         selected: true,
         endingDay: true,
-        color: 'blue',
+        color: 'red',
         textColor: 'white',
       };
     }
@@ -139,7 +141,7 @@ const CreateBooking = () => {
         if (!markedDates[dateString]) {
           markedDates[dateString] = {
             selected: true,
-            color: 'blue',
+            color: 'red',
             textColor: 'white',
           };
         }
