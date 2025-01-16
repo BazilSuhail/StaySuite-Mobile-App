@@ -8,6 +8,7 @@ import config from '@/Config/Config';
 import HorizontalScrollList from '@/components/HorizontalScrollList';
 import { useAuthContext } from '@/hooks/AuthProvider';
 import avatarImages from '@/constants/avatar';
+import { Header } from '@/components/Header';
 
 
 const renderItem = ({ item, router }) => {
@@ -126,26 +127,8 @@ const Home = () => {
   return (
     <View className='pb-[45px]'>
 
-      <View className='h-[52px] flex-row items-center justify-between px-[15px] w-full bg-white'>
-        <View>
-          <Image
-            source={avatarImages["5"]}
-            className='rounded-full w-[40px] h-[40px]'
-          />
-        </View>
-        <View className='flex-row items-center space-x-3'>
-          {/*<Image
-            source={avatarImages[user.profilePicture]}
-            className='rounded-full w-[36px] h-[36px]'
-          />*/}
-          <Link href="/notifications">
-            <Entypo name="bell" size={28} color="black" className='px-[]' />
-          </Link>
-        </View>
-      </View>
-      
+      <Header heading={"home"} />
       <HorizontalScrollList setCategory={setCategory} />
-
 
       {loading ? (
         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>

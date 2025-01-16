@@ -4,6 +4,7 @@ import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
+import { Header } from 'react-native/Libraries/NewAppScreen';
 
 
 const GetBookingHistory = () => {
@@ -66,6 +67,7 @@ const GetBookingHistory = () => {
 
     return (
         <View style={{ backgroundColor: '#f3f4f6', paddingTop: 115, padding: 16, minHeight: '100%', justifyContent: 'center', alignItems: 'center' }}>
+           <Header heading={"Booking"} />
             <View style={{ maxWidth: 1150, width: '100%' }}>
                 <Text style={{ fontSize: 24, marginBottom: 15, color: '#DC2626', fontWeight: '700' }}>
                     Visited Places

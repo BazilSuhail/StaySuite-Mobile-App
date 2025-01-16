@@ -1,22 +1,22 @@
 import { Tabs } from 'expo-router';
 import { Feather, FontAwesome, FontAwesome6, Ionicons } from '@expo/vector-icons';
 
-export default function TabLayout() { 
+export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#B91C1C', // red-700
         tabBarInactiveTintColor: '#6B7280', // gray-500
-        headerShown: false,  
+        headerShown: false,
         tabBarStyle: {
           backgroundColor: "#FFFFFF", // white
           borderTopLeftRadius: 15, // Rounded upper border
           borderTopRightRadius: 15, // Rounded upper border
           paddingTop: 2, // Top padding
-          paddingBottom:4,
+          paddingBottom: 4,
         },
       }}
-      
+
     >
       <Tabs.Screen
         name="index"
@@ -24,33 +24,6 @@ export default function TabLayout() {
           title: 'Home',
           tabBarIcon: ({ color }) => (
             <FontAwesome6 name="house-chimney" size={28} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="bookings"
-        options={{
-          title: 'Booking',
-          tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="book-bookmark" size={28} color={color} />
-          ),
-        }}
-      /> 
-      <Tabs.Screen
-        name="search"
-        options={{
-          tabBarLabel: () => null, // Hide the label for "Search"
-          tabBarIcon: ({ color }) => (
-            <Feather
-              name="search"
-              size={34} // Larger icon size
-              color={color}
-              style={{
-                marginBottom: -8, // Adjust for central alignment 
-                borderRadius: 50, // Circular background 
-                backgroundColor:'#545454',
-              }}
-            />
           ),
         }}
       />
@@ -64,6 +37,28 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="search"
+        options={{
+          tabBarLabel: () => null, // Hide the label for "Search"
+          tabBarIcon: ({ color }) => (
+            <Feather
+              name="search"
+              size={30} // Larger icon size
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="bookings"
+        options={{
+          title: 'Booking',
+          tabBarIcon: ({ color }) => (
+            <FontAwesome6 name="book-bookmark" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
@@ -71,7 +66,7 @@ export default function TabLayout() {
             <FontAwesome name="user" size={28} color={color} />
           ),
         }}
-      /> 
+      />
     </Tabs>
   );
 }

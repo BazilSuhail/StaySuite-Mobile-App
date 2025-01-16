@@ -500,7 +500,7 @@ const Profile = () => {
                 marginBottom: 16,
               }}
             >
-              <View style={{ alignItems: "center" }}>
+              <View className='flex-row items-center'>
                 <Image
                   source={avatarImages[userInfo.profilePicture]}
                   style={{
@@ -511,52 +511,39 @@ const Profile = () => {
                     borderColor: "#ccc",
                   }}
                 />
-                <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 8 }}>
-                  {userInfo.username}
-                </Text>
-                <Text
-                  style={{
-                    backgroundColor: "#6b7280",
-                    color: "#f3f4f6",
-                    paddingHorizontal: 8,
-                    paddingVertical: 2,
-                    borderRadius: 16,
-                    fontSize: 12,
-                    marginTop: 4,
-                  }}
-                >
-                  {userInfo.role}
-                </Text>
-              </View>
-              <View
-                style={{
-                  marginTop: 16,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ fontSize: 14, color: "#6b7280" }}>
-                  {(() => {
-                    const reviewDate = new Date(userInfo.createdAt);
-                    const now = new Date();
-                    const timeDiff = now - reviewDate;
+                <View className='ml-[15px]'>
+                  <Text className='text-[25px] font-[600]'>
+                    {userInfo.username}
+                  </Text>
+                  <Text
+                    className='bg-[#6b7280] mt-[5px] text-[12px] w-[60px] py-[1px] rounded-lg text-center text-white' >
+                    {userInfo.role}
+                  </Text>
+                  <View className='flex-row items-center mt-[8px]'>
+                    <Text className='text-[12px] font-[600] text-[#e11d48]'>
+                      Joined Airbnb{" "}
+                    </Text>
+                    <Text style={{ fontSize: 13, color: "#6b7280" }}>
+                      {(() => {
+                        const reviewDate = new Date(userInfo.createdAt);
+                        const now = new Date();
+                        const timeDiff = now - reviewDate;
 
-                    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                    const months = Math.floor(days / 30);
-                    const years = Math.floor(days / 365);
+                        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                        const months = Math.floor(days / 30);
+                        const years = Math.floor(days / 365);
 
-                    if (years >= 1) {
-                      return `${years} year${years > 1 ? "s" : ""} ago`;
-                    } else if (months >= 1) {
-                      return `${months} month${months > 1 ? "s" : ""} ago`;
-                    } else {
-                      return `${days} day${days > 1 ? "s" : ""} ago`;
-                    }
-                  })()}
-                </Text>
-                <Text style={{ color: "#e11d48", fontWeight: "700" }}>
-                  On Airbnb
-                </Text>
+                        if (years >= 1) {
+                          return `${years} year${years > 1 ? "s" : ""} ago`;
+                        } else if (months >= 1) {
+                          return `${months} month${months > 1 ? "s" : ""} ago`;
+                        } else {
+                          return `${days} day${days > 1 ? "s" : ""} ago`;
+                        }
+                      })()}
+                    </Text>
+                  </View>
+                </View>
               </View>
             </View>
 
@@ -593,14 +580,19 @@ const Profile = () => {
                   </Text>
                 </Text>
               </View>
-              <View>
-                <Text style={{ fontSize: 16, fontWeight: "bold", marginTop: 16 }}>
-                  Verify your identity
+
+              {!userInfo.phoneNumber &&
+                <Text className='mt-[15px]'>
+                  <Text>
+                    <Text style={{ fontSize: 15, fontWeight: "bold", marginTop: 16 }}>
+                      Verify your identity {""}
+                    </Text>
+                    <Text style={{ fontSize: 14, color: "#6b7280", marginVertical: 8 }}>
+                      Before you book or host on Airbnb, you must complete this step.
+                    </Text></Text>
                 </Text>
-                <Text style={{ fontSize: 14, color: "#6b7280", marginVertical: 8 }}>
-                  Before you book or host on Airbnb, you must complete this step.
-                </Text>
-              </View>
+              }
+
             </View>
           </View>
 
@@ -628,7 +620,10 @@ const Profile = () => {
                   marginBottom: 16,
                 }}
               >
-                <Text style={{ fontSize: 28, fontWeight: '600' }}>About Bazil</Text>
+                <View className='flex-row items-center space-x-2'>
+                  <FontAwesome5 name="user-check" size={17} color="black" />
+                  <Text className='ml-[8px] text-[18px] font-[600]'>Info</Text>
+                </View>
                 <TouchableOpacity
                   onPress={() => setIsEditing(true)}
                   style={{
@@ -639,7 +634,7 @@ const Profile = () => {
                     borderRadius: 8,
                   }}
                 >
-                  <Text style={{ fontSize: 14, fontWeight: '500', color: '#555' }}>Edit profile</Text>
+                  <Text style={{ fontSize: 12, fontWeight: '500', color: '#555' }}>Edit profile</Text>
                 </TouchableOpacity>
               </View>
               <Text>

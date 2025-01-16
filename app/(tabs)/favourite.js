@@ -6,9 +6,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
 import { useAuthContext } from '@/hooks/AuthProvider';
+import { Header } from '@/components/Header';
 
 const Favourite = () => {
-const {handleScroll} = useAuthContext();
+  const { handleScroll } = useAuthContext();
   const [listings, setListings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -27,8 +28,7 @@ const {handleScroll} = useAuthContext();
       const token = await AsyncStorage.getItem('token');
       const response = await axios.get(`${config.BACKEND_URL}/air-bnb/profile/guest-favourites?page=${currentPage}`, {
         headers: { Authorization: `Bearer ${token}` },
-      }
-      );
+      });
 
       if (currentPage === 1) {
         setListings(response.data.listings);
@@ -36,7 +36,7 @@ const {handleScroll} = useAuthContext();
       else {
         setListings((prev) => [...prev, ...response.data.listings]);
       }
-
+console.log(listings)
       setTotalPages(response.data.totalPages);
     }
     catch (err) {
@@ -69,8 +69,10 @@ const {handleScroll} = useAuthContext();
   }*/
 
   return (
-    <View showsVerticalScrollIndicator={false} className='bg-[#f3f3f3] flex-1 px-[18px] pb-[85px]'>
-      <View>
+    <View showsVerticalScrollIndicator={false} className=''>
+
+      <Header heading={"Favourites"} />
+      <View className='bg-[#f3f3f3] flex-1 px-[18px] pb-[85px]'>
         <Text
           style={{
             fontSize: 24,

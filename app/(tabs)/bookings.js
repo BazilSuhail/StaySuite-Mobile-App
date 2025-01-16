@@ -8,6 +8,7 @@ import noReservations from "@/assets/Assets/noReservations.webp";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
 import { Link } from 'expo-router';
+import { Header } from '@/components/Header';
 
 const getStatusStyle = (status) => {
   switch (status) {
@@ -100,47 +101,48 @@ const Bookings = () => {
   }
 
   if (error || bookings.length === 0) {
-    return <>
-      <View className='bg-gray-50 pt-[55px] p-6 min-h-screen justify-center items-center '>
-        <View className="w-full" >
-          <Text className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</Text>
-          <View className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></View>
-          <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
-            <Image source={require('@/assets/Assets/noReservations.webp')} alt="No Reservations" className="scale-[0.4]" />
-            <Text className="text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]">
-              You haven't visited any place, make a Booking
-              <Link href="/" replace={true} className="text-rose-600 underline font-[600]">Start Exploring</Link>
-            </Text>
-          </View>
+    return
+    <View className='bg-gray-50 pt-[55px] p-6 min-h-screen justify-center items-center '>
+      <Header heading={"Booking"} />
+      <View className="w-full" >
+        <Text className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</Text>
+        <View className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></View>
+        <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
+          <Image source={require('@/assets/Assets/noReservations.webp')} alt="No Reservations" className="scale-[0.4]" />
+          <Text className="text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]">
+            You haven't visited any place, make a Booking
+            <Link href="/" replace={true} className="text-rose-600 underline font-[600]">Start Exploring</Link>
+          </Text>
         </View>
       </View>
-    </>;
+    </View>
+      ;
   }
 
   return (
-    <View className='flex-1 bg-[#f9fafb] pt-[35px]'>
+    <View className='flex-1 bg-gray-50'>
+      <Header heading={"My Bookings"} />
       <View style={{ width: '100%', paddingHorizontal: 16 }}>
-        <Text style={{ fontSize: 24, fontWeight: '700', color: '#e11d48' }}>
-          My Reserved Bookings
+        <Text className='text-[12px] font-[600] text-[#574a4d] my-[15px]'>
+          Your reserved booking appear here.
         </Text>
-        <View style={{ height: 2, backgroundColor: '#fda4af', marginVertical: 15, borderRadius: 2 }} />
 
         <FlatList
           data={bookings}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item?._id || String(item)} // handle cases where _id might be missing
           contentContainerStyle={{ gap: 15 }}
           renderItem={({ item }) => {
-            // Ensure item is not null or undefined
             if (!item || !item.listing) {
-              return null;  // Return nothing if item or item.listing is invalid
+              return null;
             }
 
             return (
-              <View style={{ backgroundColor: '#fff', borderRadius: 12, borderWidth: 1, borderColor: '#ddd', padding: 16, marginBottom: 15 }}>
+              <View style={{ backgroundColor: '#fff', borderRadius: 12, borderWidth: 1, borderColor: '#ddd', padding: 16, marginBottom: 2 }}>
                 {/* Booking Name */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                  <View style={{ width: 45, height: 45, borderRadius: 22.5, backgroundColor: '#e11d48', justifyContent: 'center', alignItems: 'center' }}>
-                    <FontAwesome5 name="book" size={28} color="#f8f8f8" />
+                  <View style={{ width: 30, height: 30, borderRadius: 22.5, backgroundColor: '#e11d48', justifyContent: 'center', alignItems: 'center' }}>
+                    <FontAwesome5 name="book" size={15} color="#f8f8f8" />
                   </View>
                   <Text style={{ marginLeft: 8, fontSize: 18, fontWeight: '600', color: '#b91c1c' }}>
                     {item.listing.name.length > 25
@@ -151,15 +153,15 @@ const Bookings = () => {
 
                 {/* Booking Dates */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
-                  <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontSize: 13, fontWeight: '600', color: '#6b7280' }}>Check-In</Text>
-                    <Text style={{ fontSize: 14, fontWeight: '600', color: '#1f2937' }}>
+                  <View >
+                    <Text style={{ fontSize: 11, fontWeight: '600', color: '#6b7280' }}>Check-In</Text>
+                    <Text style={{ fontSize: 13, fontWeight: '600', color: '#1f2937' }}>
                       {new Date(item.checkIn).toDateString()}
                     </Text>
                   </View>
-                  <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontSize: 13, fontWeight: '600', color: '#6b7280' }}>Check-Out</Text>
-                    <Text style={{ fontSize: 14, fontWeight: '600', color: '#1f2937' }}>
+                  <View>
+                    <Text style={{ fontSize: 11, fontWeight: '600', color: '#6b7280' }}>Check-Out</Text>
+                    <Text style={{ fontSize: 13, fontWeight: '600', color: '#1f2937' }}>
                       {new Date(item.checkOut).toDateString()}
                     </Text>
                   </View>
@@ -167,28 +169,24 @@ const Bookings = () => {
 
                 {/* Status and Actions */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <View>
-                    <Text style={{ fontSize: 13, fontWeight: '600', color: '#6b7280' }}>Status</Text>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontWeight: '600',
-                        color: '#fff',
-                        paddingVertical: 3,
-                        paddingHorizontal: 12,
-                        borderRadius: 15,
-                        marginTop: 5,
-                        backgroundColor: getStatusStyle(item.status),
-                      }}
-                    >
-                      {item.status}
-                    </Text>
-                  </View>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      fontWeight: '600',
+                      color: '#fff',
+                      paddingVertical: 2,
+                      paddingHorizontal: 12,
+                      borderRadius: 15,
+                      backgroundColor: getStatusStyle(item.status),
+                    }}
+                  >
+                    {item.status}
+                  </Text>
                   <TouchableOpacity
                     onPress={() => openModal(item)}
-                    style={{ backgroundColor: '#e11d48', paddingVertical: 8, paddingHorizontal: 15, borderRadius: 25 }}
+                    style={{ backgroundColor: '#e11d48', paddingVertical: 3, paddingHorizontal: 12, borderRadius: 25 }}
                   >
-                    <Text style={{ fontSize: 13, color: '#fff' }}>View Details</Text>
+                    <Text style={{ fontSize: 11, color: '#fff' }}>View Details</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -202,7 +200,7 @@ const Bookings = () => {
           <Modal transparent={true} animationType="fade" visible={showModal} onRequestClose={closeModal}>
             <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
               <View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 12, padding: 16 }}>
-                <Pressable onPress={closeModal} className='ml-auto'> 
+                <Pressable onPress={closeModal} className='ml-auto'>
                   <Entypo name="cross" size={24} className='text-gray-500' />
                 </Pressable>
                 <ScrollView>

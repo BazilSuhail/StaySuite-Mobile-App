@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Feather, FontAwesome, FontAwesome6, Ionicons } from '@expo/vector-icons'; 
+import { Feather, FontAwesome, FontAwesome6, Ionicons } from '@expo/vector-icons';
 import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 export const FavoriteButton = ({ listingId, isInitiallyFavorited }) => {
     const [isFavorited, setIsFavorited] = useState(isInitiallyFavorited);
@@ -26,14 +27,7 @@ export const FavoriteButton = ({ listingId, isInitiallyFavorited }) => {
     return (
         <View>
             <TouchableOpacity onPress={toggleFavorite}>
-                <FontAwesome6
-                    icon="book-bookmark"
-                    style={{
-                        fontSize: 30,
-                        color: isFavorited ? 'yellow' : 'gray',
-                        opacity: 1,
-                    }}
-                />
+                <FontAwesome name="bookmark" size={28} color={isFavorited ? '#e6e200' : '#bfbfbf'} />
             </TouchableOpacity>
             {error && (
                 <Text style={{ color: 'red', fontSize: 12, marginTop: 5 }}>
