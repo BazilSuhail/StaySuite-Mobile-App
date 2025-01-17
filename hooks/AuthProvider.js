@@ -116,15 +116,18 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (token) => {
+    console.log(token)
     await AsyncStorage.setItem("token", token);
+    console.log("aaaa")
     await fetchUserData(token);
     connectSocket(token);
-  };
-
+    router.replace("/profile"); // Navigate to home
+  }; 
 
   const handleLogout = async () => {
     try {
-        console.log("1"); // Log start of the function
+        console.log("1");
+        
         await AsyncStorage.removeItem("token");
         console.log("2"); // Log after token removal
         setUser(null); 
@@ -135,7 +138,7 @@ export const AuthProvider = ({ children }) => {
         }
         setSocket(null);
         console.log("3"); // Log before navigation
-        router.push("/"); // Navigate to home
+        router.replace("/authentication/signIn"); // Navigate to home
     } catch (error) {
         console.error("Logout error:", error);
     }

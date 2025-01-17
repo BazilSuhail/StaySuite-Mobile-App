@@ -79,7 +79,7 @@ const Home = () => {
       setHasMore(page < response.data.totalPages);
     } catch (err) {
       setError('Failed to fetch listings. Please try again later.');
-      console.error(err);
+      //console.error(err);
     } finally {
       setLoading(false);
     }
@@ -117,7 +117,7 @@ const Home = () => {
 
   return (
     <View className='flex-1 bg-gray-50'>
-      <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
+      <StatusBar backgroundColor='#FFFFFF' barStyle='light-content' />
 
       <Header heading={"home"} />
       <HorizontalScrollList setCategory={setCategory} />

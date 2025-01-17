@@ -1,5 +1,5 @@
 import { View, Text, Image, Pressable } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import avatarImages from '@/constants/avatar';
 import { useAuthContext } from '@/hooks/AuthProvider';
@@ -64,7 +64,7 @@ export const Header = ({ heading }) => {
                 </Pressable>*/}
                 {heading === "Profile" &&
                     <Pressable onPress={handleLogout}>
-                        <Text>Logssout</Text>
+                        <Text><MaterialCommunityIcons name="logout" size={27} color="red" />{"  "}</Text>
                     </Pressable>
                 }
                 <Link href="/notifications">
