@@ -113,7 +113,7 @@ const Bookings = () => {
           </View>
         </View>
       </View>
-    );;
+    );
   }
 
   return (

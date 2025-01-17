@@ -7,15 +7,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
 import { useAuthContext } from '@/hooks/AuthProvider';
 import { Header } from '@/components/Header';
+import { Link, useRouter } from 'expo-router';
 
 const Favourite = () => {
-  const { handleScroll } = useAuthContext();
+  const router = useRouter();
   const [listings, setListings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    fetchListings();
+  }, []);
 
   useEffect(() => {
     fetchListings();
@@ -41,7 +45,6 @@ const Favourite = () => {
     }
     catch (err) {
       setError('Failed to fetch favorite listings. Please try again.');
-      console.error(err.response?.data || err.message);
     }
     finally {
       setLoading(false);
@@ -53,6 +56,24 @@ const Favourite = () => {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
+
+  if (error || listings.length === 0) {
+    return (
+      <View className='bg-gray-50 pt-[35px] min-h-screen justify-center items-center '>
+        <Header heading={"Favourites"} />
+        <View className="w-full" >
+          <View className="min-h-screen w-full flex justify-center items-center mix-blend-multiply">
+            <Image source={require('@/assets/Assets/noFavourites.webp')} alt="No Reservations" className="scale-[0.6] mt-[-240px]" />
+            <Text className="text-rose-800 font-[600] text-[12px] text-center mt-[-85px]">
+              You Have no favourite Listings
+            </Text>
+            <Link href="/" replace={true} className="text-rose-600 underline text-[14px] font-[700]">Start Exploring</Link>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   /*if (error) {
       return <>
           <div className='bg-gray-100 pt-[115px] p-6 min-h-screen justify-center items-center '>
@@ -73,51 +94,37 @@ const Favourite = () => {
       <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
 
       <Header heading={"Favourites"} />
-      <View className='bg-[#f3f3f3] flex-1 px-[18px] pt-[15px]'>
-         
+      <View className='bg-[#f3f3f3] flex-1 px-[10px] pt-[35px]'>
 
         {/* Listings */}
         <FlatList
           data={listings}
           keyExtractor={(item) => item._id}
-          numColumns={1}
-          onScroll={handleScroll}
+          numColumns={2}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <TouchableOpacity
               key={item._id}
-              onPress={() => navigate(`/listing/${item._id}`)}
-              style={{
-                width: 330,
-                backgroundColor: '#fff',
-                borderWidth: 1,
-                borderColor: '#ddd',
-                borderRadius: 16,
-                overflow: 'hidden',
-                marginBottom: 16,
-                alignSelf: 'center',
-              }}
+              onPress={() => router.push(`/${item._id}`)}
+              className={`${index % 2 === 0 ? 'mr-[1%]' : 'ml-[1%]'} mb-[15px] shadow-md overflow-hidden border-[1px] bg-white border-[#ddd] w-[49%] mr-[2%] rounded-[8px]`}
             >
               <Image
                 source={{
                   uri: item.images.coverPicture || 'https://via.placeholder.com/300',
                 }}
                 style={{
-                  height: 220,
+                  height: 110,
                   width: '100%',
-                  margin: 2,
-                  borderRadius: 8,
                 }}
                 resizeMode="cover"
               />
-              <View style={{ padding: 16 }}>
-                <Text style={{ fontSize: 18, fontWeight: '600' }}>{item.name}</Text>
-                <Text style={{ color: '#6b7280', marginVertical: 4 }}>
+              <View style={{ padding: 10 }}>
+                <Text style={{ fontSize: 13, fontWeight: '600' }}>{item.name.slice(0, 21)}{item.name.length > 21 && '...'}</Text>
+                <Text className='bg-[#6b7280] rounded-lg text-[8px] text-white w-[65px] py-[1.5px] mt-[5px] text-center'>
                   {item.property_type}
                 </Text>
-                <Text style={{ color: '#374151' }}>Bedrooms: {item.bedrooms}</Text>
                 <Text style={{ fontSize: 16, fontWeight: '700', marginTop: 8 }}>
-                  ${item.price} / night
+                  ${item.price} <Text className='text-[12px] font-[600] text-gray-600'>/night</Text>
                 </Text>
               </View>
             </TouchableOpacity>

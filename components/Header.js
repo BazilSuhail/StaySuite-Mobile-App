@@ -23,6 +23,14 @@ export const Header = ({ heading }) => {
             source={avatarImages[user.profilePicture]}
             className='rounded-full w-[36px] h-[36px]'
           />*/}
+           <View>
+                {heading === "Profile" &&
+                    <Image
+                        source={avatarImages["5"]}
+                        className='rounded-full w-[40px] h-[40px]'
+                    />
+                }
+            </View>
                 <Link href="/notifications">
                     <Entypo name="bell" size={28} color="black" className='px-[]' />
                 </Link>

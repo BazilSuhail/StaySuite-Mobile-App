@@ -15,6 +15,7 @@ import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome5 } from "@expo/vector-icons";
 import avatarImages from '@/constants/avatar';
+import { Header } from '@/components/Header';
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -139,6 +140,7 @@ const Profile = () => {
 
   return (
     <View className='px-[15px] bg-gray-100 pt-[35px]'>
+          <Header heading={"Profile"} />
       {isEditing ?
         <ScrollView showsVerticalScrollIndicator={false} className='bg-[#f8f8f8]'>
           {/* Left Section */}

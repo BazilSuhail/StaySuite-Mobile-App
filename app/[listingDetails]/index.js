@@ -91,6 +91,7 @@ const ListingDetails = () => {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
                 });
                 setListing(response.data.listing);
+                console.log("sttaus us : " + response.data.isLiked)
                 setIsInitiallyFavorited(response.data.isLiked);
                 setHostdetails(response.data.hostDetails);
                 setLoading(false);
@@ -121,7 +122,7 @@ const ListingDetails = () => {
     };
 
     return (
-        <ScrollView showsVerticalScrollIndicator={false} className='bg-gray-50'> 
+        <ScrollView showsVerticalScrollIndicator={false} className='bg-gray-50'>
 
             <Carousel images={listing.images.additionalPictures.slice(0, 5)} />
             {isListingPicturesModalOpen && (
@@ -169,7 +170,7 @@ const ListingDetails = () => {
                 </View>
 
                 {userRole === 'Guest' && (
-                    <FavoriteButton listingId={id} isInitiallyFavorited={listing.isInitiallyFavorited} />
+                    <FavoriteButton listingId={id} isInitiallyFavorited={isInitiallyFavorited} />
                 )}
             </View>
 
