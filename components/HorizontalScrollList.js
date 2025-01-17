@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   iconWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginRight: 20,
   },
   text: {
     fontSize: 10,

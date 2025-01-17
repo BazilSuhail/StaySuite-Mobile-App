@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, StatusBar } from 'react-native';
 import { AntDesign, Entypo, FontAwesome5 } from '@expo/vector-icons';  // Import FontAwesome5 from expo-vector-icons
 import { Link, useRouter } from 'expo-router';
 import axios from 'axios'
@@ -116,7 +116,8 @@ const Home = () => {
    }*/
 
   return (
-    <View className='pb-[165px]'>
+    <View className='flex-1 pt-[35px] bg-gray-50'>
+      <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
 
       <Header heading={"home"} />
       <HorizontalScrollList setCategory={setCategory} />
@@ -131,7 +132,7 @@ const Home = () => {
           data={listings}
           renderItem={(props) => renderItem({ ...props, router })}
           keyExtractor={item => item._id}
-          numColumns={1} 
+          numColumns={1}
         />
       }
 
@@ -145,7 +146,7 @@ const Home = () => {
       )}
 
       {hasMore && (
-        <View className='mx-auto mb-[115px]'>
+        <View className='mx-auto mb-[8px]'>
           <TouchableOpacity
             onPress={loadMore}
             className='text-rose-700 mt-[10px] font-[600]'

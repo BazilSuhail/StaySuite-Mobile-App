@@ -121,8 +121,7 @@ const ListingDetails = () => {
     };
 
     return (
-        <ScrollView showsVerticalScrollIndicator={false} className='bg-gray-50'>
-
+        <ScrollView showsVerticalScrollIndicator={false} className='bg-gray-50'> 
 
             <Carousel images={listing.images.additionalPictures.slice(0, 5)} />
             {isListingPicturesModalOpen && (

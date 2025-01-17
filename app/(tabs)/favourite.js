@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import noResults from "@/assets/Assets/noFavourites.webp";
-import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, ScrollView, StatusBar } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
@@ -36,7 +36,7 @@ const Favourite = () => {
       else {
         setListings((prev) => [...prev, ...response.data.listings]);
       }
-console.log(listings)
+      console.log(listings)
       setTotalPages(response.data.totalPages);
     }
     catch (err) {
@@ -69,27 +69,12 @@ console.log(listings)
   }*/
 
   return (
-    <View showsVerticalScrollIndicator={false} className=''>
+    <View className='flex-1 bg-gray-50'>
+      <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
 
       <Header heading={"Favourites"} />
-      <View className='bg-[#f3f3f3] flex-1 px-[18px] pb-[85px]'>
-        <Text
-          style={{
-            fontSize: 24,
-            marginBottom: 15,
-            color: '#e11d48',
-            fontWeight: '700',
-          }}
-        >
-          Favourite Listings
-        </Text>
-        <View
-          style={{
-            height: 2.5,
-            backgroundColor: '#e11d48',
-            marginBottom: 35,
-          }}
-        />
+      <View className='bg-[#f3f3f3] flex-1 px-[18px] pt-[15px]'>
+         
 
         {/* Listings */}
         <FlatList

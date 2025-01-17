@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
 import { Link } from 'expo-router';
 import { Header } from '@/components/Header';
+import { StatusBar } from 'expo-status-bar';
 
 const getStatusStyle = (status) => {
   switch (status) {
@@ -43,7 +44,7 @@ const Bookings = () => {
         setBookings(response.data.bookings);
       }
       catch (err) {
-        setError('Failed to fetch bookings. Please try again.'+err);
+        setError('Failed to fetch bookings. Please try again.' + err);
       }
       finally {
         setLoading(false);
@@ -52,8 +53,8 @@ const Bookings = () => {
 
     fetchBookings();
   }, []);
-   
-  
+
+
   const finalizeBooking = async () => {
     if (!selectedBooking || !selectedBooking._id) {
       Alert.alert("No booking selected to finalize.");
@@ -116,7 +117,8 @@ const Bookings = () => {
   }
 
   return (
-    <View className='flex-1 bg-gray-50'>
+    <View className='flex-1 pt-[35px] bg-gray-50'>
+            <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
       <Header heading={"My Bookings"} />
       <View style={{ width: '100%', paddingHorizontal: 16 }}>
         <Text className='text-[12px] font-[600] text-[#574a4d] my-[15px]'>
@@ -194,7 +196,8 @@ const Bookings = () => {
         {/* Modal for Booking Details */}
         {showModal && selectedBooking && (
           <Modal transparent={true} animationType="fade" visible={showModal} onRequestClose={closeModal}>
-            <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
+            <StatusBar backgroundColor='#00000080' barStyle='light-content' />
+            <View className='flex-1 justify-center items-center bg-[#00000080]'>
               <View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 12, padding: 16 }}>
                 <Pressable onPress={closeModal} className='ml-auto'>
                   <Entypo name="cross" size={24} className='text-gray-500' />
