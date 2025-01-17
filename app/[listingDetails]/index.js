@@ -31,7 +31,8 @@ const isLoggedIn = async () => {
     try {
         const payload = JSON.parse(atob(token.split('.')[1]));
         const isTokenExpired = payload.exp * 1000 < Date.now();
-        return isTokenExpired;
+        console.log("-----")
+        return !isTokenExpired;
     }
     catch (err) {
         //console.warn('Invalid token structure');
@@ -42,7 +43,7 @@ const isLoggedIn = async () => {
 const ListingDetails = () => {
     const router = useRouter();
 
-    const { userRole } = useAuthContext();
+    const { userRole,user } = useAuthContext();
     //const { id } = useParams();
 
     const pathname = usePathname();
@@ -56,7 +57,6 @@ const ListingDetails = () => {
     const [error, setError] = useState(null);
     const [ratingerror, setRatingerror] = useState(null);
     const [showModal, setShowModal] = useState(false);
-
 
     const [isListingPicturesModalOpen, setIsListingPicturesModalOpen] = useState(false);
     const [ratingReviews, setRatingReviews] = useState([]);
@@ -75,8 +75,8 @@ const ListingDetails = () => {
     };
 
     useEffect(() => {
-        const status = isLoggedIn();
-        setUserLoginStatus(status);
+        //const status = isLoggedIn();
+        //setUserLoginStatus(status);
         //console.log(status)
         fetch_Review_count_and_rating();
     }, []);
@@ -87,32 +87,33 @@ const ListingDetails = () => {
         const fetchListingDetails = async () => {
             try {
                 const token = userLoginStatus ? await AsyncStorage.getItem('token') : null;
-                const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/${userLoginStatus ? 'listings' : 'listing-details'}/${id}`, {
-                    headers: token ? { Authorization: `Bearer ${token}` } : {},
+                console.log(userLoginStatus)
+                const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/${user ? 'listings' : 'listing-details'}/${id}`, {
+                    headers: user ? { Authorization: `Bearer ${token}` } : {},
                 });
                 setListing(response.data.listing);
-                console.log("sttaus us : " + response.data.isLiked)
+                //console.log(response.data.isLiked)
                 setIsInitiallyFavorited(response.data.isLiked);
                 setHostdetails(response.data.hostDetails);
                 setLoading(false);
             }
             catch (err) {
                 //console.error(err);
-                setError('Failed to fetch listing details');
+                setError('Failed to fetch listing details'+err);
                 setLoading(false);
             }
         };
 
         fetchListingDetails();
-    }, [userLoginStatus]);
+    }, []);
 
     if (loading) {
         return <LisitngDetailsLoader />;
     }
 
-    /*if (error) {
-        return <div className="text-center min-h-screen mt-[250px] text-red-500">{error}</div>;
-    }*/
+    if (error) {
+        return <View className="text-center min-h-screen mt-[250px] text-red-500"><Text>{error}</Text></View>;
+    }
 
     const handleBooking = (id) => {
         router.push({
