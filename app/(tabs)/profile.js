@@ -1,18 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-  Modal,
-  Pressable,
-  StatusBar,
-} from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Modal, StatusBar, } from "react-native";
 import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome5 } from "@expo/vector-icons";

@@ -3,7 +3,10 @@ import { Modal, Text, TextInput, View, TouchableOpacity, Pressable } from 'react
 import { Ionicons, AntDesign, MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; // Expo icons
 
 import Slider from '@react-native-community/slider';
+import { useAuthContext } from '@/hooks/AuthProvider';
+import { StatusBar } from 'expo-status-bar';
 const FilterModal = () => {
+    const { setSearchFilters } = useAuthContext();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [title, setTitle] = useState('');
     const [country, setCountry] = useState('');
@@ -33,17 +36,22 @@ const FilterModal = () => {
 
     const logValues = () => {
         console.log({ title, suburb, country, minPrice, maxPrice, beds, bathrooms, category });
-        //setSearchFilters({ title, suburb, country, minPrice, maxPrice, beds, bathrooms, category });
+        setSearchFilters({ title, suburb, country, minPrice, maxPrice, beds, bathrooms, category });
         setIsModalVisible(false)
         //closeFilterModal();
     };
     return (
-        <View className="flex-1 justify-center items-center">
+        <View className="flex-1">
+            {isModalVisible && <StatusBar backgroundColor='#0000003d' barStyle='light-content' />}
             <TouchableOpacity
                 onPress={() => setIsModalVisible(true)}
-                className="bg-rose-700 px-6 py-3 rounded-full"
+                className="border-[2px] w-[95%] border-gray-200 mx-auto mt-[8px] bg-white rounded-[15px] flex-row items-center py-[5px] px-3"
             >
-                <Text className="text-white">Open Filters</Text>
+                <Ionicons name="search" size={28} color="#6B7280" />
+                <View className="flex-1 ml-[8px] text-[14px] text-gray-500">
+                    <Text className="font-[700] text-gray-600">Where to?</Text>
+                    <Text className="text-[12px] text-gray-500">Anywhere · Any week · Add guests</Text>
+                </View>
             </TouchableOpacity>
 
             <Modal

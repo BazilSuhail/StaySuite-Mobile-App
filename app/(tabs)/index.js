@@ -9,6 +9,7 @@ import HorizontalScrollList from '@/components/HorizontalScrollList';
 import { useAuthContext } from '@/hooks/AuthProvider';
 import avatarImages from '@/constants/avatar';
 import { Header } from '@/components/Header';
+import { Listing } from '@/components/Listing';
 
 
 const renderItem = ({ item, router }) => {
@@ -131,7 +132,7 @@ const Home = () => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={listings}
-          renderItem={(props) => renderItem({ ...props, router })}
+          renderItem={(props) => Listing({ ...props, router })}
           keyExtractor={item => item._id}
           numColumns={1}
         />
