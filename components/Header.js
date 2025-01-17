@@ -1,11 +1,42 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import avatarImages from '@/constants/avatar';
 import { useAuthContext } from '@/hooks/AuthProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Header = ({ heading }) => {
-    const { user } = useAuthContext();
+    const router = useRouter();
+    const { logout } = useAuthContext();
+    const handleLogout = () => {
+        //localStorage.removeItem('token');
+
+        logout();
+        
+        console.log("ss")
+        router.push('/');
+    };
+    /*const handleLogout = async () => {
+        try {
+            console.log("1"); // Log start of the function
+            await AsyncStorage.removeItem("token");
+            console.log("2"); // Log after token removal
+            setUser(null); 
+            setUserRole(null); 
+            setNotifications([]);
+            if (socket) {
+                socket.disconnect();
+            }
+            setSocket(null);
+            console.log("3"); // Log before navigation
+            router.push("/"); // Navigate to home
+        } catch (error) {
+            console.error("Logout error:", error);
+        }
+    };*/
+
+
+    //const { handleLogout } = useAuthContext();
     return (
         <View className='h-[52px] flex-row items-center justify-between px-[15px] w-full bg-white'>
             <View>
@@ -23,14 +54,19 @@ export const Header = ({ heading }) => {
             source={avatarImages[user.profilePicture]}
             className='rounded-full w-[36px] h-[36px]'
           />*/}
-           <View>
+                {/*<Pressable onPress={handleLogout}>
+                    {heading === "Profile" &&
+                        <Image
+                            source={avatarImages["5"]}
+                            className='rounded-full w-[40px] h-[40px]'
+                        />
+                    }
+                </Pressable>*/}
                 {heading === "Profile" &&
-                    <Image
-                        source={avatarImages["5"]}
-                        className='rounded-full w-[40px] h-[40px]'
-                    />
+                    <Pressable onPress={handleLogout}>
+                        <Text>Logssout</Text>
+                    </Pressable>
                 }
-            </View>
                 <Link href="/notifications">
                     <Entypo name="bell" size={28} color="black" className='px-[]' />
                 </Link>

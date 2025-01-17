@@ -79,8 +79,6 @@ const Bookings = () => {
     }
   };
 
-
-
   const openModal = (booking) => {
     setSelectedBooking(booking);
     setShowModal(true);
@@ -99,17 +97,15 @@ const Bookings = () => {
 
   if (error) {
     return (
-      <View className='bg-gray-50 pt-[55px] p-6 min-h-screen justify-center items-center '>
+      <View className='bg-gray-50'>
         <Header heading={"Booking"} />
-        <View className="w-full" >
-          <Text className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</Text>
-          <View className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></View>
-          <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
-            <Image source={require('@/assets/Assets/noReservations.webp')} alt="No Reservations" className="scale-[0.4]" />
-            <Text className="text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]">
-              You haven't visited any place, make a Booking
-              <Link href="/" replace={true} className="text-rose-600 underline font-[600]">Start Exploring</Link>
-            </Text>
+        <View className="w-full h-screen" >
+          <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-120px]">
+            <Image source={require('@/assets/Assets/noReservations.webp')} alt="No Reservations" className="scale-[0.5] mb-[-90px]" />
+            <Text className='text-[13px] text-red-900  font-[600]'>You haven't visited any place yet ...</Text>
+            <Link href={'/'}>
+              <Text className='text-[13px] mt-[2px] font-[800] underline text-red-600'>Start Exploring Today !!</Text>
+            </Link>
           </View>
         </View>
       </View>
@@ -118,7 +114,7 @@ const Bookings = () => {
 
   return (
     <View className='flex-1 pt-[35px] bg-gray-50'>
-            <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
+      <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
       <Header heading={"My Bookings"} />
       <View style={{ width: '100%', paddingHorizontal: 16 }}>
         <Text className='text-[12px] font-[600] text-[#574a4d] my-[15px]'>

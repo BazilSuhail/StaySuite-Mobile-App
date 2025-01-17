@@ -3,12 +3,14 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@/Config/Config";
+import { useRouter } from "expo-router";
 
 const AuthContext = createContext();
 
 export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [searchfilters, setSearchFilters] = useState({});
   const [userNotifications, setUserNotifications] = useState([]);
@@ -119,7 +121,27 @@ export const AuthProvider = ({ children }) => {
     connectSocket(token);
   };
 
+
   const handleLogout = async () => {
+    try {
+        console.log("1"); // Log start of the function
+        await AsyncStorage.removeItem("token");
+        console.log("2"); // Log after token removal
+        setUser(null); 
+        setUserRole(null); 
+        setNotifications([]);
+        if (socket) {
+            socket.disconnect();
+        }
+        setSocket(null);
+        console.log("3"); // Log before navigation
+        router.push("/"); // Navigate to home
+    } catch (error) {
+        console.error("Logout error:", error);
+    }
+};
+  /*const handleLogout = async () => {
+  
     await AsyncStorage.removeItem("token");
     setUser(null);
     setUserRole(null);
@@ -128,7 +150,9 @@ export const AuthProvider = ({ children }) => {
       socket.disconnect();
     }
     setSocket(null);
-  };
+    console.log("sdf")
+    router.push("/");
+  };*/
 
   const logout = () => {
     handleLogout();

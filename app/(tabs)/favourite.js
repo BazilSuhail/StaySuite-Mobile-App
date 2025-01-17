@@ -57,6 +57,12 @@ const Favourite = () => {
     }
   };
 
+if(loading){
+  return (
+    <ActivityIndicator/>
+  )
+}
+
   if (error || listings.length === 0) {
     return (
       <View className='bg-gray-50 pt-[35px] min-h-screen justify-center items-center '>
@@ -149,10 +155,7 @@ const Favourite = () => {
                 alignItems: 'center',
               }}
               disabled={loading}
-            >
-              {loading ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
+            > 
                 <Text
                   style={{
                     color: '#fff',
@@ -160,8 +163,7 @@ const Favourite = () => {
                   }}
                 >
                   Show More
-                </Text>
-              )}
+                </Text> 
             </TouchableOpacity>
           </View>
         )}
