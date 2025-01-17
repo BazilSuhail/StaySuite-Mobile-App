@@ -1,50 +1,77 @@
-# Welcome to your Expo app 👋
+# Property Rental Management
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is created using React-Native and Node/ Express Js for backend. It is a mobile app for booking of property rentals featuring user authentication, booking management, reservations history, maintaining rating and reviews of individual listings, maintaince of reserved bookings on listings, an optimzed filtering system for the listings and user prefrences based on there favourite listings. Built with React Native, MongoDB, and Express Js/ Node.js, this project demonstrates core functionality needed for an online property rental platform.
+<br>
 
-## Get started
+## Project Description:
+This mobile app, built with React Native, Node.js, Express.js, and MongoDB, enables users to securely authenticate, manage bookings, and view reservation history. It includes a robust filtering system for property search, along with the ability to leave ratings and reviews on listings. Users can also save their favorite properties for easy access. The backend ensures smooth data handling while the app delivers an intuitive, user-friendly experience. Designed as a complete property rental platform, it covers key functionalities essential for both users and property managers.
 
-1. Install dependencies
+### 🤖 Tech Stack 
+<a href="#"> 
+<img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?&style=for-the-badge&logo=javascript&logoColor=black"/>
+<img alt="React Native" src="https://img.shields.io/badge/React%20Native-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+<img alt="Node js" src="https://img.shields.io/badge/Node.js-%23339933.svg?&style=for-the-badge&logo=node.js&logoColor=white"/> 
+<img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/>
+<img alt="Express js" src="https://img.shields.io/badge/Express.js-%23000000.svg?&style=for-the-badge&logo=express&logoColor=white"/>   
+<img alt="React Native Reanimated" src="https://img.shields.io/badge/React%20Native%20Reanimated-%23845EC2.svg?&style=for-the-badge&logo=react&logoColor=%23FFFFFF"/>
+ </a>
+ 
+#### Check out the latest demo of Project [ITU-Student-Portal](https://entitysafe.netlify.app/pages/AppList/-O4swNr4Vi3X0OLPoTQy). 
 
-   ```bash
-   npm install
-   ```
+![App Screenshot](https://github.com/Kharbooza978/EntitySafe/blob/main/Student-App/student_app1.png)
 
-2. Start the app
+# Run Locally
 
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+ Clone the project using following command
 ```bash
-npm run reset-project
+    git clone https://github.com/BazilSuhail/ITU-CMS-Student-App.git
 ```
+Go to the project directory
+```bash
+    cd my-project
+```
+Then **Run** this command in your terminal to install all required dependancies:
+```bash
+    npm install
+```
+In the project directory, you can run:
+```bash
+    npm expo start -c
+``` 
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Install **Expo GO** from playstore after scanning the QR code given interminal start the app.
+Another option is to get Android Studio Installed and type **a** in terminal to open the app in android studio itself
 
-## Learn more
+</br>
 
-To learn more about developing your project with Expo, look at the following resources:
+## Features
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### User Authentication
+- **Signup Page**: A registration form for new users.
+- **Login Page**: A login form for existing users.
+ 
+### Protected Screens
+- **User Profile**: User can only view his information . 
+- **Booking history**: Guests can view there booking history.
+- **Redirection for Unauthenticated Users**: Users attempting to access protected screens are redirected to the login page.
 
-## Join the community
+### State Management and Security
+- **JWT Storage**: JWT tokens are stored in `localStorage` for user session management.
+- **API Interception**: Used Axios interceptors or middleware to attach tokens to API requests.
+- **Frontend State Management**: Managed with `useState`, `useEffect` and `React Context`.
 
-Join our community of developers creating universal apps.
+### Booking System
+- **Booking Screen**: Users can submit bookings, which are saved to the backend.
+- **Reserved Bookings Screen**: Displays reserved bookings for each user.
+- **Reservatiosn History/ Bookings History Screen**: Displays reserved bookings hisotyr or made reservations for each user he/ she has made.
+- **Reserved Bookings for Host Page**: Displays reserved bookings on Hosts Listings.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Backend Security
+- **Role-Based Access Control**: Routes are protected based on user roles (e.g., admin).
+- **JWT Middleware**: Secures routes that require authentication.
+- **Password Hashing**: Passwords are hashed using bcrypt before being saved to the database.
+ 
+### Styling and UX
+- Consistent design with **Nativewind** and Tailwind CSS. 
+- React-native-reanimated to deliver smoother animation experinces.
+- 2d illustrations to provide an engaing user experience.

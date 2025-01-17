@@ -7,7 +7,7 @@ import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-import { ScrollView, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 import { Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons'; // For FontAwesome icons
 import { Calendar } from 'react-native-calendars'; // Use this package for the calendar component
 import { StatusBar } from 'expo-status-bar';
@@ -17,18 +17,16 @@ const CreateBooking = () => {
   const router = useRouter();
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
-
   const [hostId, listingId] = segments;
-
-  console.log("Host ID:", hostId);
-  console.log("Listing ID:", listingId);
-
-  const { showToast } = useAuthContext();
+  //console.log("Host ID:", hostId);
+  //console.log("Listing ID:", listingId);
+ 
   const [blockedDates, setBlockedDates] = useState([]);
   const [selectedDates, setSelectedDates] = useState({ checkIn: null, checkOut: null });
   const [guests, setGuests] = useState({ adults: 1, children: 0, infants: 0 });
   const [specialRequests, setSpecialRequests] = useState('');
   const [reftechBooking, setReftechBooking] = useState(false);
+  const [error, setError] = useState(false);
   const [numberOfDays, setNumberOfDays] = useState(null);
   const totalAmount = 1500;
 
@@ -40,9 +38,8 @@ const CreateBooking = () => {
       try {
         const response = await axios.get(`${config.BACKEND_URL}/air-bnb/reservation/get-reserved-bookings/${listingId}`);
         const dates = response.data.blockedDates.map((date) => new Date(date).toISOString().split('T')[0]);
-        setBlockedDates(dates);
-        console.log("-------------------")
-        console.log(blockedDates)
+        setBlockedDates(dates); 
+        //console.log(blockedDates)
       }
       catch (err) {
         console.error('Error fetching blocked dates:', err.response?.data || err.message);
@@ -76,7 +73,7 @@ const CreateBooking = () => {
     today.setHours(0, 0, 0, 0);
 
     if (date < today) {
-      alert('Selected date cannot be before the current date.');
+      Alert.alert('Selected date cannot be before the current date.');
       return;
     }
 
@@ -88,7 +85,7 @@ const CreateBooking = () => {
         setSelectedDates({ ...selectedDates, checkOut: date });
       }
       else {
-        alert('Check-Out date must be after Check-In date.');
+        Alert.alert('Check-Out date must be after Check-In date.');
       }
     }
   };
@@ -146,11 +143,12 @@ const CreateBooking = () => {
 
     return markedDates;
   };
+
   const handleBooking = async (e) => {
     e.preventDefault();
 
     if (!selectedDates.checkIn || !selectedDates.checkOut) {
-      alert('Please select both Check-In and Check-Out dates.');
+      Alert.alert('Please select both Check-In and Check-Out dates.');
       return;
     }
 
@@ -176,15 +174,11 @@ const CreateBooking = () => {
       setSelectedDates({ checkIn: null, checkOut: null });
       setGuests({ adults: 1, children: 0, infants: 0 });
       setSpecialRequests('');
-      setNumberOfDays(null);
-      //toast
-      showToast("Reservation applied Successfully");
-      //navigate(-1);
+      setNumberOfDays(null); 
     }
     catch (err) {
-      console.error('Error creating booking:', err.response?.data || err.message);
-      showToast("Failed to create booking. Try Later !!");
-      //setMessage('Failed to create booking. Please try again.');
+      //console.error('Error creating booking:', err.response?.data || err.message); 
+      setError('Error creating booking:', err.response?.data || err.message);
     }
   };
 

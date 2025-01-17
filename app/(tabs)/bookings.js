@@ -38,8 +38,7 @@ const Bookings = () => {
         const token = await AsyncStorage.getItem('token');
         const response = await axios.get(`${config.BACKEND_URL}/air-bnb/reservation/made-reservations`, {
           headers: { Authorization: `Bearer ${token}` },
-        }
-        );
+        });
 
         setBookings(response.data.bookings);
       }
@@ -62,15 +61,13 @@ const Bookings = () => {
     }
 
     try {
-      const token = await AsyncStorage.getItem('token');
-      //console.log(selectedBooking._id)
+      const token = await AsyncStorage.getItem('token'); 
       await axios.post(
         `${config.BACKEND_URL}/air-bnb/reservation/finalize-booking`,
         { bookingId: selectedBooking._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
-      // Refresh bookings or show a success message
+ 
       Alert.alert("Booking finalized successfully.");
       setSelectedBooking(null);
       setShowModal(false);

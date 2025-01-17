@@ -121,42 +121,25 @@ export const AuthProvider = ({ children }) => {
     console.log("aaaa")
     await fetchUserData(token);
     connectSocket(token);
-    router.replace("/profile"); // Navigate to home
-  }; 
+    router.replace("/profile");
+  };
 
   const handleLogout = async () => {
     try {
-        console.log("1");
-        
-        await AsyncStorage.removeItem("token");
-        console.log("2"); // Log after token removal
-        setUser(null); 
-        setUserRole(null); 
-        setNotifications([]);
-        if (socket) {
-            socket.disconnect();
-        }
-        setSocket(null);
-        console.log("3"); // Log before navigation
-        router.replace("/authentication/signIn"); // Navigate to home
+      await AsyncStorage.removeItem("token");
+      setUser(null);
+      setUserRole(null);
+      setNotifications([]);
+      if (socket) {
+        socket.disconnect();
+      }
+      setSocket(null);
+      console.log("3");
+      router.replace("/authentication/signIn");
     } catch (error) {
-        console.error("Logout error:", error);
+      console.error("Logout error:", error);
     }
-};
-  /*const handleLogout = async () => {
-  
-    await AsyncStorage.removeItem("token");
-    setUser(null);
-    setUserRole(null);
-    setNotifications([]);
-    if (socket) {
-      socket.disconnect();
-    }
-    setSocket(null);
-    console.log("sdf")
-    router.push("/");
-  };*/
-
+  };
   const logout = () => {
     handleLogout();
   };

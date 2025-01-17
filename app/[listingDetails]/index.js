@@ -42,9 +42,7 @@ const isLoggedIn = async () => {
 
 const ListingDetails = () => {
     const router = useRouter();
-
-    const { userRole,user } = useAuthContext();
-    //const { id } = useParams();
+    const { userRole, user } = useAuthContext();
 
     const pathname = usePathname();
     const id = pathname.split("/").pop();
@@ -70,20 +68,14 @@ const ListingDetails = () => {
         }
         catch (err) {
             setRatingerror('Failed to fetch reviews. Please try again.');
-            //console.error('Error fetching reviews:', err.response?.data || err.message);
         }
     };
 
     useEffect(() => {
-        //const status = isLoggedIn();
-        //setUserLoginStatus(status);
-        //console.log(status)
         fetch_Review_count_and_rating();
     }, []);
 
     useEffect(() => {
-        //if (userLoginStatus === null) return;
-
         const fetchListingDetails = async () => {
             try {
                 const token = await AsyncStorage.getItem('token');
@@ -92,14 +84,12 @@ const ListingDetails = () => {
                     headers: user ? { Authorization: `Bearer ${token}` } : {},
                 });
                 setListing(response.data.listing);
-                //console.log(response.data.isLiked)
                 setIsInitiallyFavorited(response.data.isLiked);
                 setHostdetails(response.data.hostDetails);
                 setLoading(false);
             }
             catch (err) {
-                //console.error(err);
-                setError('Failed to fetch listing details'+err);
+                setError('Failed to fetch listing details' + err);
                 setLoading(false);
             }
         };

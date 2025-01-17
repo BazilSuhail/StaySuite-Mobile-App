@@ -40,7 +40,7 @@ const Favourite = () => {
       else {
         setListings((prev) => [...prev, ...response.data.listings]);
       }
-      console.log(listings)
+      //console.log(listings)
       setTotalPages(response.data.totalPages);
     }
     catch (err) {

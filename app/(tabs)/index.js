@@ -59,8 +59,7 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  //const [errorStatus, setErrorSttaus] = useState('');
+  const [error, setError] = useState(''); 
   const [category, setCategory] = useState('All');
 
   const fetchListings = async (page, category) => {

@@ -24,12 +24,10 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = await AsyncStorage.getItem('token');
-        //console.log(token)
+        const token = await AsyncStorage.getItem('token'); 
         const response = await axios.get(`${config.BACKEND_URL}/air-bnb/profile/user-info`, {
           headers: { Authorization: `Bearer ${token}` },
-        });
-        //console.log("sdssd")
+        }); 
 
         setUserInfo(response.data);
         setLoading(false);
@@ -96,8 +94,7 @@ const Profile = () => {
       setError('Error updating profile data');
     }
   };
-
-
+ 
   if (loading) {
     return <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
       <Text>Loading...</Text>

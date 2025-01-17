@@ -8,35 +8,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const Header = ({ heading }) => {
     const router = useRouter();
     const { logout } = useAuthContext();
-    const handleLogout = () => {
-        //localStorage.removeItem('token');
-
-        logout();
-        
-        console.log("ss")
+    const handleLogout = () => {  
+        logout();  
         router.push('/');
     };
-    /*const handleLogout = async () => {
-        try {
-            console.log("1"); // Log start of the function
-            await AsyncStorage.removeItem("token");
-            console.log("2"); // Log after token removal
-            setUser(null); 
-            setUserRole(null); 
-            setNotifications([]);
-            if (socket) {
-                socket.disconnect();
-            }
-            setSocket(null);
-            console.log("3"); // Log before navigation
-            router.push("/"); // Navigate to home
-        } catch (error) {
-            console.error("Logout error:", error);
-        }
-    };*/
-
-
-    //const { handleLogout } = useAuthContext();
+    
     return (
         <View className='h-[52px] mt-[34px] flex-row items-center justify-between px-[15px] w-full bg-white'>
             <View>
@@ -54,14 +30,7 @@ export const Header = ({ heading }) => {
             source={avatarImages[user.profilePicture]}
             className='rounded-full w-[36px] h-[36px]'
           />*/}
-                {/*<Pressable onPress={handleLogout}>
-                    {heading === "Profile" &&
-                        <Image
-                            source={avatarImages["5"]}
-                            className='rounded-full w-[40px] h-[40px]'
-                        />
-                    }
-                </Pressable>*/}
+
                 {heading === "Profile" &&
                     <Pressable onPress={handleLogout}>
                         <Text><MaterialCommunityIcons name="logout" size={27} color="red" />{"  "}</Text>

@@ -35,10 +35,9 @@ const FilterModal = () => {
     };
 
     const logValues = () => {
-        console.log({ title, suburb, country, minPrice, maxPrice, beds, bathrooms, category });
+        //console.log({ title, suburb, country, minPrice, maxPrice, beds, bathrooms, category });
         setSearchFilters({ title, suburb, country, minPrice, maxPrice, beds, bathrooms, category });
-        setIsModalVisible(false)
-        //closeFilterModal();
+        setIsModalVisible(false) 
     };
     return (
         <View className="flex-1">
