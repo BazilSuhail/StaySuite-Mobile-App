@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { Entypo, FontAwesome5 } from '@expo/vector-icons';  // Import FontAwesome5 from expo-vector-icons
+import { AntDesign, Entypo, FontAwesome5 } from '@expo/vector-icons';  // Import FontAwesome5 from expo-vector-icons
 import { Link, useRouter } from 'expo-router';
 import axios from 'axios'
 import noResults from "@/assets/Assets/noResults.webp";
@@ -15,41 +15,37 @@ const renderItem = ({ item, router }) => {
   return (
     <TouchableOpacity
       onPress={() => router.push(`/${item._id}`)} // Using useRouter for navigation
-      style={{
-        overflow: 'hidden',
-        marginTop: 15,
-        cursor: 'pointer',
-        marginHorizontal: 4,
-      }}
+      className='rounded-[12px] pb-[15px] mx-[15px] overflow-hidden mt-[20px] border-[1px] border-gray-300 shadow-sm bg-white '
     >
       <Image
         source={
           item.images.placePicture
             ? { uri: item.images.placePicture }
             : { uri: 'https://via.placeholder.com/300' }
-        } className='h-[200px] w-full rounded-[15px]'
+        } className='h-[200px] w-full'
         resizeMode="cover"
       />
 
-      <View style={{ paddingHorizontal: 16 }}>
+      <View className='px-[15px] mt-[8px]'>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ fontWeight: '600', fontSize: 16 }}>
             {item.address.suburb.substring(0, 8)}, {item.address.country.substring(0, 8)}
           </Text>
           {item.rating > 0 && (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text>{item.rating} </Text>
-              <FontAwesome5 name="star" size={18} color="yellow" />
+              <Text className='font-[600]'>{item.rating} </Text>
+              <AntDesign name="star" size={17} color="#6b7280" />
             </View>
           )}
         </View>
-        <Text style={{ color: 'red', fontWeight: '700', fontSize: 12 }}>
-          {item.property_type}
-        </Text>
-        <Text style={{ color: 'gray' }}>{item.category}</Text>
-        <Text style={{ fontWeight: 'bold', fontSize: 14, marginTop: 6 }}>
-          ${item.price} / night
-        </Text>
+        <View className='flex-row items-center justify-between mt-[12px]'>
+          <Text style={{ fontWeight: 'bold', fontSize: 17 }}>
+            ${item.price} <Text className='text-gray-500 text-[13px]'>/night</Text>
+          </Text>
+          <Text className='text-white mt-[6px] bg-gray-400 w-[75px] font-[700] text-center text-[10px] rounded-md py-[2px]'>
+            {item.property_type}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   )
@@ -120,7 +116,7 @@ const Home = () => {
    }*/
 
   return (
-    <View className='pb-[45px]'>
+    <View className='pb-[165px]'>
 
       <Header heading={"home"} />
       <HorizontalScrollList setCategory={setCategory} />
@@ -135,8 +131,7 @@ const Home = () => {
           data={listings}
           renderItem={(props) => renderItem({ ...props, router })}
           keyExtractor={item => item._id}
-          numColumns={1}
-          contentContainerStyle={{ paddingTop: 4, paddingBottom: 45, paddingHorizontal: 15 }}
+          numColumns={1} 
         />
       }
 
@@ -153,19 +148,11 @@ const Home = () => {
         <View className='mx-auto mb-[115px]'>
           <TouchableOpacity
             onPress={loadMore}
-            style={{
-              paddingVertical: 8,
-              paddingHorizontal: 16,
-              backgroundColor: 'white',
-              borderRadius: 8,
-              borderWidth: 1,
-              borderColor: '#f5f5f5',
-              marginBottom: 25,
-            }}
+            className='text-rose-700 mt-[10px] font-[600]'
             disabled={loading}
           >
             <Text style={{ color: '#E11D48', fontWeight: '600' }}>
-              {loading ? 'Loading...' : 'Show More'}
+              {loading ? 'Loading...' : 'Show More ...'}
             </Text>
           </TouchableOpacity>
         </View>

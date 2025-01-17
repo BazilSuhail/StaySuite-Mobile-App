@@ -301,9 +301,10 @@ const ListingDetails = () => {
                 </View>
 
                 {userRole === 'Guest' ?
-                    <View onClick={() => handleBooking(id)} className="w-full py-2 bg-rose-700 rounded-lg">
+                    <TouchableOpacity onPress={() => handleBooking(id)} className="w-full py-2 bg-rose-700 rounded-lg">
                         <Text className='font-[700] text-[15px] text-white text-center'>Reserve</Text>
-                    </View> :
+                    </TouchableOpacity>
+                    :
                     <View>
                         <View className="w-full py-2 bg-rose-300  text-rose-100 cursor-pointer font-semibold rounded-[8px]"><Text className='text-center text-white'>Reserve</Text></View>
                         <Link href={"/authentication/signIn"} className='text-rose-700 underline font-[500] text-[12px] text-center mt-[8px]'>Login as a Guest To Reserve a booking</Link>
@@ -332,7 +333,7 @@ const ListingDetails = () => {
                     <Text>${(listing.price * 7) + 29 + 89}</Text>
                 </View>
             </View>
- 
+
             {showModal && <Reviews listingId={id} ratingReviews={ratingReviews} onClose={() => setShowModal(false)} />}
 
         </ScrollView>
