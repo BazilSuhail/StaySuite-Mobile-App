@@ -113,7 +113,7 @@ const Bookings = () => {
   }
 
   return (
-    <View className='flex-1 pt-[35px] bg-gray-50'>
+    <View className='flex-1 bg-gray-50'>
       <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
       <Header heading={"My Bookings"} />
       <View style={{ width: '100%', paddingHorizontal: 16 }}>

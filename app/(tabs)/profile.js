@@ -151,9 +151,10 @@ const Profile = () => {
 
 
   return (
-    <View className='bg-gray-100 pt-[35px]'> 
-            <StatusBar backgroundColor='#FFFFFF' barStyle='light-content' />
+    <View className='bg-gray-100'>
+      <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
       <Header heading={"Profile"} />
+      
       <ScrollView showsVerticalScrollIndicator={false} className='px-[15px] pb-[85px] pt-[15px]'>
         {isEditing ?
           <View className='bg-[#f8f8f8]'>

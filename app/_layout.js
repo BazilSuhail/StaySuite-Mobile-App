@@ -1,10 +1,8 @@
 import { Stack } from 'expo-router';
-import { useFonts } from 'expo-font';
-import { StatusBar } from 'expo-status-bar';
+import { useFonts } from 'expo-font'; 
 import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { AuthProvider } from '@/hooks/AuthProvider';
-import config from '@/Config/Config';
+import { AuthProvider } from '@/hooks/AuthProvider'; 
 
 
 export default function RootLayout() {

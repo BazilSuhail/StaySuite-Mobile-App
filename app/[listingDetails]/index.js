@@ -17,7 +17,7 @@ import Carousel from '@/components/CustomCarousel';
 const LisitngDetailsLoader = () => {
     return (
         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-            <Text>sdf...</Text>
+            <Text>sdf.j..</Text>
         </View>
     );
 };
@@ -82,12 +82,12 @@ const ListingDetails = () => {
     }, []);
 
     useEffect(() => {
-        if (userLoginStatus === null) return;
+        //if (userLoginStatus === null) return;
 
         const fetchListingDetails = async () => {
             try {
-                const token = userLoginStatus ? await AsyncStorage.getItem('token') : null;
-                console.log(userLoginStatus)
+                const token = await AsyncStorage.getItem('token');
+                console.log(user)
                 const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/${user ? 'listings' : 'listing-details'}/${id}`, {
                     headers: user ? { Authorization: `Bearer ${token}` } : {},
                 });

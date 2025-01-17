@@ -117,9 +117,10 @@ const Home = () => {
 
   return (
     <View className='flex-1 bg-gray-50'>
-      <StatusBar backgroundColor='#FFFFFF' barStyle='light-content' />
-
+      
+      <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
       <Header heading={"home"} />
+
       <HorizontalScrollList setCategory={setCategory} />
 
       {loading ? (

@@ -1,56 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons';
 import axios from 'axios';
 import config from '@/Config/Config';
 import { useAuthContext } from '@/hooks/AuthProvider';
+import FilterModal from '@/components/FilterModal';
 
-const Search = () => { 
-    const { login } = useAuthContext();
-    const [focusField, setFocusField] = useState('');
-    const [loading, setLoading] = useState(false);
-  
-    const [formData, setFormData] = useState({
-      email: '',
-      password: '',
-    });
-    const { email, password } = formData;
-  
-    const handleChange = (name,value) => {
-      //const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
-    };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        setLoading(true);
-        const response = await axios.post(
-          `${config.BACKEND_URL}/air-bnb/auth/login`,
-          formData
-        );
-  
-        //localStorage.setItem('token', response.data.token);
-        login(response.data.token);
-  
-        //alert('Login successful!');
-        //showToast("Login successfull, Navigating to profile"); 
-  
-      }
-      catch (error) {
-        console.error(error);
-        setLoading(false);
-        //alert('Login failed!');
-        //showToast("Login failed, No Account Found 😢");
-      }
-    };
-    const handleFocus = (field) => {
-      setFocusField(field);
-    };
-  
-    const handleBlur = () => {
-      setFocusField('');
-    };
+const Search = () => {
+  const { login } = useAuthContext();
+  const [focusField, setFocusField] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const { email, password } = formData;
+
+  const handleChange = (name, value) => {
+    //const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        `${config.BACKEND_URL}/air-bnb/auth/login`,
+        formData
+      );
+
+    }
+    catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+  const handleFocus = (field) => {
+    setFocusField(field);
+  };
+
+  const handleBlur = () => {
+    setFocusField('');
+  };
 
   if (loading) {
     return (
@@ -63,8 +56,9 @@ const Search = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <FilterModal/>
       <View style={styles.logoContainer}>
-        
+
         <Text style={styles.logoText}>
           Air<Text style={styles.logoTextHighlight}>BnB</Text>
         </Text>

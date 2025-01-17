@@ -38,7 +38,7 @@ export const Header = ({ heading }) => {
 
     //const { handleLogout } = useAuthContext();
     return (
-        <View className='h-[52px] flex-row items-center justify-between px-[15px] w-full bg-white'>
+        <View className='h-[52px] mt-[34px] flex-row items-center justify-between px-[15px] w-full bg-white'>
             <View>
                 {heading === "home" ?
                     <Image

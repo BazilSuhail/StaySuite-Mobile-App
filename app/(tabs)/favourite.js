@@ -80,26 +80,11 @@ if(loading){
     );
   }
 
-  /*if (error) {
-      return <>
-          <div className='bg-gray-100 pt-[115px] p-6 min-h-screen justify-center items-center '>
-          <div className="max-w-[1150px] mx-auto" >
-              <h3 className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Favourite Listings</h3>
-              <div className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></div>
-              </div>
-              <div className="flex flex-col justify-center items-center mix-blend-multiply">
-                  <img src={noFavourites} alt="" className="scale-[0.6] md:scale-[0.7] opacity-70" />
-              </div>
-              <p className='text-center mt-[-65px] font-[600] text-rose-700 mx-auto'>You Have no Favourite Listings</p>
-          </div>
-      </>;
-  }*/
-
   return (
     <View className='flex-1 bg-gray-50'>
-      <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
-
+      <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
       <Header heading={"Favourites"} />
+
       <View className='bg-[#f3f3f3] flex-1 px-[10px] pt-[35px]'>
 
         {/* Listings */}
