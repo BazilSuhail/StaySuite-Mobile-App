@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setUser(response.data);
-      console.log(response.data)
+      //console.log(response.data)
       setUserRole(response.data.role);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     newSocket.on("connect", () => {
-      console.log(`Connected to server with socket ID: ${newSocket.id}`);
+      //console.log(`Connected to server with socket ID: ${newSocket.id}`);
     });
 
     newSocket.on("notification", (data) => {
@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     newSocket.on("disconnect", () => {
-      console.log("Disconnected from server");
+      //console.log("Disconnected from server");
     });
 
     setSocket(newSocket);
@@ -116,9 +116,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (token) => {
-    console.log(token)
+    //console.log(token)
     await AsyncStorage.setItem("token", token);
-    console.log("aaaa")
+    //console.log("aaaa")
     await fetchUserData(token);
     connectSocket(token);
     router.replace("/profile");
@@ -133,8 +133,7 @@ export const AuthProvider = ({ children }) => {
       if (socket) {
         socket.disconnect();
       }
-      setSocket(null);
-      console.log("3");
+      setSocket(null); 
       router.replace("/authentication/signIn");
     } catch (error) {
       console.error("Logout error:", error);

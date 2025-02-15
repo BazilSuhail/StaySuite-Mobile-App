@@ -2,6 +2,7 @@ import { View, Text, Image, Pressable } from 'react-native';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import avatarImages from '@/constants/avatar';
+import logo from '@/assets/logo.webp';
 import { useAuthContext } from '@/hooks/AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -14,12 +15,12 @@ export const Header = ({ heading }) => {
     };
     
     return (
-        <View className='h-[52px] mt-[34px] flex-row items-center justify-between px-[15px] w-full bg-white'>
+        <View className='h-[52px] m t-[34px] flex-row items-center justify-between px-[15px] w-full bg-white'>
             <View>
                 {heading === "home" ?
                     <Image
-                        source={avatarImages["5"]}
-                        className='rounded-full w-[40px] h-[40px]'
+                        source={logo}
+                        className='rounded-full w-[40px] h-[38px]'
                     /> :
                     <Text className='text-[20px] font-[600]'>{heading}</Text>
                 }
