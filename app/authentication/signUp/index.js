@@ -6,7 +6,7 @@ import config from '@/Config/Config'
 import { Link, useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import authBackground from '@/assets/authBackground.jpg'
-import logo from '@/assets/logo.webp'
+import logo from '@/assets/images/icons.png'
 
 const SignUp = () => {
   const router = useRouter();

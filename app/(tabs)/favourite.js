@@ -67,7 +67,7 @@ const Favourite = () => {
         <Header heading={"Favourites"} />
         <View className="w-full" >
           <View className="min-h-screen w-full flex justify-center items-center mix-blend-multiply">
-            <Image source={require('@/assets/Assets/noFavourites.webp')} alt="No Reservations" className="scale-[0.6] mt-[-240px]" />
+            <Image source={require('@/assets/Assets/wellcome-2.jpg')} alt="No Reservations" className="scale-[0.6] mt-[-240px]" />
             <Text className="text-rose-800 font-[600] text-[12px] text-center mt-[-85px]">
               You Have no favourite Listings
             </Text>

@@ -2,7 +2,7 @@ import { View, Text, Image, Pressable } from 'react-native';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import avatarImages from '@/constants/avatar';
-import logo from '@/assets/logo.webp';
+import logo from '@/assets/images/icons.png';
 import { useAuthContext } from '@/hooks/AuthProvider';
 
 export const Header = ({ heading }) => {

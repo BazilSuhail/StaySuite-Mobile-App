@@ -91,7 +91,7 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
                         <>
                             {reviews.length === 0 ? (
                                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Image source={{ uri: 'noComments' }} style={{ width: 150, height: 150, marginBottom: 10 }} />
+                                    {/* <Image source={{ uri: 'noComments' }} style={{ width: 150, height: 150, marginBottom: 10 }} /> */}
                                     <Text style={{ color: '#9CA3AF', fontSize: 32, fontWeight: '600' }}>No Review Made Till Now</Text>
                                 </View>
                             ) : (

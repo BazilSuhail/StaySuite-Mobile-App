@@ -97,7 +97,7 @@ const Bookings = () => {
         <Header heading={"Booking"} />
         <View className="w-full h-screen" >
           <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-120px]">
-            <Image source={require('@/assets/Assets/noReservations.webp')} alt="No Reservations" className="scale-[0.5] mb-[-90px]" />
+            <Image source={require('@/assets/Assets/noReservations.png')} alt="No Reservations" className="scale-[0.5] mb-[-90px]" />
             <Text className='text-[13px] text-red-900  font-[600]'>You haven't visited any place yet ...</Text>
             <Link href={'/'}>
               <Text className='text-[13px] mt-[2px] font-[800] underline text-red-600'>Start Exploring Today !!</Text>

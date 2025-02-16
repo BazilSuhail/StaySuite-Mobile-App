@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { View, Text, Image } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import logo from '@/assets/logo.webp'
+import logo from '@/assets/images/icons.png'
 import { useRouter } from 'expo-router'
 
 const Index = () => {

@@ -7,7 +7,7 @@ import { useAuthContext } from '@/hooks/AuthProvider'
 import { Link } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import authBackground from '@/assets/authBackground.jpg'
-import logo from '@/assets/logo.webp'
+import logo from '@/assets/images/icons.png'
 
 const SignIn = () => {
   const { login } = useAuthContext();
