@@ -1,41 +1,27 @@
 {
   "expo": {
-    "name": "rental",
-    "slug": "rental",
+    "name": "StaySuite",
+    "slug": "StaySuite",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
+    "icon": "./assets/logo.webp",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+      "package": "com.netlify.bazilsuhail",
+      "newArchEnabled": true
+    },
+    "ios": {
+      "newArchEnabled": true
+    },
+    "scheme": "staysuite",
+    "extra": {
+      "eas": {
+        "projectId": "68471076-da57-4d9a-9508-d0f73eb6c318"
       }
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ]
-    ],
-    "experiments": {
-      "typedRoutes": true
-    }
+    "owner": "bazil_suhail"
   }
 }

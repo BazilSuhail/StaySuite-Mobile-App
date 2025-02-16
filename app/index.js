@@ -12,15 +12,13 @@ const Index = () => {
     const checkJustInstalled = async () => {
       try {
         const justInstalled = await AsyncStorage.getItem('justInstalled');
-        await new Promise((resolve) => setTimeout(resolve, 4000));
+        await new Promise((resolve) => setTimeout(resolve, 3000));
 
         if (justInstalled === 'true') {
-          router.replace('/favourite');
+          router.replace('/(tabs)');
         }
         else {
-          //router.replace('/(tabs)');
-
-        router.replace('/well-come-screen');
+          router.replace('/well-come-screen');
         }
       }
       catch (error) {

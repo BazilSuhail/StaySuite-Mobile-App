@@ -34,5 +34,7 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+eas.json
+eas
 
 app-example

@@ -109,7 +109,7 @@ const Bookings = () => {
   }
 
   return (
-    <View className='flex-1 bg-gray-50'>
+    <View className='flex-1 bg-gray-50 pb-[100px]'>
       <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
       <Header heading={"My Bookings"} />
       <View style={{ width: '100%', paddingHorizontal: 16 }}>
@@ -131,12 +131,12 @@ const Bookings = () => {
               <View style={{ backgroundColor: '#fff', borderRadius: 12, borderWidth: 1, borderColor: '#ddd', padding: 16, marginBottom: 2 }}>
                 {/* Booking Name */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                  <View style={{ width: 30, height: 30, borderRadius: 22.5, backgroundColor: '#e11d48', justifyContent: 'center', alignItems: 'center' }}>
-                    <FontAwesome5 name="book" size={15} color="#f8f8f8" />
+                  <View style={{ width: 25, height: 25, borderRadius: 22.5, backgroundColor: '#e11d48', justifyContent: 'center', alignItems: 'center' }}>
+                    <FontAwesome5 name="book" size={11} color="#f8f8f8" />
                   </View>
-                  <Text style={{ marginLeft: 8, fontSize: 18, fontWeight: '600', color: '#b91c1c' }}>
-                    {item.listing.name.length > 25
-                      ? `${item.listing.name.slice(0, 25)}...`
+                  <Text style={{ marginLeft: 8, fontSize: 14, fontWeight: '600', color: '#b91c1c' }}>
+                    {item.listing.name.length > 35
+                      ? `${item.listing.name.slice(0, 35)}...`
                       : item.listing.name}
                   </Text>
                 </View>

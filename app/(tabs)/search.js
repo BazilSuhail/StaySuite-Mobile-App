@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { View, Text, StatusBar, FlatList } from 'react-native' 
+import { View, Text, StatusBar, FlatList } from 'react-native'
 import axios from 'axios'
 import { useAuthContext } from '@/hooks/AuthProvider'
 import FilterModal from '@/components/FilterModal'
@@ -30,31 +30,28 @@ const Search = () => {
     fetchListings();
   }, [searchfilters]);
 
-  if (loading) {
-    return (
-      <View> 
-        <Text>Signing In...</Text>
-      </View>
-    );
-  }
-
   return (
-    <View className='bg-gray-50 flex-1'>
+    <View className='bg-gray-50 flex-1 pt-[60px]'>
       <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
-      <Header heading={"Search"} />
-      
+
       {/* Filter Modal, ensure it has a higher z-index */}
-      <View className="absolute top-[85px] left-0 right-0 z-50">
+      <View className="absolute pb-[10px] bg-white left-0 right-0 z-50">
         <FilterModal />
       </View>
 
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={results}
-        renderItem={(props) => Listing({ ...props, router })}
-        keyExtractor={item => item._id}
-        numColumns={1}
-      />
+      {loading ?
+        <View>
+          <Text>Signing In...</Text>
+        </View>
+        :
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={results}
+          renderItem={(props) => Listing({ ...props, router })}
+          keyExtractor={item => item._id}
+          numColumns={1}
+        />
+      }
     </View>
   );
 };

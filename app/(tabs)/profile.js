@@ -7,8 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FontAwesome5 } from "@expo/vector-icons"
 import avatarImages from '@/constants/avatar'
 import { Header } from '@/components/Header'
-
-import noLogin from '@/assets/Assets/noLogin.jpg'
 import { Link } from 'expo-router'
 
 const Profile = () => {
@@ -108,19 +106,13 @@ const Profile = () => {
       <Header heading={"home"} />
 
       <View className=" flex h-screen w-screen justify-center items-center">
-        <Image
-          source={noLogin}
-          className="h-[260px] w-[260px] scale-x-[-1] mt-[-95px]"
-        />
-        <Text className='text-[13px] text-red-900  font-[600]'>You Are not Logged In</Text>
-        <Link href={'/well-come-screen'}>
-          <Text className='text-[13px] mt-[2px] font-[800] underline text-red-600'>Start Journey Now !!</Text>
-        </Link>
-        {/*
+        <View className='scale-[1.1]'>
+        <Image source={require('@/assets/Assets/wellcome-3.jpg')} className="h-[130px] w-[320px] scale-x-[-1] mt-[-95px]" />
+        </View>
+        <Text className='text-[11px] mt-[20px] text-red-900  font-[600]'>You Are not Logged In</Text>
         <Link href={'/authentication/signIn'}>
-          <Text className='text-[13px] mt-[2px] font-[800] underline text-red-600'>Start Journey Now !!</Text>
-        </Link>
-        */}
+          <Text className='text-[14px] mt-[2px] font-[800] underline text-red-600'>Start Journey Now !!</Text>
+        </Link> 
       </View>
     </View>
   );

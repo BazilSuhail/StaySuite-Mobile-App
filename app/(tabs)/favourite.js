@@ -60,7 +60,7 @@ const Favourite = () => {
     )
   }
 
-  if (error || listings.length === 0) {
+  if (listings.length === 0) {
     return (
       <View className='bg-gray-50 flex-1'>
         <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
