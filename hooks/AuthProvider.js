@@ -123,12 +123,7 @@ export const AuthProvider = ({ children }) => {
     connectSocket(token);
     router.replace("/profile");
   };
-
-  const navigateUser= async () => { 
-    console.log("/888//a") 
-
-    router.replace("/search");
-  };
+ 
 
   const handleLogout = async () => {
     try {
@@ -173,8 +168,7 @@ export const AuthProvider = ({ children }) => {
         userRole,
         loading,
         login,
-        logout,
-        navigateUser,
+        logout, 
         socket,
         notifications,
         notificationsCount,

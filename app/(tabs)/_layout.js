@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
-import { Feather, FontAwesome, FontAwesome6, Ionicons } from '@expo/vector-icons';
+import { Feather, FontAwesome, FontAwesome6, Ionicons } from '@expo/vector-icons'; 
 
-export default function TabLayout() {
+export default function TabLayout() { 
   return (
     <Tabs
       screenOptions={{
@@ -17,7 +17,7 @@ export default function TabLayout() {
         },
       }}
 
-    >
+    > 
       <Tabs.Screen
         name="index"
         options={{
