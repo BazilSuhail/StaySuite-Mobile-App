@@ -148,7 +148,7 @@ const Profile = () => {
       
       <ScrollView showsVerticalScrollIndicator={false} className='px-[15px] pb-[85px] pt-[15px]'>
         {isEditing ?
-          <View className='bg-[#f8f8f8]'>
+          <View className='bg-[#f8f8f8] pb-[95px]'>
             {/* Left Section */}
             <View style={{ marginBottom: 16 }}>
               <View
@@ -305,7 +305,7 @@ const Profile = () => {
                     marginBottom: 16,
                   }}
                 >
-                  <Text style={{ fontSize: 28, fontWeight: '600' }}>About Bazil</Text>
+                  <Text style={{ fontSize: 15, fontWeight: '600' }}>About <Text className='text-rose-700 font-[700] text-[18px]'>{userInfo.fullName.split(" ")[0]}</Text></Text>
                   <TouchableOpacity
                     onPress={handleSubmit}
                     style={{
@@ -395,7 +395,7 @@ const Profile = () => {
                     marginBottom: 16,
                   }}
                 >
-                  <Text style={{ fontSize: 20, fontWeight: '600' }}>{section.label}</Text>
+                  <Text style={{ fontSize: 16, fontWeight: '600' }}>{section.label}</Text>
                   {section.data.map((item, index) => (
                     <View key={index} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 8 }}>
                       <TextInput
@@ -450,14 +450,15 @@ const Profile = () => {
                   borderColor: '#ddd',
                 }}
               >
-                <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 16 }}>Social Links</Text>
+                <Text style={{ fontSize: 16, fontWeight: '600', marginBottom: 16 }}>Social Links</Text>
                 {['facebook', 'instagram', 'linkedin'].map((platform, index) => (
                   <View key={index} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                    <Text style={{ width: 80, fontWeight: '600' }}>{platform}:</Text>
+                    <Text className='font-[600] uppercase w-[80px] text-[13px]'>{platform}:</Text>
                     <TextInput
                       style={{
                         flex: 1,
-                        padding: 8,
+                        paddingHorizontal: 8,
+                        paddingVertical: 3,
                         borderWidth: 1,
                         borderColor: '#ccc',
                         borderRadius: 8,
@@ -656,7 +657,7 @@ const Profile = () => {
                   borderColor: '#ddd',
                 }}
               >
-                <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 8 }}>Ask Me In</Text>
+                <Text style={{ fontSize: 16, fontWeight: '600', marginBottom: 8 }}>Ask Me In</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                   {userInfo.languages && userInfo.languages.length > 0 ? (
                     userInfo.languages.map((language, index) => (
@@ -665,10 +666,10 @@ const Profile = () => {
                         style={{
                           backgroundColor: '#555',
                           color: '#fff',
-                          paddingHorizontal: 15,
-                          paddingVertical: 4,
+                          paddingHorizontal: 12,
+                          paddingVertical: 2,
                           borderRadius: 25,
-                          fontSize: 12,
+                          fontSize: 10,
                           marginRight: 8,
                           marginBottom: 8,
                         }}
@@ -681,7 +682,7 @@ const Profile = () => {
                   )}
                 </View>
 
-                <Text style={{ fontSize: 20, fontWeight: '600', marginTop: 24, marginBottom: 8 }}>
+                <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 24, marginBottom: 8 }}>
                   Interest
                 </Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -692,10 +693,10 @@ const Profile = () => {
                         style={{
                           backgroundColor: '#eee',
                           color: '#555',
-                          paddingHorizontal: 15,
-                          paddingVertical: 4,
+                          paddingHorizontal: 12,
+                          paddingVertical: 2,
                           borderRadius: 25,
-                          fontSize: 12,
+                          fontSize: 10,
                           marginRight: 8,
                           marginBottom: 8,
                         }}

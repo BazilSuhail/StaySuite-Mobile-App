@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Pressable, Dimensions } from 'react-native';
+import { View, Text, Image, Pressable, Dimensions, TouchableOpacity } from 'react-native';
 import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedStyle,
   Easing,
 } from 'react-native-reanimated';
+import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WelcomeScreen = () => {
   const [step, setStep] = useState(0);
   const screenWidth = Dimensions.get('window').width;
+  const router = useRouter();
 
   const translateX = useSharedValue(0);
 
@@ -26,6 +29,32 @@ const WelcomeScreen = () => {
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
       });
       setStep(0);
+    }
+  };
+
+  const handleSkip = () => {
+    translateX.value = withTiming(-(screenWidth * 3), {
+      duration: 300,
+      easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+    });
+    setStep(3);
+  };
+
+  const handleRegister = async () => {
+    try {
+      await AsyncStorage.setItem('justInstalled', 'true');
+      router.push('/authentication/signUp');
+    } catch (error) {
+      console.error('Error setting justInstalled token:', error);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      await AsyncStorage.setItem('justInstalled', 'true');
+      router.push('/authentication/signIn');
+    } catch (error) {
+      console.error('Error setting justInstalled token:', error);
     }
   };
 
@@ -91,39 +120,29 @@ const WelcomeScreen = () => {
 
             <Text className='mt-[35px] font-[600] text-rose-600'>How would you like to continue</Text>
 
-            <Pressable className='bg-rose-700 mt-[30px] rounded-[20px] py-[8px] w-[250px]'>
+            <TouchableOpacity className='bg-rose-700 mt-[30px] rounded-[20px] py-[8px] w-[250px]' onPress={handleRegister}>
               <Text className='text-white text-[16px] text-center'>Register</Text>
-            </Pressable>
-            <Pressable className='border-[2px] border-rose-700 mt-[8px] rounded-[20px] py-[8px] w-[250px]'>
+            </TouchableOpacity>
+            <TouchableOpacity className='border-[2px] border-rose-700 mt-[8px] rounded-[20px] py-[8px] w-[250px]' onPress={handleLogin}>
               <Text className='text-rose-700 text-[16px] font-[700] text-center'>Login</Text>
-            </Pressable>
-
+            </TouchableOpacity>
           </View>
         </Animated.View>
 
         <View className='mx-auto mt-[15px] flex-row '>
-          <View
-            className={`bg-rose-600 mr-[3px] h-[10px] rounded-full ${step === 0 ? 'w-[22px]' : 'w-[10px]'
-              }`}
-          />
-          <View
-            className={`bg-rose-600 mr-[3px] h-[10px] rounded-full ${step === 1 ? 'w-[22px]' : 'w-[10px]'
-              }`}
-          />
-          <View
-            className={`bg-rose-600 mr-[3px] h-[10px] rounded-full ${step === 2 ? 'w-[22px]' : 'w-[10px]'
-              }`}
-          />
-          <View
-            className={`bg-rose-600 mr-[3px] h-[10px] rounded-full ${step === 3 ? 'w-[22px]' : 'w-[10px]'
-              }`}
-          />
+          {Array.from({ length: 4 }).map((_, index) => (
+            <View
+              key={index}
+              className={`bg-rose-600 mr-[3px] h-[10px] rounded-full ${step === index ? 'w-[22px]' : 'w-[10px]'}`}
+            />
+          ))}
         </View>
       </View>
 
-      {step !== 3 &&
+      {step !== 3 && (
         <View className='w-full flex-row px-[15px] justify-between items-center mb-[20px]'>
-          <Pressable className='' onPress={handleNext}>
+
+          <Pressable onPress={handleSkip}>
             <Text className='text-red-600 font-[600] underline underline-offset-1 text-[16px]'>Skip</Text>
           </Pressable>
 
@@ -131,7 +150,7 @@ const WelcomeScreen = () => {
             <Text className='text-white font-[600] text-[14px] my-[3px]'>Next</Text>
           </Pressable>
         </View>
-      }
+      )}
     </View>
   );
 };
