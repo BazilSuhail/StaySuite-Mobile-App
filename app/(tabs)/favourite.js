@@ -57,15 +57,16 @@ const Favourite = () => {
     }
   };
 
-if(loading){
-  return (
-    <ActivityIndicator/>
-  )
-}
+  if (loading) {
+    return (
+      <ActivityIndicator />
+    )
+  }
 
   if (error || listings.length === 0) {
     return (
-      <View className='bg-gray-50 pt-[35px] min-h-screen justify-center items-center '>
+      <View className='bg-gray-50 flex-1'>
+        <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
         <Header heading={"Favourites"} />
         <View className="w-full" >
           <View className="min-h-screen w-full flex justify-center items-center mix-blend-multiply">
@@ -81,7 +82,7 @@ if(loading){
   }
 
   return (
-    <View className='flex-1 bg-gray-50'>
+    <View className='bg-gray-50 flex-1'>
       <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
       <Header heading={"Favourites"} />
 
@@ -140,15 +141,15 @@ if(loading){
                 alignItems: 'center',
               }}
               disabled={loading}
-            > 
-                <Text
-                  style={{
-                    color: '#fff',
-                    fontWeight: '600',
-                  }}
-                >
-                  Show More
-                </Text> 
+            >
+              <Text
+                style={{
+                  color: '#fff',
+                  fontWeight: '600',
+                }}
+              >
+                Show More
+              </Text>
             </TouchableOpacity>
           </View>
         )}

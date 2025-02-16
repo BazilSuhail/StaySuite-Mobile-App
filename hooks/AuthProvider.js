@@ -124,6 +124,12 @@ export const AuthProvider = ({ children }) => {
     router.replace("/profile");
   };
 
+  const navigateUser= async () => { 
+    console.log("/888//a") 
+
+    router.replace("/search");
+  };
+
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem("token");
@@ -168,6 +174,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         login,
         logout,
+        navigateUser,
         socket,
         notifications,
         notificationsCount,

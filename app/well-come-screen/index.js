@@ -12,10 +12,8 @@ const WelcomeScreen = () => {
   return (
     <View style={styles.container}>
       {/* Logo or Image */}
-      <Image
-        source={{ uri: 'https://your-logo-url.com/logo.png' }} // Replace with your image URL
-        style={styles.logo}
-      />
+      
+      
 
       {/* Welcome Text */}
       <Text style={styles.title}>Welcome to Our App!</Text>

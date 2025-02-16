@@ -15,7 +15,7 @@ export const Header = ({ heading }) => {
     };
     
     return (
-        <View className='h-[52px] m t-[34px] flex-row items-center justify-between px-[15px] w-full bg-white'>
+        <View className='h-[52px] flex-row items-center justify-between px-[15px] w-full bg-white'>
             <View>
                 {heading === "home" ?
                     <Image
@@ -26,19 +26,14 @@ export const Header = ({ heading }) => {
                 }
             </View>
 
-            <View className='flex-row'>
-                {/*<Image
-            source={avatarImages[user.profilePicture]}
-            className='rounded-full w-[36px] h-[36px]'
-          />*/}
-
+            <View className='flex-row'> 
                 {heading === "Profile" &&
                     <Pressable onPress={handleLogout}>
                         <Text><MaterialCommunityIcons name="logout" size={27} color="red" />{"  "}</Text>
                     </Pressable>
                 }
                 <Link href="/notifications">
-                    <Entypo name="bell" size={28} color="black" className='px-[]' />
+                    <Entypo name="bell" size={28} color="black" />
                 </Link>
             </View>
         </View>
