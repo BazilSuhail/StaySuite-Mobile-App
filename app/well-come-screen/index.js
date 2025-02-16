@@ -68,7 +68,7 @@ const WelcomeScreen = () => {
           <View className='w-screen flex items-center'>
             <View className='h-[200px] w-[280px]'>
               <Image
-                source={require('@/assets/Assets/noReservations.webp')}
+                source={require('@/assets/Assets/noReservations.png')}
                 alt="No Reservations"
                 className="w-full h-full"
               />

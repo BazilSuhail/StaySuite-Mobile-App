@@ -54,7 +54,7 @@ const GetBookingHistory = () => {
                     <Text className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</Text>
                     <View className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></View>
                     <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
-                        <Image source={require('@/assets/Assets/noReservations.webp')} alt="No Reservations" className="scale-[0.4]" />
+                        <Image source={require('@/assets/Assets/noReservations.png')} alt="No Reservations" className="scale-[0.4]" />
                         <Text className="text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]">
                             You haven't visited any place, make a Booking
                             <Link href="/" replace={true} className="text-rose-600 underline font-[600]">Start Exploring</Link>

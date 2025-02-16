@@ -3,9 +3,9 @@
     "name": "StaySuite",
     "slug": "StaySuite",
     "version": "1.0.0",
-    "icon": "./assets/logo.webp",
+    "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

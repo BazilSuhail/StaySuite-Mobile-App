@@ -16,8 +16,6 @@
     "app/(tabs)/_layout.js",
     "app/_layout.js",
     "app/(tabs)/bookings.js",
-    "app/+not-found.js",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "app/+not-found.js"
   ]
 }
