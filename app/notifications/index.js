@@ -1,11 +1,7 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-
-import { useAuthContext } from "@/hooks/AuthProvider";
-import { Link, useRouter } from "expo-router";
-import avatarImages from "@/constants/avatar";
-import { Entypo } from "@expo/vector-icons";
-import { Header } from "@/components/Header";
-//import Notification from "../../assets/PhotosAssets/notifications.webp";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native"
+import { useAuthContext } from "@/hooks/AuthProvider"
+import {  useRouter } from "expo-router" 
+import { Header } from "@/components/Header" 
 
 
 const NotificationTile = ({ notification }) => {

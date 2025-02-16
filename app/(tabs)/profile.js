@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import React from "react";
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Modal, StatusBar, } from "react-native";
-import config from '@/Config/Config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FontAwesome5 } from "@expo/vector-icons";
-import avatarImages from '@/constants/avatar';
-import { Header } from '@/components/Header';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import React from "react"
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Modal, StatusBar } from "react-native"
+import config from '@/Config/Config'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { FontAwesome5 } from "@expo/vector-icons"
+import avatarImages from '@/constants/avatar'
+import { Header } from '@/components/Header'
 
-import noLogin from '@/assets/Assets/noLogin.jpg';
-import { Link } from 'expo-router';
+import noLogin from '@/assets/Assets/noLogin.jpg'
+import { Link } from 'expo-router'
+
 const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [updatedData, setUpdatedData] = useState({});

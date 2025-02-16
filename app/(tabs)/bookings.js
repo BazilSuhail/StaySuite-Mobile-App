@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView, Pressable } from 'react-native'
+import { Entypo, FontAwesome5 } from '@expo/vector-icons'
 
-import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView, Pressable } from 'react-native';
-import { Entypo, FontAwesome5 } from '@expo/vector-icons';
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import config from "@/Config/Config";
-import { Link } from 'expo-router';
-import { Header } from '@/components/Header';
-import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import config from "@/Config/Config"
+import { Link } from 'expo-router'
+import { Header } from '@/components/Header'
+import { StatusBar } from 'expo-status-bar'
 
 const getStatusStyle = (status) => {
   switch (status) {

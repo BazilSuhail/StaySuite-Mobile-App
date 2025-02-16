@@ -1,6 +1,6 @@
 
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { AntDesign } from '@expo/vector-icons'
 
 
 export const Listing = ({ item, router }) => {

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import {  FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import config from '@/Config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';

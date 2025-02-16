@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Pressable } from 'react-native';
-import config from '@/Config/Config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AntDesign } from '@expo/vector-icons';
-import axios from 'axios';
+import { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, TextInput, Pressable } from 'react-native'
+import config from '@/Config/Config'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AntDesign } from '@expo/vector-icons'
+import axios from 'axios'
 
 export const AddRating = ({ listingId }) => {
     const [rating, setRating] = useState(2);

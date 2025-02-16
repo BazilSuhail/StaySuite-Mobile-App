@@ -1,18 +1,16 @@
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { ScrollView, View, Text, Image, TouchableOpacity, Modal, Pressable } from 'react-native';
-import { AntDesign, Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
-//import { AddRating, FavoriteButton, Reviews } from './ListingRating';
-import { useAuthContext } from '@/hooks/AuthProvider';
-import { Link, usePathname, useRouter } from 'expo-router';
-import config from '@/Config/Config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FavoriteButton } from '@/components/FavouriteButton';
-import { Reviews } from '@/components/Reviews';
-import { AddRating } from '@/components/AddRating';
-import { StatusBar } from 'expo-status-bar';
-import Carousel from '@/components/CustomCarousel';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { ScrollView, View, Text, Image, TouchableOpacity, Modal, Pressable } from 'react-native'
+import { AntDesign, Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons'
+import { useAuthContext } from '@/hooks/AuthProvider'
+import { Link, usePathname, useRouter } from 'expo-router'
+import config from '@/Config/Config'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { FavoriteButton } from '@/components/FavouriteButton'
+import { Reviews } from '@/components/Reviews'
+import { AddRating } from '@/components/AddRating'
+import Carousel from '@/components/CustomCarousel'
 
 const LisitngDetailsLoader = () => {
     return (

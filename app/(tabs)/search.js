@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StatusBar, FlatList } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import axios from 'axios';
-import { useAuthContext } from '@/hooks/AuthProvider';
-import FilterModal from '@/components/FilterModal';
-import { Header } from '@/components/Header';
-import config from '@/Config/Config';
-import { Listing } from '@/components/Listing';
-import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react'
+import { View, Text, StatusBar, FlatList } from 'react-native' 
+import axios from 'axios'
+import { useAuthContext } from '@/hooks/AuthProvider'
+import FilterModal from '@/components/FilterModal'
+import { Header } from '@/components/Header'
+import config from '@/Config/Config'
+import { Listing } from '@/components/Listing'
+import { useRouter } from 'expo-router'
 
 const Search = () => {
   const router = useRouter();

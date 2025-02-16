@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Image } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 import axios from 'axios'

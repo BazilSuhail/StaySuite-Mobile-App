@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-import { useAuthContext } from '@/hooks/AuthProvider';
-import { Link, usePathname, useRouter } from 'expo-router';
-import config from '@/Config/Config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { usePathname, useRouter } from 'expo-router'
+import config from '@/Config/Config'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-
-import { ScrollView, View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
-import { Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons'; // For FontAwesome icons
-import { Calendar } from 'react-native-calendars'; // Use this package for the calendar component
-import { StatusBar } from 'expo-status-bar';
+import { ScrollView, View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native'
+import { Entypo, FontAwesome, FontAwesome5 } from '@expo/vector-icons'
+import { Calendar } from 'react-native-calendars'
+import { StatusBar } from 'expo-status-bar'
 
 
 const CreateBooking = () => {
@@ -18,8 +16,7 @@ const CreateBooking = () => {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
   const [hostId, listingId] = segments;
-  //console.log("Host ID:", hostId);
-  //console.log("Listing ID:", listingId);
+  
  
   const [blockedDates, setBlockedDates] = useState([]);
   const [selectedDates, setSelectedDates] = useState({ checkIn: null, checkOut: null });
@@ -168,7 +165,7 @@ const CreateBooking = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setReftechBooking(true);
-      console.log(response.data);
+      //console.log(response.data);
 
       setBlockedDates([]);
       setSelectedDates({ checkIn: null, checkOut: null });
@@ -176,8 +173,7 @@ const CreateBooking = () => {
       setSpecialRequests('');
       setNumberOfDays(null); 
     }
-    catch (err) {
-      //console.error('Error creating booking:', err.response?.data || err.message); 
+    catch (err) { 
       setError('Error creating booking:', err.response?.data || err.message);
     }
   };

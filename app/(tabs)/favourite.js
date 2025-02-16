@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import noResults from "@/assets/Assets/noFavourites.webp";
-import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, ScrollView, StatusBar } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import config from "@/Config/Config";
-import { useAuthContext } from '@/hooks/AuthProvider';
-import { Header } from '@/components/Header';
-import { Link, useRouter } from 'expo-router';
+import { useState, useEffect } from 'react'
+import axios from 'axios' 
+import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, StatusBar } from 'react-native' 
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import config from "@/Config/Config" 
+import { Header } from '@/components/Header'
+import { Link, useRouter } from 'expo-router'
 
 const Favourite = () => {
   const router = useRouter();

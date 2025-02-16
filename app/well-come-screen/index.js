@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, Image, Pressable, Dimensions, TouchableOpacity } from 'react-native';
-import Animated, {
-  useSharedValue,
-  withTiming,
-  useAnimatedStyle,
-  Easing,
-} from 'react-native-reanimated';
-import { useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from 'react'
+import { View, Text, Image, Pressable, Dimensions, TouchableOpacity } from 'react-native'
+import Animated, { useSharedValue, withTiming, useAnimatedStyle, Easing, } from 'react-native-reanimated'
+import { useRouter } from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const WelcomeScreen = () => {
   const [step, setStep] = useState(0);

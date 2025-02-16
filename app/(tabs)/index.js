@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import axios from 'axios';
-import config from '@/Config/Config';
-import HorizontalScrollList from '@/components/HorizontalScrollList';
-import { useAuthContext } from '@/hooks/AuthProvider';
-import { Header } from '@/components/Header';
-import { Listing } from '@/components/Listing';
+import { useState, useEffect } from 'react'
+import { View, Text, FlatList, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native' 
+import { useRouter } from 'expo-router'
+import axios from 'axios'
+import config from '@/Config/Config'
+import HorizontalScrollList from '@/components/HorizontalScrollList'
+import { useAuthContext } from '@/hooks/AuthProvider'
+import { Header } from '@/components/Header'
+import { Listing } from '@/components/Listing'
 
 const Home = () => {
     const router = useRouter();

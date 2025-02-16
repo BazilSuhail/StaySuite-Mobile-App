@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Modal, Text, TextInput, View, TouchableOpacity, Pressable } from 'react-native';
-import { Ionicons, AntDesign, MaterialIcons, FontAwesome5 } from '@expo/vector-icons'; // Expo icons
+import { useEffect, useState } from 'react'
+import { Modal, Text, TextInput, View, TouchableOpacity, Pressable } from 'react-native'
+import { Ionicons, AntDesign, MaterialIcons, FontAwesome5 } from '@expo/vector-icons'
 
 import Slider from '@react-native-community/slider';
 import { useAuthContext } from '@/hooks/AuthProvider';

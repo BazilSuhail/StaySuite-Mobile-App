@@ -1,6 +1,6 @@
-import React from 'react';
-import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons, FontAwesome5, Ionicons, Entypo } from '@expo/vector-icons';
+import React from 'react'
+import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons'
 
 // Updated categories with valid icon names and their respective families
 const categories = [

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import config from "@/Config/Config";
-import { Header } from 'react-native/Libraries/NewAppScreen';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native'
+import { FontAwesome5 } from '@expo/vector-icons'
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import config from "@/Config/Config"
+import { Header } from 'react-native/Libraries/NewAppScreen'
 
 
 const GetBookingHistory = () => {

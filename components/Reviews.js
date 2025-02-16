@@ -1,10 +1,10 @@
 
-import { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
-import config from '@/Config/Config';
-import { AntDesign, Entypo } from '@expo/vector-icons';
-import avatarImages from '@/constants/avatar';
-import axios from 'axios';
+import { useEffect, useRef, useState } from 'react'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
+import config from '@/Config/Config'
+import { AntDesign, Entypo } from '@expo/vector-icons'
+import avatarImages from '@/constants/avatar'
+import axios from 'axios'
 
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
