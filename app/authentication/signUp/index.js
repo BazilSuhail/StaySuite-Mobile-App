@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, ScrollView } from 'react-native'
 import axios from 'axios'
 import { Entypo } from '@expo/vector-icons'
 import config from '@/Config/Config'
 import { Link, useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import authBackground from '@/assets/authBackground.jpg'
+import logo from '@/assets/logo.webp'
 
 const SignUp = () => {
   const router = useRouter();
@@ -43,25 +45,29 @@ const SignUp = () => {
   }
 
   return (
-    <View className='flex-1 items-center'>
+    <View >
+      <StatusBar backgroundColor='#00000001' barStyle='light-content' />
 
-      <StatusBar backgroundColor='#E11D48' barStyle='light-content' />
-
-      <View className='w-full bg-rose-600 h-[220px] rounded-b-[28px] flex justify-center items-center'>
-        {/* Logo Section */}
-        <View className="flex-row items-center justify-center mb-2">
-          <View className=" bg-rose-600 rounded-full flex items-center justify-center">
-            <Text className="text-white text-lg font-bold">S</Text>
+      <View className='w-full bg-rose-600 h-[250px] rounded-b-[20px] overflow-hidden flex justify-center items-center relative'>
+        <Image source={authBackground} className='w-full h-full absolute' />
+        
+        <View className='w-full h-full absolute bg-black/50 rounded-b-[28px]' /> 
+        <View className="flex-row items-center justify-center mb-2 z-10">
+          <View className='rounded-full overflow-hidden mt-[3px] w-[52px] h-[50px]'>
+            <Image
+              source={logo}
+              className='w-full h-full'
+            />
           </View>
-          <Text className="text-rose-50 text-2xl font-bold ml-2">
+          <Text className="text-white text-[38px] font-bold ml-2">
             Stay<Text className="text-red-300">Suite</Text>
           </Text>
         </View>
 
-        <Text className="text-rose-50 text-center text-[11px] font-[600]">
+        {/* Text */}
+        <Text className="text-rose-50 text-center text-[13px] ml-[15px] font-[600]">
           Stay, Host, Explore.
         </Text>
-
       </View>
 
       <View className="w-full p-4">
