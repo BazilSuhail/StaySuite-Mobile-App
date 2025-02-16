@@ -112,9 +112,14 @@ const Profile = () => {
           className="h-[260px] w-[260px] scale-x-[-1] mt-[-95px]"
         />
         <Text className='text-[13px] text-red-900  font-[600]'>You Are not Logged In</Text>
+        <Link href={'/well-come-screen'}>
+          <Text className='text-[13px] mt-[2px] font-[800] underline text-red-600'>Start Journey Now !!</Text>
+        </Link>
+        {/*
         <Link href={'/authentication/signIn'}>
           <Text className='text-[13px] mt-[2px] font-[800] underline text-red-600'>Start Journey Now !!</Text>
         </Link>
+        */}
       </View>
     </View>
   );
