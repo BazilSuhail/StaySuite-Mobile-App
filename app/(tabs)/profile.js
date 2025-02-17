@@ -9,6 +9,7 @@ import avatarImages from '@/constants/avatar'
 import { Header } from '@/components/Header'
 import { Link } from 'expo-router'
 import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context'
+import ProfileSkeleton from '@/components/Loaders/ProfileSkeleton'
 
 const Profile = () => {
   const insets = useSafeAreaInsets();
@@ -97,16 +98,17 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-      <Text>Loading...</Text>
-    </View>;
+    return (
+      <SafeAreaView className={`flex-1 pt-${insets.top} bg-white h-screen `}>
+        <Header heading={"My Profile"} />
+        <ProfileSkeleton />
+      </SafeAreaView>
+    );
   }
 
   if (error) return (
-
     <SafeAreaView className={`flex-1 pt-${insets.top} bg-gray-50`}>
       <View className='bg-white'>
-
         <Header heading={"home"} />
 
         <View className=" flex h-screen w-screen justify-center items-center">

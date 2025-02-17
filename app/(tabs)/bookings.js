@@ -336,7 +336,7 @@ const Bookings = () => {
     setShowModal(false);
   };
 
-  if (!loading) {
+  if (loading) {
     return (
       <SafeAreaView className={`flex-1 pt-${insets.top} bg-white h-screen`}>
         <Header heading={"My Bookings"} />

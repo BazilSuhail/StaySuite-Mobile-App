@@ -12,32 +12,7 @@ import { Reviews } from '@/components/Reviews'
 import { AddRating } from '@/components/AddRating'
 import Carousel from '@/components/CustomCarousel'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-const LisitngDetailsLoader = () => {
-    return (
-        <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-            <Text>sdf.j..</Text>
-        </View>
-    );
-};
-
-const isLoggedIn = async () => {
-    const token = await AsyncStorage.getItem('token');
-    if (!token) {
-        return false;
-    }
-
-    try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const isTokenExpired = payload.exp * 1000 < Date.now();
-        console.log("-----")
-        return !isTokenExpired;
-    }
-    catch (err) {
-        //console.warn('Invalid token structure');
-        return false;
-    }
-};
+import ListingDetailsSkeleton from '@/components/Loaders/ListingDetailsSkeleton'
 
 const ListingDetails = () => {
     const insets = useSafeAreaInsets();
@@ -79,7 +54,7 @@ const ListingDetails = () => {
         const fetchListingDetails = async () => {
             try {
                 const token = await AsyncStorage.getItem('token');
-                console.log(user)
+                console.log(user, "a")
                 const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/${user ? 'listings' : 'listing-details'}/${id}`, {
                     headers: user ? { Authorization: `Bearer ${token}` } : {},
                 });
@@ -98,7 +73,7 @@ const ListingDetails = () => {
     }, []);
 
     if (loading) {
-        return <LisitngDetailsLoader />;
+        return <ListingDetailsSkeleton />;
     }
 
     if (error) {
@@ -141,10 +116,11 @@ const ListingDetails = () => {
                     </Modal>
                 )}
 
-                <View className='w-full flex-row items-center mt-[12px] justify-between px-[15px]'>
-                    <Text className='text-[20px] w-[75%] text-red-900 font-[600]'>
-                        {listing.name}
-                    </Text>
+                <Text className='text-[17px] mt-[15px] text-red-900 mx-[15px] font-[600]'>
+                    {listing.name}
+                </Text>
+
+                <View className='w-full flex-row justify-end mt-[5px] px-[15px]'> 
                     <Pressable onPress={() => setIsListingPicturesModalOpen(true)} className='w-[85px] py-[3px] rounded-[15px] bg-gray-400'>
                         <Text className='text-white text-center text-[11px] font-[600]'>See Photos</Text>
                     </Pressable>
