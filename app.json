@@ -11,7 +11,10 @@
     },
     "android": {
       "package": "com.netlify.bazilsuhail",
-      "newArchEnabled": true
+      "newArchEnabled": true,
+      "buildProperties": {
+        "enableHermes": true
+      }
     },
     "ios": {
       "newArchEnabled": true
