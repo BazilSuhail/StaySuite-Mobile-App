@@ -8,8 +8,7 @@ import axios from 'axios';
 export const FavoriteButton = ({ listingId, isInitiallyFavorited }) => {
     const [isFavorited, setIsFavorited] = useState(isInitiallyFavorited);
     const [error, setError] = useState('');
-    console.log(isFavorited)
-
+    
     const toggleFavorite = async () => {
         try {
             const token = await AsyncStorage.getItem('token');

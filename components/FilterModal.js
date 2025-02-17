@@ -84,7 +84,7 @@ const FilterModal = () => {
                 visible={isModalVisible}
                 animationType="fade"
                 transparent={true}
-                onRequestClose={closeModal}
+                onRequestClose={() => setIsModalVisible(false)}
             >
                 <View className='flex-1 justify-end items-center bg-[#0000003d]'>
                     <Animated.View

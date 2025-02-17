@@ -65,7 +65,7 @@ const Home = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, paddingTop: insets.top }}>
+        <SafeAreaView className={`flex-1 pt-${insets.top} bg-white`}> 
 
             <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
 

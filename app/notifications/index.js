@@ -1,7 +1,8 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native"
 import { useAuthContext } from "@/hooks/AuthProvider"
-import {  useRouter } from "expo-router" 
-import { Header } from "@/components/Header" 
+import { useRouter } from "expo-router"
+import { Header } from "@/components/Header"
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 const NotificationTile = ({ notification }) => {
     const router = useRouter();
@@ -48,15 +49,14 @@ const NotificationTile = ({ notification }) => {
 
 
 const Notifications = () => {
+    const insets = useSafeAreaInsets();
     const navigation = useRouter();
     const { notifications, userNotifications } = useAuthContext();
 
     return (
-        <View className="bg-white w-full">
-
-
+        <SafeAreaView className={`flex-1 pt-${insets.top} bg-white w-full`}>
             <Header heading={"Notifications"} />
-            <ScrollView className="bg-gray-50 pt-[15px] pb-[45px] w-full mx-auto px-[15px]">
+            <ScrollView className="bg-gray-50 pt-[15px] w-full mx-auto px-[15px]">
 
                 <View className="flex flex-col space-y-[15px]">
                     {userNotifications.length === 0 && notifications.length === 0 && (
@@ -121,11 +121,11 @@ const Notifications = () => {
                     ))}
 
                     {userNotifications.map((notification, index) => (
-                         <NotificationTile key={index} notification={notification} />
+                        <NotificationTile key={index} notification={notification} />
                     ))}
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 };
 

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, StatusBar } from 'react-native'
+import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, StatusBar, ScrollView } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import config from "@/Config/Config"
 import { Header } from '@/components/Header'
 import { Link, useRouter } from 'expo-router'
 import { useSafeAreaInsets,SafeAreaView } from 'react-native-safe-area-context'
+import FavouriteSkeleton from '@/components/Loaders/FavouriteSkeleton'
 
 const Favourite = () => {
   const insets = useSafeAreaInsets();
@@ -58,7 +59,14 @@ const Favourite = () => {
 
   if (loading) {
     return (
-      <ActivityIndicator />
+      <SafeAreaView className={`flex-1 pt-${insets.top} bg-white`}> 
+          <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
+          <Header heading={"Favourites"} />
+          <ScrollView showsVerticalScrollIndicator={false} className="px-[10px] pt-[20px] w-full overflow-hidden">            
+          {Array.from({ length: 6 }).map((_, index) => (<FavouriteSkeleton key={index} />))}
+          </ScrollView>
+          
+      </SafeAreaView>
     )
   }
 
@@ -89,7 +97,7 @@ const Favourite = () => {
       <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
       <Header heading={"Favourites"} />
 
-      <View className='bg-[#f3f3f3] flex-1 px-[10px] pt-[35px]'>
+      <View className='bg-[#f3f3f3] flex-1 px-[10px] pt-[20px]'>
 
         {/* Listings */}
         <FlatList
