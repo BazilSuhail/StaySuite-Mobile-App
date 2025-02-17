@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import React from "react"
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Modal, StatusBar } from "react-native"
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Modal, StatusBar, SafeAreaView } from "react-native"
 import config from '@/Config/Config'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FontAwesome5 } from "@expo/vector-icons"
 import avatarImages from '@/constants/avatar'
 import { Header } from '@/components/Header'
 import { Link } from 'expo-router'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Profile = () => {
+  const insets = useSafeAreaInsets();
   const [userInfo, setUserInfo] = useState(null);
   const [updatedData, setUpdatedData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
@@ -23,10 +25,10 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = await AsyncStorage.getItem('token'); 
+        const token = await AsyncStorage.getItem('token');
         const response = await axios.get(`${config.BACKEND_URL}/air-bnb/profile/user-info`, {
           headers: { Authorization: `Bearer ${token}` },
-        }); 
+        });
 
         setUserInfo(response.data);
         setLoading(false);
@@ -93,7 +95,7 @@ const Profile = () => {
       setError('Error updating profile data');
     }
   };
- 
+
   if (loading) {
     return <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
       <Text>Loading...</Text>
@@ -101,20 +103,23 @@ const Profile = () => {
   }
 
   if (error) return (
-    <View className='bg-white'>
 
-      <Header heading={"home"} />
+    <SafeAreaView className={`flex-1 pt-${insets.top} bg-gray-50`}>
+      <View className='bg-white'>
 
-      <View className=" flex h-screen w-screen justify-center items-center">
-        <View className='scale-[1.1]'>
-        <Image source={require('@/assets/Assets/wellcome-3.jpg')} className="h-[130px] w-[320px] scale-x-[-1] mt-[-95px]" />
+        <Header heading={"home"} />
+
+        <View className=" flex h-screen w-screen justify-center items-center">
+          <View className='scale-[1.1]'>
+            <Image source={require('@/assets/Assets/wellcome-3.jpg')} className="h-[130px] w-[320px] scale-x-[-1] mt-[-95px]" />
+          </View>
+          <Text className='text-[11px] mt-[20px] text-red-900  font-[600]'>You Are not Logged In</Text>
+          <Link href={'/authentication/signIn'}>
+            <Text className='text-[14px] mt-[2px] font-[800] underline text-red-600'>Start Journey Now !!</Text>
+          </Link>
         </View>
-        <Text className='text-[11px] mt-[20px] text-red-900  font-[600]'>You Are not Logged In</Text>
-        <Link href={'/authentication/signIn'}>
-          <Text className='text-[14px] mt-[2px] font-[800] underline text-red-600'>Start Journey Now !!</Text>
-        </Link> 
       </View>
-    </View>
+    </SafeAreaView>
   );
 
   const addNewField = (attribute) => {
@@ -135,10 +140,10 @@ const Profile = () => {
 
 
   return (
-    <View className='bg-gray-100'>
+    <SafeAreaView className={`flex-1 pt-${insets.top} bg-gray-100`}>
       <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
       <Header heading={"Profile"} />
-      
+
       <ScrollView showsVerticalScrollIndicator={false} className='px-[15px] pb-[85px] pt-[15px]'>
         {isEditing ?
           <View className='bg-[#f8f8f8] pb-[95px]'>
@@ -810,7 +815,7 @@ const Profile = () => {
           </View>
         </Modal>
       </ScrollView >
-    </View>
+    </SafeAreaView>
   );
 };
 

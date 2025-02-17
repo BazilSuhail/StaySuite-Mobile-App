@@ -27,7 +27,7 @@ const categories = [
   { name: 'Spa', iconFamily: MaterialCommunityIcons, iconName: 'spa' },
 ];<MaterialCommunityIcons name="beach" size={24} color="black" />
 
-const HorizontalScrollList = ({ setCategory }) => {
+const HorizontalScrollList = ({ setCategory,activeCategory }) => {
   return (
     <View className='px-[18px] py-[12px] border-[1px] border-gray-100 bg-white'>
       <ScrollView horizontal contentContainerStyle={styles.scrollView} showsHorizontalScrollIndicator={false}>
@@ -37,7 +37,7 @@ const HorizontalScrollList = ({ setCategory }) => {
             onPress={() => setCategory(category.name)}
             style={styles.iconWrapper}
           >
-            <category.iconFamily name={category.iconName} size={26} color="#666" />
+            <category.iconFamily name={category.iconName} size={26} color={activeCategory === category ? '#B91C1C' : '#666'} />
             <Text style={styles.text}>{category.name}</Text>
           </TouchableOpacity>
         ))}

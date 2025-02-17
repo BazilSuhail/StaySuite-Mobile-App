@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView, Pressable } from 'react-native'
+import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView, Pressable, SafeAreaView } from 'react-native'
 import { Entypo, FontAwesome5 } from '@expo/vector-icons'
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -8,6 +8,7 @@ import config from "@/Config/Config"
 import { Link } from 'expo-router'
 import { Header } from '@/components/Header'
 import { StatusBar } from 'expo-status-bar'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const getStatusStyle = (status) => {
   switch (status) {
@@ -25,6 +26,7 @@ const getStatusStyle = (status) => {
 };
 
 const Bookings = () => {
+  const insets = useSafeAreaInsets();
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -60,13 +62,13 @@ const Bookings = () => {
     }
 
     try {
-      const token = await AsyncStorage.getItem('token'); 
+      const token = await AsyncStorage.getItem('token');
       await axios.post(
         `${config.BACKEND_URL}/air-bnb/reservation/finalize-booking`,
         { bookingId: selectedBooking._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
- 
+
       Alert.alert("Booking finalized successfully.");
       setSelectedBooking(null);
       setShowModal(false);
@@ -93,7 +95,7 @@ const Bookings = () => {
 
   if (error) {
     return (
-      <View className='bg-gray-50'>
+      <SafeAreaView className={`flex-1 pt-${insets.top} bg-white pb-[1000px]`}>
         <Header heading={"Booking"} />
         <View className="w-full h-screen" >
           <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-120px]">
@@ -104,12 +106,12 @@ const Bookings = () => {
             </Link>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View className='flex-1 bg-gray-50 pb-[100px]'>
+    <SafeAreaView className={`flex-1 pt-${insets.top} bg-gray-50 pb-[1000px]`}>
       <StatusBar backgroundColor='#f9fafb' barStyle='light-content' />
       <Header heading={"My Bookings"} />
       <View style={{ width: '100%', paddingHorizontal: 16 }}>
@@ -233,7 +235,7 @@ const Bookings = () => {
           </Modal>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios' 
-import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, StatusBar } from 'react-native' 
+import axios from 'axios'
+import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, StatusBar, SafeAreaView } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import config from "@/Config/Config" 
+import config from "@/Config/Config"
 import { Header } from '@/components/Header'
 import { Link, useRouter } from 'expo-router'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Favourite = () => {
+  const insets = useSafeAreaInsets();
   const router = useRouter();
   const [listings, setListings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -62,24 +64,28 @@ const Favourite = () => {
 
   if (listings.length === 0) {
     return (
-      <View className='bg-gray-50 flex-1'>
-        <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
-        <Header heading={"Favourites"} />
-        <View className="w-full" >
-          <View className="min-h-screen w-full flex justify-center items-center mix-blend-multiply">
-            <Image source={require('@/assets/Assets/wellcome-2.jpg')} alt="No Reservations" className="scale-[0.6] mt-[-240px]" />
-            <Text className="text-rose-800 font-[600] text-[12px] text-center mt-[-85px]">
-              You Have no favourite Listings
-            </Text>
-            <Link href="/" replace={true} className="text-rose-600 underline text-[14px] font-[700]">Start Exploring</Link>
-          </View>
-        </View>
-      </View>
+      <SafeAreaView className={`flex-1 pt-${insets.top} bg-white`}> 
+          <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
+          <Header heading={"Favourites"} />
+          <View className="w-full" >
+            <View className="min-h-screen w-full flex justify-center items-center mix-blend-multiply">
+              <View className="w-[180px] h-[220px] mt-[-85px]">
+                <Image source={require('@/assets/Assets/wellcome-2.jpg')} alt="No Reservations" className="w-full h-full mix-blend-multiply" />
+              </View>
+              <Text className="text-rose-800 font-[600] text-[12px] mt-[8px] text-center">
+                You Have no favourite Listings
+              </Text>
+              <Link href={'/'} replace={true}>
+              <Text className='text-[13px] mt-[2px] font-[800] underline text-red-600'>Start Exploring Today !!</Text>
+            </Link>
+            </View>
+          </View> 
+      </SafeAreaView>
     );
   }
 
   return (
-    <View className='bg-gray-50 flex-1'>
+    <SafeAreaView className={`flex-1 pt-${insets.top} bg-gray-100`}>
       <StatusBar backgroundColor='#ffffff' barStyle='light-content' />
       <Header heading={"Favourites"} />
 
@@ -151,7 +157,7 @@ const Favourite = () => {
           </View>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
