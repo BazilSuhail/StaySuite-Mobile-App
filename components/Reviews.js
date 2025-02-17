@@ -7,6 +7,7 @@ import avatarImages from '@/constants/avatar'
 import axios from 'axios'
 
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import BookingSkeleton from './Loaders/BookingSkeleton'
 
 export const Reviews = ({ listingId, ratingReviews, onClose }) => {
     const [reviews, setReviews] = useState([]);
@@ -33,7 +34,7 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
         }
         catch (err) {
             setError('Failed to fetch reviews. Please try again.');
-            console.error('Error fetching reviews:', err.response?.data || err.message);
+            //console.error('Error fetching reviews:', err.response?.data || err.message);
         }
         finally {
             setLoading(false);
@@ -52,21 +53,25 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
 
 
     const handleCloseSheet = () => {
-        bottomSheetRef.current?.close(); // Close the sheet
+        bottomSheetRef.current?.close();
         onClose();
     };
 
     if (error) {
-        return <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-            <Text>{error}...</Text>
-        </View>;
+        return (
+            <View className="pb-[65px] flex justify-center items-center">
+                <View className="w-[180px] mt-[35px] h-[180px]">
+                    <Image source={require('@/assets/Assets/noComments.png')} alt="No Reservations" className="w-full h-full" />
+                </View>
+                <Text className='text-[12px] text-red-200 font-[600]'>No Reviews till now ...</Text>
+            </View>
+        );
     }
-
 
     return (
         <BottomSheet
             ref={bottomSheetRef}
-            snapPoints={['30%', '40%', '80%']}
+            snapPoints={['40%', '50%', '80%']}
             onClose={handleCloseSheet}
             index={1}
         >
@@ -90,9 +95,11 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
                     {!loading ? (
                         <>
                             {reviews.length === 0 ? (
-                                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    {/* <Image source={{ uri: 'noComments' }} style={{ width: 150, height: 150, marginBottom: 10 }} /> */}
-                                    <Text style={{ color: '#9CA3AF', fontSize: 32, fontWeight: '600' }}>No Review Made Till Now</Text>
+                                <View className="pb-[65px] flex justify-center items-center">
+                                    <View className="w-[180px] mt-[35px] h-[180px]">
+                                        <Image source={require('@/assets/Assets/noComments.png')} alt="No Reservations" className="w-full h-full" />
+                                    </View>
+                                    <Text className='text-[12px] text-red-200 font-[600]'>No Reviews till now ...</Text>
                                 </View>
                             ) : (
                                 reviews.slice(0, currentPage * 5).map((review, index) => (
@@ -156,7 +163,9 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
                             )}
                         </>
                     ) : (
-                        <Text>Loading...</Text>
+                        <View className="px-[12px]">
+                            {Array.from({ length: 10 }).map((_, index) => (<BookingSkeleton key={index} />))}
+                        </View>
                     )}
                 </View>
             </BottomSheetScrollView>

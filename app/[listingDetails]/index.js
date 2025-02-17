@@ -23,12 +23,10 @@ const ListingDetails = () => {
     const id = pathname.split("/").pop();
 
     const [listing, setListing] = useState(null);
-    const [userLoginStatus, setUserLoginStatus] = useState(null);
     const [hostdetails, setHostdetails] = useState(null);
     const [isInitiallyFavorited, setIsInitiallyFavorited] = useState(true);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [ratingerror, setRatingerror] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
     const [isListingPicturesModalOpen, setIsListingPicturesModalOpen] = useState(false);
@@ -42,7 +40,7 @@ const ListingDetails = () => {
             setRatingReviews(response.data);
         }
         catch (err) {
-            setRatingerror('Failed to fetch reviews. Please try again.');
+            setError('Failed to fetch reviews. Please try again.');
         }
     };
 
@@ -54,7 +52,7 @@ const ListingDetails = () => {
         const fetchListingDetails = async () => {
             try {
                 const token = await AsyncStorage.getItem('token');
-                console.log(user, "a")
+                //console.log(user, "a")
                 const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/${user ? 'listings' : 'listing-details'}/${id}`, {
                     headers: user ? { Authorization: `Bearer ${token}` } : {},
                 });
@@ -120,7 +118,7 @@ const ListingDetails = () => {
                     {listing.name}
                 </Text>
 
-                <View className='w-full flex-row justify-end mt-[5px] px-[15px]'> 
+                <View className='w-full flex-row justify-end mt-[5px] px-[15px]'>
                     <Pressable onPress={() => setIsListingPicturesModalOpen(true)} className='w-[85px] py-[3px] rounded-[15px] bg-gray-400'>
                         <Text className='text-white text-center text-[11px] font-[600]'>See Photos</Text>
                     </Pressable>
@@ -239,7 +237,9 @@ const ListingDetails = () => {
                     </TouchableOpacity>
                 </View>
 
-                {userLoginStatus && <AddRating listingId={id} />}
+                {userRole === 'Guest' && (
+                    <AddRating listingId={id} />
+                )}
 
 
                 <View className="border bg-white mx-[10px] shadow-lg rounded-[15px] mt-[10px] py-[30px] px-4 border-[#e7e7e7] space-y-[18px]">

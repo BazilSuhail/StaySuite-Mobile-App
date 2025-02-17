@@ -7,7 +7,7 @@ import { useAuthContext } from '@/hooks/AuthProvider';
 
 export const Header = ({ heading }) => {
     const router = useRouter();
-    const { logout } = useAuthContext();
+    const { logout, userRole } = useAuthContext();
     const handleLogout = () => {
         logout();
         router.push('/');
@@ -28,9 +28,12 @@ export const Header = ({ heading }) => {
                         <Text><MaterialCommunityIcons name="logout" size={27} color="red" />{"  "}</Text>
                     </Pressable>
                 }
-                <Link href="/notifications">
-                    <Entypo name="bell" size={28} color="black" />
-                </Link>
+                {userRole === 'Guest' && (
+                    <Link href="/notifications">
+                        <Entypo name="bell" size={28} color="black" />
+                    </Link>
+                )}
+
             </View>
         </View>
     );
