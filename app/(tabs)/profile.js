@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import React from "react"
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Modal, StatusBar, SafeAreaView } from "react-native"
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Modal, StatusBar } from "react-native"
 import config from '@/Config/Config'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FontAwesome5 } from "@expo/vector-icons"
 import avatarImages from '@/constants/avatar'
 import { Header } from '@/components/Header'
 import { Link } from 'expo-router'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context'
 
 const Profile = () => {
   const insets = useSafeAreaInsets();

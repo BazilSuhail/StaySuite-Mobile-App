@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { View, Text, StatusBar, FlatList, SafeAreaView } from 'react-native'
+import { View, Text, StatusBar, FlatList, SafeAreaView, ScrollView } from 'react-native'
 import axios from 'axios'
 import { useAuthContext } from '@/hooks/AuthProvider'
 import FilterModal from '@/components/FilterModal'
@@ -8,6 +8,7 @@ import config from '@/Config/Config'
 import { Listing } from '@/components/Listing'
 import { useRouter } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import ListingSkeleton from '@/components/Loaders/ListingSkeleton'
 
 const Search = () => {
   const insets = useSafeAreaInsets();
@@ -44,9 +45,9 @@ const Search = () => {
       <View className="h-[60px] w-full"></View>
 
       {loading ?
-        <View>
-          <Text>Signing In...</Text>
-        </View>
+        <ScrollView showsVerticalScrollIndicator={false} className="py-[20px] px-[15px]">
+          {Array.from({ length: 10 }).map((_, index) => (<ListingSkeleton key={index} />))}
+        </ScrollView>
         :
         <FlatList
           showsVerticalScrollIndicator={false}

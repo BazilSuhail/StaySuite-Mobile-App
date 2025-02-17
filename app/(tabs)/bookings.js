@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView, Pressable, SafeAreaView } from 'react-native'
+import { View, Text, Image, TouchableOpacity, FlatList, Alert, Modal, ScrollView, Pressable } from 'react-native'
 import { Entypo, FontAwesome5 } from '@expo/vector-icons'
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -8,7 +8,8 @@ import config from "@/Config/Config"
 import { Link } from 'expo-router'
 import { Header } from '@/components/Header'
 import { StatusBar } from 'expo-status-bar'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context'
+import BookingSkeleton from '@/components/Loaders/BookingSkeleton'
 
 const getStatusStyle = (status) => {
   switch (status) {
@@ -42,9 +43,12 @@ const Bookings = () => {
         });
 
         setBookings(response.data.bookings);
+        console.log(bookings)
       }
       catch (err) {
-        setError('Failed to fetch bookings. Please try again.' + err);
+        console.log("asd")
+
+        setError('Failed to fetch bookings');
       }
       finally {
         setLoading(false);
@@ -87,15 +91,20 @@ const Bookings = () => {
     setShowModal(false);
   };
 
-  if (loading) {
-    return <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-      <Text>Loading...</Text>
-    </View>;
+  if (!loading) {
+    return (
+      <SafeAreaView className={`flex-1 pt-${insets.top} h-screen pb-[1000px]`}>
+        <Header heading={"Booking"} />
+        <ScrollView showsVerticalScrollIndicator={false} className="flex-1 gap-y-[5px] px-[15px]">
+          {Array.from({ length: 20 }).map((_, index) => (<BookingSkeleton key={index} />))}
+        </ScrollView>
+      </SafeAreaView>
+    );
   }
 
   if (error) {
     return (
-      <SafeAreaView className={`flex-1 pt-${insets.top} bg-white pb-[1000px]`}>
+      <SafeAreaView className={`flex-1 pt-${insets.top} h-screen pb-[1000px]`}>
         <Header heading={"Booking"} />
         <View className="w-full h-screen" >
           <View className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-120px]">
@@ -128,15 +137,14 @@ const Bookings = () => {
             if (!item || !item.listing) {
               return null;
             }
-
             return (
-              <View style={{ backgroundColor: '#fff', borderRadius: 12, borderWidth: 1, borderColor: '#ddd', padding: 16, marginBottom: 2 }}>
+              <View className="bg-white rounded-xl border border-gray-300 p-4 mb-0.5">
                 {/* Booking Name */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-                  <View style={{ width: 25, height: 25, borderRadius: 22.5, backgroundColor: '#e11d48', justifyContent: 'center', alignItems: 'center' }}>
+                <View className="flex-row items-center mb-3">
+                  <View className="w-6 h-6 rounded-full bg-rose-600 justify-center items-center">
                     <FontAwesome5 name="book" size={11} color="#f8f8f8" />
                   </View>
-                  <Text style={{ marginLeft: 8, fontSize: 14, fontWeight: '600', color: '#b91c1c' }}>
+                  <Text className="ml-2 text-sm font-semibold text-rose-700">
                     {item.listing.name.length > 35
                       ? `${item.listing.name.slice(0, 35)}...`
                       : item.listing.name}
@@ -144,41 +152,33 @@ const Bookings = () => {
                 </View>
 
                 {/* Booking Dates */}
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
-                  <View >
-                    <Text style={{ fontSize: 11, fontWeight: '600', color: '#6b7280' }}>Check-In</Text>
-                    <Text style={{ fontSize: 13, fontWeight: '600', color: '#1f2937' }}>
+                <View className="flex-row justify-between mb-3">
+                  <View>
+                    <Text className="text-xs font-semibold text-gray-500">Check-In</Text>
+                    <Text className="text-sm font-semibold text-gray-800">
                       {new Date(item.checkIn).toDateString()}
                     </Text>
                   </View>
                   <View>
-                    <Text style={{ fontSize: 11, fontWeight: '600', color: '#6b7280' }}>Check-Out</Text>
-                    <Text style={{ fontSize: 13, fontWeight: '600', color: '#1f2937' }}>
+                    <Text className="text-xs font-semibold text-gray-500">Check-Out</Text>
+                    <Text className="text-sm font-semibold text-gray-800">
                       {new Date(item.checkOut).toDateString()}
                     </Text>
                   </View>
                 </View>
 
                 {/* Status and Actions */}
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View className="flex-row justify-between items-center">
                   <Text
-                    style={{
-                      fontSize: 11,
-                      fontWeight: '600',
-                      color: '#fff',
-                      paddingVertical: 2,
-                      paddingHorizontal: 12,
-                      borderRadius: 15,
-                      backgroundColor: getStatusStyle(item.status),
-                    }}
+                    className={`text-xs font-semibold text-white py-0.5 px-3 rounded-full ${getStatusStyle(item.status)}`}
                   >
                     {item.status}
                   </Text>
                   <TouchableOpacity
                     onPress={() => openModal(item)}
-                    style={{ backgroundColor: '#e11d48', paddingVertical: 3, paddingHorizontal: 12, borderRadius: 25 }}
+                    className="bg-rose-600 py-0.5 px-3 rounded-full"
                   >
-                    <Text style={{ fontSize: 11, color: '#fff' }}>View Details</Text>
+                    <Text className="text-xs text-white">View Details</Text>
                   </TouchableOpacity>
                 </View>
               </View>

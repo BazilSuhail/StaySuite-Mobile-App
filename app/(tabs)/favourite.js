@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, StatusBar, SafeAreaView } from 'react-native'
+import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, StatusBar } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import config from "@/Config/Config"
 import { Header } from '@/components/Header'
 import { Link, useRouter } from 'expo-router'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets,SafeAreaView } from 'react-native-safe-area-context'
 
 const Favourite = () => {
   const insets = useSafeAreaInsets();
