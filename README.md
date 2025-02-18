@@ -32,11 +32,11 @@ This mobile app, built with React Native, Node.js, Express.js, and MongoDB, enab
 ### Run Locally
 Clone the project using the following command:
 ```bash
-   git clone https://github.com/BazilSuhail/StaySuite-Client.git
+   git clone https://github.com/BazilSuhail/StaySuite-Mobile-App.git
 ```
 Go to the project directory
 ```bash
-   cd StaySuite-Client
+   cd StaySuite-Mobile-App
 ```
 Then **Run** this command in your terminal to install all required dependancies:
 ```bash
@@ -44,34 +44,14 @@ Then **Run** this command in your terminal to install all required dependancies:
 ```
 In the project directory, you can run:
 ```bash
-   npm run dev
-``` 
-Runs the app in the development mode. Your server will be running at port 3001, 
-Open [http://localhost:3000](http://localhost:3000) or also you can modify it in the **.env** file.
-
----
-
-# Run Locally
-
- Clone the project using following command
-```bash
-    git clone https://github.com/BazilSuhail/ITU-CMS-Student-App.git
-```
-Go to the project directory
-```bash
-    cd my-project
-```
-Then **Run** this command in your terminal to install all required dependancies:
-```bash
-    npm install
-```
-In the project directory, you can run:
-```bash
     npm expo start -c
 ``` 
 
+
 Install **Expo GO** from playstore after scanning the QR code given interminal start the app.
 Another option is to get Android Studio Installed and type **a** in terminal to open the app in android studio itself
+
+---
 
 </br>
 
