@@ -7,7 +7,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat&label=Contributions&colorA=red&colorB=black	)](#)
 
 ## Project Description:
-This mobile app, built with React Native, Node.js, Express.js, and MongoDB, enables users to securely authenticate, manage bookings, and view reservation history. It includes a robust filtering system for property search, along with the ability to leave ratings and reviews on listings. Users can also save their favorite properties for easy access. The backend ensures smooth data handling while the app delivers an intuitive, user-friendly experience. Designed as a complete property rental platform, it covers key functionalities essential for both users and property managers.
+This mobile app, built with React Native, Nest.js, and MongoDB, enables users to securely authenticate, manage bookings, and view reservation history. It includes a robust filtering system for property search, along with the ability to leave ratings and reviews on listings. Users can also save their favorite properties for easy access. The backend ensures smooth data handling while the app delivers an intuitive, user-friendly experience. Designed as a complete property rental platform, it covers key functionalities essential for both users and property managers.
 
 ### 🤖 Tech Stack 
 <a href="#"> 
@@ -57,32 +57,51 @@ Another option is to get Android Studio Installed and type **a** in terminal to 
 
 ## Features
 
-### User Authentication
+#### User Authentication
 - **Signup Page**: A registration form for new users.
 - **Login Page**: A login form for existing users.
  
-### Protected Screens
+#### Protected Screens
 - **User Profile**: User can only view his information . 
 - **Booking history**: Guests can view there booking history.
 - **Redirection for Unauthenticated Users**: Users attempting to access protected screens are redirected to the login page.
 
-### State Management and Security
+#### State Management and Security
 - **JWT Storage**: JWT tokens are stored in `localStorage` for user session management.
 - **API Interception**: Used Axios interceptors or middleware to attach tokens to API requests.
 - **Frontend State Management**: Managed with `useState`, `useEffect` and `React Context`.
 
-### Booking System
+#### Booking System
 - **Booking Screen**: Users can submit bookings, which are saved to the backend.
 - **Reserved Bookings Screen**: Displays reserved bookings for each user.
 - **Reservatiosn History/ Bookings History Screen**: Displays reserved bookings hisotyr or made reservations for each user he/ she has made.
 - **Reserved Bookings for Host Page**: Displays reserved bookings on Hosts Listings.
 
-### Backend Security
+#### Backend Security
 - **Role-Based Access Control**: Routes are protected based on user roles (e.g., admin).
 - **JWT Middleware**: Secures routes that require authentication.
 - **Password Hashing**: Passwords are hashed using bcrypt before being saved to the database.
  
-### Styling and UX
+#### Styling and UX
 - Consistent design with **Nativewind** and Tailwind CSS. 
 - React-native-reanimated to deliver smoother animation experinces.
 - 2d illustrations to provide an engaing user experience.
+
+
+---
+
+### Web-Based Application's Information 
+
+##### Frontend
+- **Nuxt.js**: Server-side rendering and seamless routing.
+- **Pinia Store**: Centralized state management.
+- **VueUse Motion**: Animations and transitions.
+- **Tailwind CSS**: Styling and responsive design.
+- **Socket.io**: Real-time updates for bookings and reservations.
+
+##### Backend
+- **Nest.js**: Robust and scalable backend framework.
+- **MongoDB**: Database for storing listings, bookings, and user data.
+- **Multer**: Handling image uploads for listings.
+- **JWT**: Secure authentication and session management.
+- **Bcrypt**: Password hashing for enhanced security.
