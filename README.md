@@ -1,7 +1,10 @@
-# Property Rental Management
+## StaySuite
+**StaySuite** is a property rental platform similar offering key features such as user authentication, booking management, saving travelling history and favurite listings for guests while enabling  host to manange listings via dashboard and seamlessly handle  reservations made on there listings. It supports secure authentication using `JWT`, real-time updates for both guests and hosts with `Socket.io`, and image uploads of listings with `Multer`. Built with `Nuxt.js` for the frontend,` Nest.js `for the backend, and `MongoDB` for data storage, the platform ensures a seamless and efficient user experience.
 
-This project is created using React-Native and Node/ Express Js for backend. It is a mobile app for booking of property rentals featuring user authentication, booking management, reservations history, maintaining rating and reviews of individual listings, maintaince of reserved bookings on listings, an optimzed filtering system for the listings and user prefrences based on there favourite listings. Built with React Native, MongoDB, and Express Js/ Node.js, this project demonstrates core functionality needed for an online property rental platform.
-<br>
+</br>
+
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](#)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat&label=Contributions&colorA=red&colorB=black	)](#)
 
 ## Project Description:
 This mobile app, built with React Native, Node.js, Express.js, and MongoDB, enables users to securely authenticate, manage bookings, and view reservation history. It includes a robust filtering system for property search, along with the ability to leave ratings and reviews on listings. Users can also save their favorite properties for easy access. The backend ensures smooth data handling while the app delivers an intuitive, user-friendly experience. Designed as a complete property rental platform, it covers key functionalities essential for both users and property managers.
@@ -19,6 +22,34 @@ This mobile app, built with React Native, Node.js, Express.js, and MongoDB, enab
 #### Check out the latest demo of Project [ITU-Student-Portal](https://entitysafe.netlify.app/pages/AppList/-O4swNr4Vi3X0OLPoTQy). 
 
 ![App Screenshot](https://github.com/Kharbooza978/EntitySafe/blob/main/Student-App/student_app1.png)
+
+
+---
+- Check out the latest demo of Web-Based Application Project [stay-suite.vercel.app](https://collabora8r.vercel.app/). 
+- Find the Client Repository of this Project Here [StaySuite-Server](https://github.com/BazilSuhail/StaySuite-Server). 
+---
+
+### Run Locally
+Clone the project using the following command:
+```bash
+   git clone https://github.com/BazilSuhail/StaySuite-Client.git
+```
+Go to the project directory
+```bash
+   cd StaySuite-Client
+```
+Then **Run** this command in your terminal to install all required dependancies:
+```bash
+   npm install
+```
+In the project directory, you can run:
+```bash
+   npm run dev
+``` 
+Runs the app in the development mode. Your server will be running at port 3001, 
+Open [http://localhost:3000](http://localhost:3000) or also you can modify it in the **.env** file.
+
+---
 
 # Run Locally
 
