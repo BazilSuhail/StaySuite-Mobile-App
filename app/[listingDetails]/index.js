@@ -54,7 +54,6 @@ const ListingDetails = () => {
         const fetchListingDetails = async () => {
             try {
                 const token = await AsyncStorage.getItem('token');
-                console.log(user, "a")
                 const response = await axios.get(`${config.BACKEND_URL}/air-bnb/home/${user ? 'listings' : 'listing-details'}/${id}`, {
                     headers: user ? { Authorization: `Bearer ${token}` } : {},
                 });
@@ -239,7 +238,7 @@ const ListingDetails = () => {
                     </TouchableOpacity>
                 </View>
 
-                {userLoginStatus && <AddRating listingId={id} />}
+                {userRole === "Guest" && <AddRating listingId={id} />}
 
 
                 <View className="border bg-white mx-[10px] shadow-lg rounded-[15px] mt-[10px] py-[30px] px-4 border-[#e7e7e7] space-y-[18px]">
