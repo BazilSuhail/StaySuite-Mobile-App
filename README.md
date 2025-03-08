@@ -17,16 +17,26 @@ This mobile app, built with React Native, Nest.js, and MongoDB, enables users to
 <img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/>
 <img alt="Express js" src="https://img.shields.io/badge/Express.js-%23000000.svg?&style=for-the-badge&logo=express&logoColor=white"/>   
 <img alt="React Native Reanimated" src="https://img.shields.io/badge/React%20Native%20Reanimated-%23845EC2.svg?&style=for-the-badge&logo=react&logoColor=%23FFFFFF"/>
+
+<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-%232F73B4.svg?&style=for-the-badge&logo=TypeScript&logoColor=white"/>
+
+<img alt="Nest.js" src="https://img.shields.io/badge/Nest.js-%23E0234E.svg?&style=for-the-badge&logo=NestJS&logoColor=white"/>
+
+<img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/> 
+ <img alt="JWT Auth" src="https://img.shields.io/badge/JWT%20Auth-%23F7B731.svg?&style=for-the-badge&logo=json-web-tokens&logoColor=white"/>
+
+<img alt="Socket.IO" src="https://img.shields.io/badge/Socket.IO%20-%23010101.svg?&style=for-the-badge&logo=socket.io&logoColor=white"/>
  </a>
  
-#### Check out the latest demo of Project [ITU-Student-Portal](https://entitysafe.netlify.app/pages/AppList/-O4swNr4Vi3X0OLPoTQy). 
+#### Check out the latest demo of Project [StaySuite Mobile App](https://entitysafe.netlify.app/pages/AppList/-OK5pvN59J-pvjtbQXGo-O4swNr4Vi3X0OLPoTQy). 
 
-![App Screenshot](https://github.com/Kharbooza978/EntitySafe/blob/main/Student-App/student_app1.png)
+![App Screenshot](https://github.com/Kharbooza978/EntitySafe/blob/main/Student-App/stay-suite-cover.png)
 
 
 ---
 - Check out the latest demo of Web-Based Application Project [stay-suite.vercel.app](https://collabora8r.vercel.app/). 
-- Find the Client Repository of this Project Here [StaySuite-Server](https://github.com/BazilSuhail/StaySuite-Server). 
+- Find the Client Repository of this Project's Web-based Applicaiton Here [StaySuite-Server](https://github.com/BazilSuhail/StaySuite-Client). 
+- Find the Server Repository of this Project Here [StaySuite-Server](https://github.com/BazilSuhail/StaySuite-Server). 
 ---
 
 ### Run Locally
@@ -52,8 +62,6 @@ Install **Expo GO** from playstore after scanning the QR code given interminal s
 Another option is to get Android Studio Installed and type **a** in terminal to open the app in android studio itself
 
 ---
-
-</br>
 
 ## Features
 
