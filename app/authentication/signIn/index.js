@@ -12,6 +12,7 @@ import logo from '@/assets/images/icon.png'
 const SignIn = () => {
   const { login } = useAuthContext();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -29,14 +30,15 @@ const SignIn = () => {
       const response = await axios.post(`${config.BACKEND_URL}/air-bnb/auth/login`, formData);
       login(response.data.token);
     } catch (error) {
-      console.error(error);
-      setLoading(false);
+      //console.error(error);
+      setLoading(false)
+      setError("Login Failed, Wrong Credentials entered")
     }
   };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
-  }; 
+  };
 
   return (
     <View className='flex-1 bg-white items-center'>
@@ -65,12 +67,10 @@ const SignIn = () => {
         </Text>
       </View>
 
-      <View className='p-4 w-full flex justify-center items-center'>
-
-        <Text className="text-2xl font-bold mb-6">Login</Text>
+      <View className='p-4 w-full flex'>
 
         {/* Email Input */}
-        <View className="w-full mb-4">
+        <View className="w-full mt-[45px] mb-4">
           <Text className="text-sm text-gray-700 mb-2">Email</Text>
           <TextInput
             className="w-full p-3 border border-gray-300 rounded-lg"
@@ -83,7 +83,7 @@ const SignIn = () => {
         </View>
 
         {/* Password Input */}
-        <View className="w-full mb-6">
+        <View className="w-full">
           <Text className="text-sm text-gray-700 mb-2">Password</Text>
           <View className="flex-row items-center border border-gray-300 rounded-lg">
             <TextInput
@@ -103,19 +103,25 @@ const SignIn = () => {
           </View>
         </View>
 
+        {error !== "" && <View className="mt-[15px] flex-row justify-start">
+          <Text className="text-red-600 text-[12px] font-[600]">*
+            <Text className="underline underline-offset-4">{error}</Text>
+          </Text>
+        </View>}
+
         {/* Login Button */}
         {loading ?
-            <View className="w-full flex-row justify-center bg-[#fa6182] p-3 rounded-lg mb-4">
-              <Text className="text-rose-200 mr-[8px] font-bold">Log In</Text>
-              <ActivityIndicator size={22} color="#FECDD3" />
-            </View>
-            :
-            <TouchableOpacity
-              className="w-full bg-rose-600 p-3 rounded-lg mb-4"
-              onPress={handleSubmit}
-            >
-              <Text className="text-white text-center font-bold">Log In</Text>
-            </TouchableOpacity>
+          <View className="w-full mt-6 flex-row justify-center bg-[#fa6182] p-3 rounded-lg mb-4">
+            <Text className="text-rose-200 mr-[8px] font-bold">Log In</Text>
+            <ActivityIndicator size={22} color="#FECDD3" />
+          </View>
+          :
+          <TouchableOpacity
+            className="w-full mt-6 bg-rose-600 p-3 rounded-lg mb-4"
+            onPress={handleSubmit}
+          >
+            <Text className="text-white text-center font-bold">Log In</Text>
+          </TouchableOpacity>
         }
 
         {/* Divider */}

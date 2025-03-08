@@ -11,6 +11,7 @@ import logo from '@/assets/images/icon.png'
 const SignUp = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -29,9 +30,9 @@ const SignUp = () => {
       //console.log('Registration successful:', response.data);
       router.push('/authentication/signIn');
     } catch (error) {
-      console.error('Registration failed:', error.response?.data?.error || error.message);
+      setError("Registration Failed, Account Already Exists")
     } finally {
-      setLoading(false);
+      setLoading(false) 
     }
   };
  
@@ -110,7 +111,7 @@ const SignUp = () => {
         </View>
 
         {/* Password Input */}
-        <View className="mb-6">
+        <View className="">
           <Text className="text-sm text-gray-700 mb-2">Password</Text>
           <TextInput
             className="w-full p-3 border border-gray-300 rounded-lg"
@@ -121,17 +122,21 @@ const SignUp = () => {
           />
         </View>
 
+        {error !== "" && 
+        <View className="mt-[15px] flex-row justify-start">
+          <Text className="text-red-600 text-[12px] font-[600]">*
+            <Text className="underline underline-offset-4">{error}</Text>
+          </Text>
+        </View>}
+
         {/* Sign Up Button */}
         {loading ?
-            <View className="w-full flex-row justify-center bg-[#fa6182] p-3 rounded-lg mb-4" >
+            <View className="w-full mt-6 flex-row justify-center bg-[#fa6182] p-3 rounded-lg mb-4" >
               <Text className="text-rose-200 mr-[8px] font-bold">Sign Up</Text>
               <ActivityIndicator size={22} color="#FECDD3" />
             </View>
             :
-            <TouchableOpacity
-              className="w-full bg-rose-600 p-3 rounded-lg mb-4"
-              onPress={handleSubmit}
-            >
+            <TouchableOpacity className="w-full mt-6 bg-rose-600 p-3 rounded-lg mb-4" onPress={handleSubmit} >
               <Text className="text-white text-center font-bold">Sign Up</Text>
             </TouchableOpacity>
         } 
