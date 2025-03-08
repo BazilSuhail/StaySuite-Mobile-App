@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Image, ScrollView } from 'react-native'
 import axios from 'axios'
-import { Entypo } from '@expo/vector-icons'
+import { Entypo, FontAwesome6 } from '@expo/vector-icons'
 import config from '@/Config/Config'
 import { Link, useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -34,18 +34,10 @@ const SignUp = () => {
       setLoading(false);
     }
   };
-
-  if (loading) {
-    return (
-      <View className="flex-1 justify-center items-center bg-gray-100">
-        <ActivityIndicator size="large" color="#3b82f6" />
-        <Text className="mt-2 text-blue-500">Registering...</Text>
-      </View>
-    );
-  }
+ 
 
   return (
-    <View >
+    <View className="flex-1 bg-white" >
       <StatusBar backgroundColor='#00000001' barStyle='light-content' />
 
       <View className='w-full bg-rose-600 h-[250px] rounded-b-[20px] overflow-hidden flex justify-center items-center relative'>
@@ -75,20 +67,20 @@ const SignUp = () => {
         {/* Role Selection */}
         <View className="flex-row justify-between mb-6">
           <TouchableOpacity
-            className={`flex-1 p-3 border-2 rounded-lg mr-2 ${formData.role === 'Guest' ? 'border-rose-600 bg-rose-100' : 'border-gray-300'}`}
+            className={`flex-1 p-[5px] border-2 rounded-lg mr-2 ${formData.role === 'Guest' ? 'border-rose-600 bg-rose-100' : 'border-gray-300'}`}
             onPress={() => handleRoleChange('Guest')}
           >
             <View className="flex-row items-center justify-center">
-              <Entypo name="user" size={20} color="#dc2626" />
+            <FontAwesome6 name="people-group" size={20} color="#dc2626" /> 
               <Text className="text-rose-950 text-lg ml-2">Guest</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            className={`flex-1 p-3 border-2 rounded-lg ml-2 ${formData.role === 'Host' ? 'border-rose-600 bg-rose-100' : 'border-gray-300'}`}
+            className={`flex-1 p-[5px] border-2 rounded-lg ml-2 ${formData.role === 'Host' ? 'border-rose-600 bg-rose-100' : 'border-gray-300'}`}
             onPress={() => handleRoleChange('Host')}
           >
             <View className="flex-row items-center justify-center">
-              <Entypo name="user" size={20} color="#dc2626" />
+            <FontAwesome6 name="people-roof"size={20} color="#dc2626" /> 
               <Text className="text-rose-950 text-lg ml-2">Host</Text>
             </View>
           </TouchableOpacity>
@@ -130,12 +122,19 @@ const SignUp = () => {
         </View>
 
         {/* Sign Up Button */}
-        <TouchableOpacity
-          className="w-full bg-rose-600 p-3 rounded-lg mb-4"
-          onPress={handleSubmit}
-        >
-          <Text className="text-white text-center font-bold">Sign Up</Text>
-        </TouchableOpacity>
+        {loading ?
+            <View className="w-full flex-row justify-center bg-[#fa6182] p-3 rounded-lg mb-4" >
+              <Text className="text-rose-200 mr-[8px] font-bold">Sign Up</Text>
+              <ActivityIndicator size={22} color="#FECDD3" />
+            </View>
+            :
+            <TouchableOpacity
+              className="w-full bg-rose-600 p-3 rounded-lg mb-4"
+              onPress={handleSubmit}
+            >
+              <Text className="text-white text-center font-bold">Sign Up</Text>
+            </TouchableOpacity>
+        } 
 
         {/* Divider */}
         <View className="flex-row items-center my-4">

@@ -36,19 +36,10 @@ const SignIn = () => {
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
-  };
-
-  if (loading) {
-    return (
-      <View className="flex-1 justify-center items-center bg-gray-100">
-        <ActivityIndicator size="large" color="#3b82f6" />
-        <Text className="mt-2 text-blue-500">Signing In...</Text>
-      </View>
-    );
-  }
+  }; 
 
   return (
-    <View className='flex-1 items-center'>
+    <View className='flex-1 bg-white items-center'>
 
       <StatusBar backgroundColor='#00000001' barStyle='light-content' />
 
@@ -113,12 +104,19 @@ const SignIn = () => {
         </View>
 
         {/* Login Button */}
-        <TouchableOpacity
-          className="w-full bg-rose-600 p-3 rounded-lg mb-4"
-          onPress={handleSubmit}
-        >
-          <Text className="text-white text-center font-bold">Log In</Text>
-        </TouchableOpacity>
+        {loading ?
+            <View className="w-full flex-row justify-center bg-[#fa6182] p-3 rounded-lg mb-4">
+              <Text className="text-rose-200 mr-[8px] font-bold">Log In</Text>
+              <ActivityIndicator size={22} color="#FECDD3" />
+            </View>
+            :
+            <TouchableOpacity
+              className="w-full bg-rose-600 p-3 rounded-lg mb-4"
+              onPress={handleSubmit}
+            >
+              <Text className="text-white text-center font-bold">Log In</Text>
+            </TouchableOpacity>
+        }
 
         {/* Divider */}
         <View className="flex-row items-center my-4">

@@ -25,7 +25,7 @@ const ProfileSkeleton = () => {
 
     const backgroundColor = fadeAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: ['rgb(208, 208, 208)', 'rgb(231, 231, 231)'],
+        outputRange: ['rgb(219, 222, 227)', 'rgb(236, 238, 241)'],
     });
 
     return (
