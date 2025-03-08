@@ -41,7 +41,7 @@ export const AddRating = ({ listingId }) => {
             setRating(2);
             setReview('');
         } catch (err) {
-            console.error('Error submitting review:', err.response?.data || err.message);
+            //console.error('Error submitting review:', err.response?.data || err.message);
             setError('Failed to submit review. Please try again.');
         }
     };
@@ -53,9 +53,9 @@ export const AddRating = ({ listingId }) => {
     return (
         <View className='mx-[10px] mt-[15px] p-[15px] bg-white border border-gray-200 shadow-md rounded-[15px]'>
             <Text className='text-[15px] font-[600]'>Add a Review</Text>
-            {error && <Text style={{ color: 'red' }}>{error}</Text>}
+            {error && <Text className="text-red-600 mt-[8px] mb-[4px] text-[12px] font-[600]">* {error}</Text>}
             {success && (
-                <View className="absolute top-1 right-1 bg-green-500 text-white py-2 px-4 rounded-lg shadow-md" >
+                <View className="absolute top-1 right-1 bg-green-500 text-white text-[12px] py-2 px-4 rounded-lg shadow-md" >
                     <Text>{success}</Text>
                 </View>
             )}

@@ -28,6 +28,8 @@ This mobile app, built with React Native, Nest.js, and MongoDB, enables users to
 <img alt="Socket.IO" src="https://img.shields.io/badge/Socket.IO%20-%23010101.svg?&style=for-the-badge&logo=socket.io&logoColor=white"/>
  </a>
  
+</br>
+
 #### Check out the latest demo of Project [StaySuite Mobile App](https://entitysafe.netlify.app/pages/AppList/-OK5pvN59J-pvjtbQXGo). 
 
 ![App Screenshot](https://github.com/BazilSuhail/BazilSuhail/blob/main/stay-suite-cover.png)
