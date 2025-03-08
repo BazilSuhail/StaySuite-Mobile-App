@@ -30,7 +30,7 @@ This mobile app, built with React Native, Nest.js, and MongoDB, enables users to
  
 #### Check out the latest demo of Project [StaySuite Mobile App](https://entitysafe.netlify.app/pages/AppList/-OK5pvN59J-pvjtbQXGo-O4swNr4Vi3X0OLPoTQy). 
 
-![App Screenshot](https://github.com/Kharbooza978/EntitySafe/blob/main/Student-App/stay-suite-cover.png)
+![App Screenshot](https://github.com/BazilSuhail/BazilSuhail/blob/main/stay-suite-cover.png)
 
 
 ---
